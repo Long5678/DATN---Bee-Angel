@@ -1,0 +1,190 @@
+.main_userInfor {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+.main_userInfor .article-userInfor {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 0;
+}
+
+// tab user infor
+
+.article-userInfor .tab_userInfor {
+    width: 25%;
+    height: 115px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 10px 10px -10px rgba(51, 51, 51, 0.15), 0 2px 10px 0 rgba(51, 51, 51, 0.1);
+}
+
+
+.tab_userInfor .ul_tab_userInfor {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.ul_tab_userInfor .li_tab_userInfor {
+    padding: 15px 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.li_tab_userInfor:hover {
+    color: #26bed6;
+}
+
+.li_tab_userInfor+.li_tab_userInfor {
+    border-top: 1px solid #E5E5E5;
+}
+
+.li_tab_userInfor i {
+    padding-right: 10px;
+}
+
+
+// profile user infor
+.profile_userInfor {
+    width: 72%;
+    min-height: 100px;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 10px 10px -10px rgba(51, 51, 51, 0.15), 0 2px 10px 0 rgba(51, 51, 51, 0.1);
+}
+
+.profile_userInfor .head_profile {
+    position: relative;
+    height: 80px;
+    box-sizing: border-box;
+    padding: 10px 25px;
+}
+
+.head_profile .box_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box_head h1 {
+    font-size: 1.7rem;
+    color: black;
+    padding-bottom: 5px;
+}
+
+.box_head .head_span {
+    font-size: 0.85rem;
+    color: #828282;
+}
+
+.box_head .avatr_profile {
+    width: 50px;
+    background-color: tomato;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatr_profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.line_profile {
+    height: 8px;
+    width: 100%;
+    background-color: #ecf0f5;
+}
+
+
+.profile_userInfor .body_profile {
+    min-height: 80px;
+    box-sizing: border-box;
+    padding: 15px 25px;
+}
+
+.body_profile .ul_body_profile {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ul_body_profile .li_body_profile {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #E5E5E5;
+    padding: 20px 0px;
+}
+
+.li_body_profile .li_key {
+    width: 30%;
+}
+
+.li_body_profile .li_value {
+    color: #26bed6;
+    cursor: pointer;
+    font-weight: 200;
+    font-size: 1rem;
+    background-color: transparent; /* Loại bỏ màu nền mặc định */
+    border: none;                  /* Loại bỏ viền mặc định */
+    padding: 0;                    /* Loại bỏ padding mặc định */
+    display: inline-block;          /* Giống thẻ div */
+    text-align: center;             /* Canh giữa nội dung giống thẻ div */
+}
+
+.li_value_err {
+    cursor: not-allowed !important;
+}
+
+.li_value i {
+    padding-right: 10px;
+}
+
+.section_body_profile {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.section_body_profile .section_title{
+    color: #828282;
+}
+
+.section_body_profile .cancle_save {
+    display: flex;
+    flex-direction: column;
+}
+
+.cancle_save .save_profile {
+    margin-top: 10px;
+    padding: 5px 25px; 
+    border: none;
+    background-color: #26bed6;
+    color: white;
+    border-radius: 3px;
+}
+
+.cancle_save .li_value {
+    text-align: right;
+}
+
+
+// css cho type file
+#file_avatar_edit {
+    display: none;
+}
+
+.label-file {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: gainsboro;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    right: 50px;
+    top: 38px;
+    z-index: 99;
+}

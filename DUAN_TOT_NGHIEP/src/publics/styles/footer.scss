@@ -1,0 +1,128 @@
+/* Hero slide */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    /* Reduce the height */
+    margin: 20px 0;
+    background: url('https://balitourist.com.vn/public/uploads/files/top-15-cac-dia-diem-du-lich-da-nang-hot-nhat-ban-khong-the-bo-qua-5ed9cb93af7eb.jpg') no-repeat center center/cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-text {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-text h1 {
+    font-size: 2rem;
+    /* Adjust font size if necessary */
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 1rem;
+    /* Adjust font size if necessary */
+    margin: 5px 0;
+}
+
+/* Footer */
+footer {
+    margin: 0 100px;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.footer-section h4 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-subscribe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.subscribe-text {
+    max-width: 60%;
+    /* Adjust as needed */
+    margin-right: 40px;
+}
+
+.tex1 {
+    color: #3d3d3d;
+}
+
+.subscribe-form {
+    display: flex;
+    align-items: center;
+}
+
+.footer-subscribe input[type="email"] {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #000;
+    /* Black background */
+    color: #fff;
+    /* White text color */
+    width: 250px;
+    /* Adjust width as needed */
+    margin-right: 10px;
+}
+
+.footer-subscribe button {
+    padding: 10px 20px;
+    background-color: #f0a500;
+    /* Yellow/Golden background */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    /* White text color */
+}
+
+.footer-subscribe input[type="email"]::placeholder {
+    color: #fff;
+    /* White placeholder text color */
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-bottom p {
+    font-weight: bold;
+    margin: 20px 30px;
+}

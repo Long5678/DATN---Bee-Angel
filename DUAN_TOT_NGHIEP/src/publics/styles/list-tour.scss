@@ -1,0 +1,244 @@
+// này css cho list tour và list top tour bên trang home
+
+.main-list-tour {
+    min-height: 540px;
+    // border-bottom: 1px solid black;
+}
+
+.box-list-tour {
+    max-width: 1200px;
+    margin: 0 auto;
+    // border: 1px solid black;
+}
+
+.box-list-tour .tieuDe-tour {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.tieuDe-tour p a {
+    color: #4A4A4A;
+}
+
+.box-list-tour .line-tour {
+    background-color: #F5B963;
+    width: 85px;
+    height: 3px;
+    margin-top: 10px;
+}
+
+
+.main-list-tour .list-tour {
+    margin-top: 30px;
+    // display: flex;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+
+// item tour
+.tour-item {
+    background-color: #fff;
+    border-top-left-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+}
+
+.tour-image-block {
+    overflow: hidden;
+    width: 100%;
+    height: 250px;
+}
+
+.tour-image-block .tour-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tour-info {
+    padding: 20px;
+}
+
+.tour-meta {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 95%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.rating,
+.location {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.rating {
+    background-color: #FFD700;
+}
+
+.location {
+    background-color: #007BFF;
+}
+
+.tour-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.tour-description {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.tour-price {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.tour-price span {
+    font-weight: bold;
+}
+
+.book-button {
+    background-color: #6A5ACD;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 25px 0px #6A5ACD;
+}
+
+
+.book-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.book-button:hover {
+    background-color: #483D8B;
+}
+
+.tour-info .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tour-info .d-flex p {
+    margin: 0;
+}
+
+.fa-star {
+    padding-right: 10px;
+}
+
+.fa-location-dot {
+    padding-right: 10px;
+}
+
+
+// top list Tour
+.main-list-top-tour {
+    background-color: #F2FAF9;
+    box-sizing: border-box;
+    padding: 5px 0px;
+}
+
+.main-list-top-tour .list-top-tour {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-end;
+    margin-top: 25px;
+}
+
+.list-top-tour .top-item-tour {
+    position: relative;
+    width: 30%;
+    height: 400px;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.box-top-item {
+    height: 400px;
+}
+
+.update-image-top {
+    height: 200px !important;
+}
+
+.update-top-item-tour {
+    height: 350px !important;
+}
+
+
+.count-top {
+    position: absolute;
+    z-index: 99;
+    top: 10px;
+    left: 10px;
+}
+
+.count-top svg {
+    border-radius: 50%;
+    color: #000000;
+}
+
+.count-top .svg-top1 {
+    background-color: gold;
+}
+
+.count-top .svg-top2 {
+    background-color: silver;
+}
+
+.count-top .svg-top3 {
+    background-color: #CD7F32;
+}
+
+.ribbon-left,
+.ribbon-right {
+    position: absolute;
+}
+
+.ribbon-left {
+    transform: rotate(15deg);
+    top: 36px;
+    left: 10px;
+}
+
+.ribbon-left svg {
+    color: red;
+}
+
+.ribbon-right {
+    transform: rotate(-21deg);
+    top: 36px;
+    left: 25px;
+}
+
+.ribbon-right svg {
+    color: red;
+}
