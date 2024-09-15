@@ -3,6 +3,8 @@ import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import { useState } from "react"
 import Main_auth from "../pages/auth/main_auth"
+import { useContext } from "react"
+import { MainContext } from "../../context/mainContext"
 
 function Header() {
     const [open, setOpen] = useState(false);
@@ -12,6 +14,8 @@ function Header() {
     };
     const handleClose = () => setOpen(false);
     
+    const { open, check, setCheck, handleOpen, handleClose } = useContext(MainContext)
+
     return <>
         <header>
             <section className="main-header">
@@ -39,6 +43,7 @@ function Header() {
             <Box sx={style}>
                 {/* phần này render ra tab login register */}
                 <Main_auth check={check} setCheck={setCheck}  />
+                <Main_auth check={check} setCheck={setCheck} />
             </Box>
         </Modal>
     </>
