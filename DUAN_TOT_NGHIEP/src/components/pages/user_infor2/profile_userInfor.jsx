@@ -1,10 +1,16 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Item_profile from "./item_profile";
 import Item_profileEdit from "./item_profileEdit";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import { AuthContext } from "../../../context/authContext";
+import { useDispatch, useSelector } from "react-redux";
+import {getOneUser} from "../../../redux/action_thunk";
 
 function Profile_userInfor() {
+    const dispatch = useDispatch();
+    const { user } = useContext(AuthContext)
     const [checkField, setCheckField] = useState(null)
+    const userOne = useSelector((state) => state.userSL.userOne)
     const handleEdit = (field) => {
         setCheckField(field); // Khi chỉnh sửa, cập nhật trạng thái với tên của trường
     };
@@ -16,6 +22,15 @@ function Profile_userInfor() {
     const handleSave = () => {
         setCheckField(null); // Sau khi lưu, cho phép chỉnh sửa các trường khác
     };
+
+    useEffect(() => {
+        if(user) {
+            dispatch(getOneUser(user?._id))
+        }
+    },[user])
+
+    console.log("userOne", userOne);
+    
     return <>
         <section className="profile_userInfor">
             <form action="">
@@ -32,7 +47,7 @@ function Profile_userInfor() {
 
                     <section>
                         <label className="label-file" htmlFor="file_avatar_edit"><CameraAltIcon /></label>
-                        <input type="file" id="file_avatar_edit"/>
+                        <input type="file" id="file_avatar_edit" />
                     </section>
                 </section>
 
@@ -45,7 +60,7 @@ function Profile_userInfor() {
                             {checkField === "name" ?
                                 <Item_profileEdit handleCancle={handleCancle} handleSave={handleSave} label="Họ tên" />
                                 :
-                                <Item_profile title="Bùi Văn Minh" value="name" checkField={checkField} handleEdit={handleEdit} />
+                                <Item_profile title={userOne?.name} value="name" checkField={checkField} handleEdit={handleEdit} />
                             }
 
                         </li>
@@ -54,7 +69,7 @@ function Profile_userInfor() {
                             {checkField === "phone" ?
                                 < Item_profileEdit handleCancle={handleCancle} handleSave={handleSave} label="Số điện thoại" />
                                 :
-                                <Item_profile title="0935455107" value="phone" checkField={checkField} handleEdit={handleEdit} />
+                                <Item_profile title={userOne?.phone} value="phone" checkField={checkField} handleEdit={handleEdit} />
                             }
 
                         </li>
@@ -63,7 +78,7 @@ function Profile_userInfor() {
                             {checkField === "email" ?
                                 <Item_profileEdit handleCancle={handleCancle} handleSave={handleSave} label="Email" />
                                 :
-                                <Item_profile title="mbui683@gmail.com" value="email" checkField={checkField} handleEdit={handleEdit} />
+                                <Item_profile title={userOne?.email} value="email" checkField={checkField} handleEdit={handleEdit} />
                             }
                         </li>
                         <li className="li_body_profile">

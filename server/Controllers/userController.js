@@ -18,7 +18,12 @@ const registerUser = async (req, res) => {
             email,
             phone,
             password,
-            role
+            role,
+            avatar,
+            address,
+            genrder,
+            birth,
+
         } = req.body;
         // tìm phone
         let user = await userModel.findOne({
@@ -29,8 +34,8 @@ const registerUser = async (req, res) => {
         });
 
         // nếu phone ok là đã đăng ký rồi thì hiện lỗi ko cho đăng ký
-        if (user ) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
-        if (checkEmail) return res.status(400).json("Email này đã được đăng ký rồi...");
+        if (user) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
+        if (checkEmail) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
 
         // nếu thỏa mãn
         user = new userModel({
@@ -38,7 +43,11 @@ const registerUser = async (req, res) => {
             email,
             phone,
             password,
-            role
+            role,
+            avatar,
+            address,
+            genrder,
+            birth,
         })
 
         // đoạn này mã hóa password
@@ -65,28 +74,34 @@ const loginUser = async (req, res) => {
     } = req.body;
 
     try {
+        console.log(email, password);
+
         // tìm phone
         let user = await userModel.findOne({
             email
         });
 
         // nếu phone mà user login không có trong csdl thì hiện lỗi
-        if (!user) return res.status(400).json("Sai Email hoặc mật khẩu...")
+        if (!user) return res.status(400).json("Email không đúng...")
 
         // đoạn này nó sẽ giải mã password trong csdl và password người dùng login
         const isValidPassword = await bcrypt.compare(password, user.password);
 
         // nếu mà password ko khớp thì thông báo lỗi
         if (!isValidPassword)
-            return res.status(400).json("Sai SĐT hoặc mật khẩu...")
+            return res.status(400).json("Sai mật khẩu...")
 
         const token = createToken(user._id)
         res.status(200).json({
             _id: user.id,
             email: user.email,
             name: user.name,
-            phone,
+            phone: user.phone,
             role: user.role,
+            avatar: user.avatar,
+            address: user.address,
+            genrder: user.genrder,
+            birth: user.birth,
             token
         });
 

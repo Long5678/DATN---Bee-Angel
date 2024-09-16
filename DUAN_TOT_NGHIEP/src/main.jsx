@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { MainContextProvider } from './context/mainContext.jsx';
+import { AuthContextProvider } from './context/authContext.jsx';
 import User_layouts from './components/pages/user_layouts.jsx';
 import Main_home from './components/pages/home/main_home.jsx';
 import Main_datTour from './components/pages/dat_tour/main_datTour.jsx';
@@ -20,6 +20,8 @@ import Main_dieuKhoan from './components/pages/dieuKhoan/main_dieuKhoan.jsx';
 import Gioithieu from './components/pages/gioithieu/main-gioithieu.jsx';
 import Main_userInfor from './components/pages/user_infor2/main_userInfor.jsx';
 import Main_lienHe from './components/pages/lienHe/main_lienHe.jsx';
+import { Provider } from "react-redux"
+import { store } from './redux/store.js';
 
 
 
@@ -71,9 +73,11 @@ const routers = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <MainContextProvider>
-    <React.StrictMode>
-      <RouterProvider router={routers} />
-    </React.StrictMode>
-  </MainContextProvider>
+  <Provider store={store}>
+    <AuthContextProvider>
+      <React.StrictMode>
+        <RouterProvider router={routers} />
+      </React.StrictMode>
+    </AuthContextProvider>
+  </Provider>
 )

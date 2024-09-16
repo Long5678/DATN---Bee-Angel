@@ -6,7 +6,7 @@ import Video_traiNghiem from "./video_traiNghiem"
 import List_sale from "./sale/list_sale"
 function Main_home() {
     return <>
-        <Header />
+        <Header /> 
         <Banner />
         <List_tour />
         <Top_list_tour />

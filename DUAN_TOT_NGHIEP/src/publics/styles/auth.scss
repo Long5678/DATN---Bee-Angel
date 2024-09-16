@@ -6,7 +6,7 @@
     background: url('https://media.truyenhinhdulich.vn/upload/news/7_2019/hoi%20an%202_1563176621.jpg') no-repeat center center/cover;
 }
 
- .box-auth {
+.box-auth {
     margin: auto;
     width: 500px;
     min-height: 300px;
@@ -98,4 +98,18 @@ form p {
 
 .css-79ws1d-MuiModal-root {
     z-index: 9999 !important;
+}
+
+.message-errors {
+    padding-top: 3px;
+    color: red;
+    font-size: 0.75rem;
+    text-align: left;
+    width: 99%;
+    display: block;
+}
+
+.p-err {
+    text-align: right;
+    padding-top: 5px;
 }
