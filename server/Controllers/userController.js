@@ -1,6 +1,9 @@
 const userModel = require("../Models/userModel")
+const asyncHandler = require('express-async-handler');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
+const sendMail = require("../utils/sendMail")
+const crypto = require("crypto")
 
 const createToken = (_id) => {
     const jwtkey = process.env.JWT_SECRET_KEY
@@ -18,12 +21,7 @@ const registerUser = async (req, res) => {
             email,
             phone,
             password,
-            role,
-            avatar,
-            address,
-            genrder,
-            birth,
-
+            role
         } = req.body;
         // tìm phone
         let user = await userModel.findOne({
@@ -34,8 +32,8 @@ const registerUser = async (req, res) => {
         });
 
         // nếu phone ok là đã đăng ký rồi thì hiện lỗi ko cho đăng ký
-        if (user) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
-        if (checkEmail) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
+        if (user ) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
+        if (checkEmail) return res.status(400).json("Email này đã được đăng ký rồi...");
 
         // nếu thỏa mãn
         user = new userModel({
@@ -43,21 +41,23 @@ const registerUser = async (req, res) => {
             email,
             phone,
             password,
-            role,
-            avatar,
-            address,
-            genrder,
-            birth,
+            role
         })
 
         // đoạn này mã hóa password
         const salt = await bcrypt.genSalt(10)
         user.password = await bcrypt.hash(user.password, salt)
 
-        await user.save();
+        try {
+            await user.save();
+            res.status(200).json("Đăng ký tài khoản thành công.");
+        } catch (error) {
+            console.error("Error saving user to MongoDB:", error);  // Hiển thị lỗi rõ ràng
+        }
+        // await user.save();
         // const token = createToken(user._id)
         // res.status(200).json({ _id: user.id, name, email, token });
-        res.status(200).json("Đăng ký tài khoản thành công.");
+        
 
     } catch (error) {
         console.log(error);
@@ -68,48 +68,37 @@ const registerUser = async (req, res) => {
 
 
 const loginUser = async (req, res) => {
-    const {
-        email,
-        password
-    } = req.body;
+    const { email, password } = req.body;
 
     try {
-        console.log(email, password);
+        let user = await userModel.findOne({ email });
+        
+        if (!user) {
+            return res.status(400).json("Sai Email hoặc mật khẩu...");
+        }
 
-        // tìm phone
-        let user = await userModel.findOne({
-            email
-        });
-
-        // nếu phone mà user login không có trong csdl thì hiện lỗi
-        if (!user) return res.status(400).json("Email không đúng...")
-
-        // đoạn này nó sẽ giải mã password trong csdl và password người dùng login
         const isValidPassword = await bcrypt.compare(password, user.password);
 
-        // nếu mà password ko khớp thì thông báo lỗi
-        if (!isValidPassword)
-            return res.status(400).json("Sai mật khẩu...")
+        if (!isValidPassword) {
+            return res.status(400).json("Sai Email hoặc mật khẩu...");
+        }
 
-        const token = createToken(user._id)
+        const token = createToken(user._id);
         res.status(200).json({
-            _id: user.id,
+            _id: user._id,
             email: user.email,
             name: user.name,
             phone: user.phone,
             role: user.role,
-            avatar: user.avatar,
-            address: user.address,
-            genrder: user.genrder,
-            birth: user.birth,
             token
         });
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json(error);
+        console.error('Error in loginUser:', error.message);
+        res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
-}
+};
+
 
 // tìm user dựa vào id
 const findUser = async (req, res) => {
@@ -154,7 +143,70 @@ const findUserByPhone = async (req, res) => {
     }
 }
 
+const forgotPassword = asyncHandler(async (req, res) => {
+    const { email } = req.query;
+    if (!email) throw new Error('email không tồn tại !');
 
+    const user = await userModel.findOne({ email });
+    if (!user) throw new Error('user không tồn tại !'); 
+
+    const resetToken = user.createPasswordchangedToken(); // Tạo token đặt lại mật khẩu
+    await user.save();
+
+    const html = `Xin vui lòng click vào link sau để thay đổi mật khẩu, link sẽ hết hạn trong vào 15p tiếp theo <a href=${process.env.FRONTEND_URL}/auth/resetPassword?token=${resetToken}>Click here</a>`;
+
+    const data = {
+        email,
+        html
+    };
+
+    // Gọi hàm sendMail để gửi email
+    const rs = await sendMail(data);
+    return res.status(200).json({
+        success: true,
+        rs // Trả về kết quả gửi email
+    });
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+    const { password, token } = req.body;
+
+    console.log(password, token);
+    
+
+    if (!password || !token) {
+        throw new Error('Nhập không hợp lệ!');
+    }
+
+    // lấy token trên url tiến hành băm 1 lần nữa rồi so sánh
+    const hashedToken  = crypto.createHash('sha256').update(token).digest('hex');
+    // Tìm user dựa trên token đã hash
+    const user = await userModel.findOne({
+        passwordResetToken: hashedToken, // tiến hành So sánh
+        passwordResetExpires: { $gt: Date.now() } // Kiểm tra xem token còn hiệu lực không
+    });
+
+    if (!user) {
+        return res.status(400).json({
+            success: false,
+            message: 'Người dùng không hợp lệ hoặc token hết hạn!'
+        });
+    }
+
+    // mã hóa password sau khi người dùng resetpassword
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    // xóa token và time đã tạo trước đó
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+
+    return res.status(200).json({
+        success: true,
+        message: 'Cập nhật thành công!'
+    });
+});
 
 // xuất ra để file routes sử dụng
 module.exports = {
@@ -163,4 +215,6 @@ module.exports = {
     findUser,
     getUsers,
     findUserByPhone,
+    forgotPassword,
+    resetPassword
 }

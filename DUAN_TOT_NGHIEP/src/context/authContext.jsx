@@ -49,6 +49,8 @@ export const AuthContextProvider = ({ children }) => {
 
     const Login = async (data) => {
         try {
+            console.log(data.email, data.password);
+            
             let res = await axios.post(`http://localhost:3000/auth/login`, {
                 email: data.email,
                 password: data.password,

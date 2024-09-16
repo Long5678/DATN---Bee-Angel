@@ -21,7 +21,8 @@ import Gioithieu from './components/pages/gioithieu/main-gioithieu.jsx';
 import Main_userInfor from './components/pages/user_infor2/main_userInfor.jsx';
 import Main_lienHe from './components/pages/lienHe/main_lienHe.jsx';
 import { Provider } from "react-redux"
-import { store } from './redux/store.js';
+import { store } from './redux/store.js'
+import Box_enterPass from './components/pages/auth/box_enterPass.jsx';
 
 
 
@@ -61,6 +62,10 @@ const routers = createBrowserRouter([
       {
         path: "/contact",
         element: <Main_lienHe />
+      },
+      {
+        path: "/auth/resetpassword",
+        element: <Box_enterPass />
       },
 
     ]
