@@ -1,34 +1,36 @@
-// controllers/tourController.js
 const TourModel = require('../Models/tourModel');
 const asyncHandler = require('express-async-handler');
 
 const addTour = asyncHandler(async (req, res) => {
-    const { name, description, price, location, date, status, images, videos } = req.body;
+    const { name, description, price, location, type, status } = req.body;
 
-    // Kiểm tra xem các trường bắt buộc có đầy đủ không
-    if (!name || !description || !price || !location || !date || !status || !images || !videos) {
-        return res.status(400).json({ message: 'Vui lòng điền đầy đủ thông tin và tải lên ít nhất một hình ảnh.' });
+    if (!name || !description || !price || !location || !type || !status) {
+        return res.status(400).json({ message: 'Vui lòng điền đầy đủ thông tin.' });
     }
 
-        // Kiểm tra giá trị status
-        const validStatuses = ['Còn tour', 'Sắp hết', 'Hết tour'];
-        if (!validStatuses.includes(status)) {
-            return res.status(400).json({ message: 'Trạng thái không hợp lệ.' });
-        }
+    if (!req.files || !req.files['images'] || req.files['images'].length === 0) {
+        return res.status(400).json({ message: 'Vui lòng tải lên ít nhất một hình ảnh.' });
+    }
 
-    // Tạo mới một đối tượng Tour
+    const validStatuses = ['Còn tour', 'Sắp hết', 'Hết tour'];
+    if (!validStatuses.includes(status)) {
+        return res.status(400).json({ message: 'Trạng thái không hợp lệ.' });
+    }
+
+    const checkimages = req.files['images'].map(file => file.filename);
+    const checkvideos = req.files['videos'] ? req.files['videos'].map(file => file.filename) : [];
+
     const newTour = new TourModel({
         name,
         description,
         price,
         location,
-        date,
+        type,
         status,
-        images,  // Lưu URL hình ảnh
-        videos   // Lưu URL video (không bắt buộc)
+        images: checkimages,
+        videos: checkvideos
     });
 
-    // Lưu tour vào cơ sở dữ liệu
     await newTour.save();
     res.status(201).json({ message: 'Tour đã được thêm thành công.', data: newTour });
 });
@@ -36,55 +38,70 @@ const addTour = asyncHandler(async (req, res) => {
 
 const updateTour = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, location, date, status, images, videos } = req.body;
-
-    // Tìm tour theo ID
+    const { name, description, price, location, type, status } = req.body;
     const tour = await TourModel.findById(id);
-
-    // Nếu tour không tồn tại
     if (!tour) {
         return res.status(404).json({ message: 'Không tìm thấy tour này.' });
     }
-
-    // Kiểm tra giá trị status
     const validStatuses = ['Còn tour', 'Sắp hết', 'Hết tour'];
     if (status && !validStatuses.includes(status)) {
         return res.status(400).json({ message: 'Trạng thái không hợp lệ.' });
     }
 
-    // Cập nhật các trường
+    const updatedImages = req.files && req.files['images'] ? req.files['images'].map(file => file.filename) : tour.images;
+    const updatedVideos = req.files && req.files['videos'] ? req.files['videos'].map(file => file.filename) : tour.videos;
+
+    if (!req.files || !req.files['images'] || req.files['images'].length === 0) {
+        return res.status(400).json({ message: 'Vui lòng tải lên ít nhất một hình ảnh.' });
+    }
+
     tour.name = name || tour.name;
     tour.description = description || tour.description;
     tour.price = price || tour.price;
     tour.location = location || tour.location;
-    tour.date = date || tour.date;
+    tour.type = type || tour.type;
     tour.status = status || tour.status;
-    tour.images = images || tour.images;   // Cập nhật URL hình ảnh
-    tour.videos = videos || tour.videos;   // Cập nhật URL video
+    tour.images = updatedImages; 
+    tour.videos = updatedVideos;
 
-    // Lưu các thay đổi vào cơ sở dữ liệu
     const updatedTour = await tour.save();
     res.status(200).json({ message: 'Cập nhật tour thành công.', data: updatedTour });
 });
 
+
 const deleteTour = asyncHandler(async (req, res) => {
     const { id } = req.params;
-
-    // Xóa tour dựa trên ID
-    const result = await TourModel.deleteOne({ _id: id });
-
-    // Nếu không tìm thấy tour
-    if (!result) {
+    const tour = await TourModel.findById(id);
+    if (!tour) {
         return res.status(404).json({ message: 'Không tìm thấy tour này.' });
     }
-
+    await tour.deleteOne();
     res.status(200).json({ message: 'Xóa tour thành công.' });
 });
 
+const getAllTours = asyncHandler(async (req, res) => {
+    const tours = await TourModel.find();
+    
+    if (tours) {
+        res.status(200).json({ 
+            message: 'Lấy danh sách tour thành công', 
+            data: tours 
+        });
+    } else {
+        res.status(404).json({ message: 'Không tìm thấy tour nào.' });
+    }
+});
 
+// Lấy thông tin chi tiết của một tour theo ID
+const getTourById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const tour = await TourModel.findById(id);
 
-module.exports = {
-    addTour,
-    updateTour,
-    deleteTour
-}
+    if (!tour) {
+        return res.status(404).json({ message: 'Không tìm thấy tour này.' });
+    }
+
+    res.status(200).json({ message: 'Lấy thông tin tour thành công.', data: tour });
+});
+
+module.exports = { addTour, updateTour, deleteTour, getAllTours, getTourById }

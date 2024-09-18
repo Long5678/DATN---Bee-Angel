@@ -7,14 +7,12 @@ const TourSchema = new mongoose.Schema({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     location: { type: String, required: true },
-    date: { type: Date, required: true },
+    type: { type: String, required: true },
     status: { 
         type: String, 
         required: true, 
-        enum: ['Còn tour', 'Sắp hết', 'Hết tour']  // Enum values for status
+        enum: ['Còn tour', 'Sắp hết', 'Hết tour'] 
     }
-    // availableSeats: { type: Number, required: true },
-    // createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });  
 
 module.exports = mongoose.model('Tour', TourSchema);

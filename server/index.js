@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const userRoute = require("./Routes/userRoute");
 const tourRoutes = require('./Routes/tourRoute');
+const tourTypeRoutes = require('./Routes/tourTypeRoutes');
 
 const app = express();
 require("dotenv").config()
@@ -18,7 +19,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // các router
 app.use("/auth", userRoute)
-app.use('/tours', tourRoutes);
+app.use('/Admin/tours', tourRoutes);
+app.use('/Admin/tourTypes', tourTypeRoutes);
 
 app.get("/", (req, res) => {
     res.send("welcom your zalo chat")

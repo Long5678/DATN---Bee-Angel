@@ -1,10 +1,17 @@
-// routes/tourRoutes.js
 const express = require('express');
-const { addTour, updateTour, deleteTour } = require('../Controllers/tourController');
+const { addTour, updateTour, deleteTour, getAllTours } = require('../Controllers/tourController');
+const upload = require('../middlewares/uploadMiddleware');
 const router = express.Router();
 
-router.post('/add', addTour);
-router.put('/edit/:id', updateTour);
+router.get('/', getAllTours);
+router.post('/add', upload.fields([
+    { name: 'images', maxCount: 5 },
+    { name: 'videos', maxCount: 1 }
+]), addTour);
+router.put('/edit/:id', upload.fields([
+    { name: 'images', maxCount: 5 },
+    { name: 'videos', maxCount: 1 }
+]), updateTour);
 router.delete('/delete/:id', deleteTour);
 
 module.exports = router;
