@@ -1,5 +1,8 @@
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
 import "../../../publics/styles/list-tour.scss"
 import Item_tour from "./item_tour"
+import { getAllTour } from "../../../redux/action_thunk"
 
 let list_dataTour = [
   {
@@ -40,6 +43,16 @@ let list_dataTour = [
 ]
 
 function List_tour() {
+  let dispatch = useDispatch()
+  let tourDatas = useSelector((state) => state.tourSL.tourDatas)
+
+  useEffect(() => {
+    dispatch(getAllTour())
+  }, [])
+
+  console.log(tourDatas);
+  
+
   return <>
     <article className="main-list-tour">
       <section className="box-list-tour">
@@ -50,7 +63,7 @@ function List_tour() {
         <div className="line-tour"></div>
 
         <section className="list-tour">
-          {list_dataTour.map((item, index) => {
+          {tourDatas.map((item, index) => {
             return <Item_tour key={index} {...item} />
           })}
         </section>

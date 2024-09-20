@@ -242,3 +242,126 @@
 .ribbon-right svg {
     color: red;
 }
+
+// chat
+.chat-dpl {
+    display: flex;
+    flex-direction: row-reverse;
+    // position: fixed;
+    position: static;
+    position: -webkit-sticky;
+    bottom: 10px;
+    right: 60px;
+}
+
+.chat-popover {
+    position: static;
+    top: 200px;
+}
+
+.button-chat {
+    border-radius: 50% !important;
+    height: 60px;
+}
+
+.chat-container {
+    width: 350px;
+    background-color: #e8f5ff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    padding: 10px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+
+
+.button-chat img {
+    width: 60px;
+}
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #000;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.chat-messages {
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-bubble {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.seen-icon {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+    display: block;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #dcdcdc;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-input button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+

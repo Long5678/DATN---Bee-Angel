@@ -1,9 +1,10 @@
 // header vs banner viết chung
 
-header {
+.header-user {
     position: fixed;
     width: 100%;
     min-height: 40px;
+    height: 60px;
     left: 0;
     top: 0;
     z-index: 999999;
@@ -12,7 +13,7 @@ header {
     box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 10px 10px -10px rgba(51, 51, 51, 0.15), 0 2px 10px 0 rgba(51, 51, 51, 0.1);
 }
 
-.main-header {
+.main-header-user {
     max-width: 1200px;
     margin: 0 auto;
     line-height: 40px;
@@ -43,10 +44,6 @@ header {
     cursor: pointer;
 }
 
-.list-item-header li:hover {
-    // color: tomato;
-    // transform: scale(1.1);
-}
 
 .list-item-header .li-user:hover {
     color: tomato;
@@ -56,6 +53,10 @@ header {
 .list-menu-header .ul-logo li {
     font-weight: bold;
     font-size: 1.2rem;
+}
+.list-menu-header .ul-logo {
+    display: flex;
+    align-items: center;
 }
 
 .ul-logo li a {
@@ -148,7 +149,7 @@ header {
     border: none;
     background-color: #EAEAEA;
     margin-left: 5px;
-    padding-right: 55px;
+    // padding-right: 55px;
     font-size: 1rem;
 }
 
@@ -167,7 +168,8 @@ header {
 .btn-search {
     background-color: #233D2C;
     color: white;
-    padding: 20px 32px;
+    padding: 17px 32px;
+    border: none;
     cursor: pointer;
 }
 
@@ -180,11 +182,33 @@ header {
 .list-item-header .li-user:hover .box-setting-logout {
     display: block;
 }
+.list-item-header .li-item-list-tour:hover .list-tour-detail {
+    display: block;
+}
+.list-tour-detail {
+     display: none;
+     position: absolute;
+     width: 175px;
+     left: 0;
+     min-height: 10px;
+     top: 47px;
+     background-color: white;
+     color: black;
+     font-family: Arial,
+     Helvetica,
+     sans-serif;
+     box-sizing: border-box;
+     // padding: 0 10px;
+     box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05),
+     0 10px 10px -10px rgba(51, 51, 51, 0.15),
+     0 2px 10px 0 rgba(51, 51, 51, 0.1);
+}
+
 .box-setting-logout {
     display: none;
     position: absolute;
     width: 175px;
-    right: 10px;
+    right: 0px;
     min-height: 10px;
     top: 47px;
     background-color: white;
@@ -201,8 +225,21 @@ header {
 .box-setting-logout ul .li-box {
     text-align: left !important;
     font-size: 0.9rem;
-    cursor: pointer;;
+    cursor: pointer;
+    ;
+    padding: 0 10px;
+}
+
+.list-tour-detail .li-box {
+     text-align: left !important;
+     font-size: 0.9rem;
+     cursor: pointer;
+     ;
      padding: 0 10px;
+}
+
+.list-tour-detail .li-box:hover {
+    background-color: #f3f3f3;
 }
 
 .box-setting-logout ul .li-box:hover {

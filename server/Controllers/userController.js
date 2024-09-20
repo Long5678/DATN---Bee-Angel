@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
 
     try {
         let user = await userModel.findOne({ email });
-        
+
         if (!user) {
             return res.status(400).json("Sai Email hoặc mật khẩu...");
         }
@@ -153,10 +153,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const resetToken = user.createPasswordchangedToken(); // Tạo token đặt lại mật khẩu
     await user.save();
 
-    const html = `Xin vui lòng click vào link sau để thay đổi mật khẩu, link sẽ hết hạn trong vào 15p tiếp theo <a href=${process.env.FRONTEND_URL}/auth/resetPassword?token=${resetToken}>Click here</a>`;
+   const html = `Xin vui lòng click vào link sau để thay đổi mật khẩu, link sẽ hết hạn trong vào 15p tiếp theo <a href=${process.env.FRONTEND_URL}/auth/resetPassword?token=${resetToken}>Click here</a>`;
 
     const data = {
-        email,
+        email, 
         html
     };
 
@@ -170,9 +170,6 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
 const resetPassword = asyncHandler(async (req, res) => {
     const { password, token } = req.body;
-
-    console.log(password, token);
-    
 
     if (!password || !token) {
         throw new Error('Nhập không hợp lệ!');

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import "./App.css"
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -16,14 +17,19 @@ import Main_datTour from './components/pages/dat_tour/main_datTour.jsx';
 import Main_tours from './components/pages/tours/main_tours.jsx';
 import Main_detail_tour from './components/pages/detail_tour/main_detail_tour.jsx';
 import Main_dieuKhoan from './components/pages/dieuKhoan/main_dieuKhoan.jsx';
-// import Main_Profile from './components/pages/user_infor/main_profile.jsx';
 import Gioithieu from './components/pages/gioithieu/main-gioithieu.jsx';
 import Main_userInfor from './components/pages/user_infor2/main_userInfor.jsx';
 import Main_lienHe from './components/pages/lienHe/main_lienHe.jsx';
 import { Provider } from "react-redux"
 import { store } from './redux/store.js'
 import Box_enterPass from './components/pages/auth/box_enterPass.jsx';
-
+import Main_tinTuc from './components/pages/tintuc/main_tinTuc.jsx';
+import Main_detail_post from './components/pages/tintuc/detail_post/main_detail_post.jsx';
+import MainSideBar from './components/pages/admin/sideBar/mainSideBar.jsx';
+import Home from './components/pages/admin/content_wraper/home.jsx';
+import Main_danhMuc from './components/pages/admin/content_wraper/danhMuc/main_danhMuc.jsx';
+import List_tourManager from './components/pages/admin/content_wraper/tourManager/list_TourManager.jsx'
+import { PopupContextProvider } from './context/popupContext.jsx'
 
 
 const routers = createBrowserRouter([
@@ -67,22 +73,46 @@ const routers = createBrowserRouter([
         path: "/auth/resetpassword",
         element: <Box_enterPass />
       },
-
+      {
+        path: "/tinTuc",
+        element: <Main_tinTuc />
+      },
+      {
+        path: "/tinTuc/detail",
+        element: <Main_detail_post />
+      },
     ]
   },
-  // {
-  //   path: "/auth",
-  //   element: <Main_auth />,
-  // },
+
+  {
+    path: "/manager",
+    element: <MainSideBar />,
+    children: [
+      {
+        path: "",
+        element: <Home />
+      },
+      {
+        path: "/manager/danhMuc",
+        element: <Main_danhMuc />
+      },
+      {
+        path: "/manager/tour",
+        element: <List_tourManager />
+      },
+    ]
+  },
 
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <AuthContextProvider>
-      <React.StrictMode>
-        <RouterProvider router={routers} />
-      </React.StrictMode>
+      <PopupContextProvider>
+        <React.StrictMode>
+          <RouterProvider router={routers} />
+        </React.StrictMode>
+      </PopupContextProvider>
     </AuthContextProvider>
   </Provider>
 )
