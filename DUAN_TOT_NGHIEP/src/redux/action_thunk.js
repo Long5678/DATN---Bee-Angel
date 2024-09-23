@@ -147,7 +147,7 @@ export function getAllTour() {
     return async (dispatch) => {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours`)
-            dispatch(loadAllTour(res.data.data))
+            dispatch(loadAllTour(res.data))
         } catch (error) {
             console.log(error);
         } finally {
