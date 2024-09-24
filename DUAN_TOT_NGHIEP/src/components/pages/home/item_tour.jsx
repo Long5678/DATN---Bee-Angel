@@ -2,36 +2,43 @@ import { useContext } from "react"
 import "../../../publics/styles/list-tour.scss"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../context/authContext"
-// import StarIcon from '@mui/icons-material/Star';
-function Item_tour({ title, price, title_child, image, content }) {
+
+function Item_tour({_id, name, price, status, location, description, images }) {
     const { user, setOpen } = useContext(AuthContext)
 
     const navigation = useNavigate()
     // Kiểm tra xem content có độ dài lớn hơn 100 ký tự không
-    // const shortenedContent = content.length > 100 ? `${content.slice(0, 100)}...` : content;
+    const shortenedContent = description.length > 100 ? `${description.slice(0, 100)}...` : description;
 
     function handleDetail() {
-        navigation("/detail")
+        // lấy id của nó
+        navigation(`/detail?id=${_id}`)
     }
 
     function handleDatTour(e) {
         e.stopPropagation(); // Ngăn chặn sự kiện click lan lên phần tử cha
         navigation("/datTour")
     }
+
+
+    // console.log("dữ liệu", name, price, status, location, description, images[0]);
+    const priceNumber = Number(price); // chuyển thành kiểu number
+    const formatPrice = priceNumber.toLocaleString('vi-VN');
+    
     return <>
         <section className="tour-item">
             <section className="tour-image-block">
-                <img src={image} alt="Đại Nội Huế" className="tour-image" />
+                <img src={`http://localhost:3000/uploads/${images[0]}`} alt="Đại Nội Huế" className="tour-image" />
             </section>
             <section className="tour-info">
                 <div className="tour-meta">
                     <span className="rating"><i className="fa-solid fa-star"></i>5.0</span>
-                    <span className="location"><i className="fa-solid fa-location-dot"></i>Huế</span>
+                    <span className="location"><i className="fa-solid fa-location-dot"></i>{location}</span>
                 </div>
-                <h2 onClick={handleDetail} className="tour-title">{title_child}</h2>
-                <p className="tour-description">The red and orange sand of the desert are very beautiful, s take a trip here The red and orange sand of the desert are very beautiful, s take a trip here</p>
+                <h2 onClick={handleDetail} className="tour-title">{name}</h2>
+                <p className="tour-description">{shortenedContent}</p>
                 <div className="d-flex">
-                    <p className="tour-price">Price <span>{price}</span> VND</p>
+                    <p className="tour-price">Price <span>{formatPrice}</span> VND</p>
                     {user ?
                         <button className="book-button"><a href="/datTour">Đặt Vé</a></button>
                         :

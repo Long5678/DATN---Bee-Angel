@@ -1,17 +1,19 @@
 import Services from './Service';
 import WhyChooseUs from './whychooseus';
 import Team from './team';
-import About from './about';
+import About_huy from './about_huy';
 import Header from '../../layouts/header';
+import About from './about';
 
 function Gioithieu() {
     return (
         <>
             <Header />
-            <div className='main-gioithieu'>
+            <About />
+            {/* <div className='main-gioithieu'>
                 <h2 className='main-about-h4'>Giới thiệu Bee Angel</h2>
                 <div className="main-about">
-                    <About />
+                    <About_huy />
                     <Services />
 
                 </div>
@@ -28,7 +30,7 @@ function Gioithieu() {
                     </div>
 
                 </div>
-            </div>
+            </div> */}
 
         </>
     );

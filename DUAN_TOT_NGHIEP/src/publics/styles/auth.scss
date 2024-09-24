@@ -16,7 +16,7 @@
 }
 
 .box-auth .auth-top {
-    height: 40px;
+    height: 50px;
     border-bottom: 1px solid #E5E5E5;
     padding: 8px 10px 3px 10px;
 }
@@ -124,4 +124,9 @@ form p {
 
 .d-flex-enterPass {
     display: flex;
+}
+
+
+.css-1pysi21-MuiFormLabel-root-MuiInputLabel-root {
+    font-weight: unset !important;
 }
