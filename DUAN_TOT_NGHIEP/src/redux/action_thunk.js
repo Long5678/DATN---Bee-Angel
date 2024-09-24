@@ -114,7 +114,7 @@ export function updateDanhMuc(id, name, description) {
             let res = await axios.put(`http://localhost:3000/Admin/tourTypes/edit/${id}`,{
                 name, description
             })
-            dispatch(updateOneDanhMuc(res.data.data))
+            dispatch(updateOneDanhMuc(res.data))
         } catch (error) {
             console.log(error);
         }
