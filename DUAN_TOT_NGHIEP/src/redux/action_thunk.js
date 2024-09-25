@@ -232,6 +232,7 @@ export function getOneTour(id) {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours/detail/${id}`)
             dispatch(loadOneTour(res.data))
+<<<<<<< HEAD
         } catch (error) {
             console.log(error);
 
@@ -314,6 +315,8 @@ export function createMessage(chatId, senderId, text) {
                chatId, senderId, text
             })
             dispatch(addNewMessage(res.data))
+=======
+>>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
         } catch (error) {
             console.log(error);
 

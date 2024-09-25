@@ -24,8 +24,8 @@ function Register() {
             </div>
             <div className="form_group">
                 <div className='d-flex-auth'>
-                    <TextField {...register("pass", { required: true })} className="textField-auth" label="Mật khẩu" size="small" variant="outlined" />
-                    <TextField className="textField-auth" label="Nhập lại mật khẩu" size="small" variant="outlined" />
+                    <TextField {...register("pass", { required: true })} className="textField-auth" label="Mật khẩu" size="small" variant="outlined" type="password" />
+                    <TextField className="textField-auth" label="Nhập lại mật khẩu" size="small" variant="outlined" type="password" />
                     <input {...register("role")} value="user" type="hidden" />
                 </div>
             </div>

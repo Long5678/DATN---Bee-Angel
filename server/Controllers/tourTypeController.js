@@ -40,6 +40,7 @@ const getTourTypes = asyncHandler(async (_req, res) => {
     res.status(200).json(tourTypes);
 });
 
+<<<<<<< HEAD
 
 const getTourTypeById = asyncHandler(async (req, res) => {
     const {
@@ -56,3 +57,6 @@ module.exports = {
     getTourTypes,
     getTourTypeById
 };
+=======
+module.exports = { addTourType, updateTourType, deleteTourType, getTourTypes };
+>>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
