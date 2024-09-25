@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema({
     userId: { type: String, required: true },
     tourId: { type: mongoose.Schema.Types.ObjectId, ref: 'Tour', required: true },
     rating: {
-        score: { type: Number, required: true },
+        score: { type: Number, required: true, min: 1, max: 5 },
         userId: { type: String }
     }
 }, { timestamps: true });
