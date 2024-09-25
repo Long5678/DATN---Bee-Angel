@@ -29,7 +29,7 @@ function Detail_tour() {
             <div className="video-plane video-tour-detail">
                 {tourOne?.videos?.length > 0 ? (
                     <video controls autoPlay>
-                        <source src={`http://localhost:3000/uploads/${tourOne?.videos[0]}`} type="video/mp4" />
+                        <source src={`${tourOne?.videos[0]}`} type="video/mp4" />
                     </video>
                 ) : (
                     <p>Video không khả dụng</p>

@@ -1,5 +1,10 @@
 // phần nav bar của admin
+import { useNavigate } from "react-router-dom"
 function Main_navBar() {
+    const navigation = useNavigate()
+    function backUserLayout () {
+          navigation("/")
+    }
   return <>
       <nav className="main-header navbar navbar-expand navbar-white navbar-light">
           <ul className="navbar-nav">
@@ -118,9 +123,9 @@ function Main_navBar() {
                       <i className="fas fa-expand-arrows-alt"></i>
                   </a>
               </li>
-              <li className="nav-item">
+              <li onClick={backUserLayout} className="nav-item">
                   <a className="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-                      <i className="fas fa-th-large"></i>
+                      <i className="fa-solid fa-right-from-bracket"></i>
                   </a>
               </li>
           </ul>

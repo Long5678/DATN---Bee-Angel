@@ -5,6 +5,7 @@ import {
 const initialState = {
     userOne: {},
     user: [],
+    userChat: {} // state này để khi click đoạn chat 1 tk nào thì lấy thông tin của tk đó
 };
 
 export const userSlice = createSlice({
@@ -14,6 +15,9 @@ export const userSlice = createSlice({
         loadOneUser(state, action) {
             state.userOne = action.payload;
         },
+         loadOneUserChat(state, action) {
+             state.userChat = action.payload;
+         },
         loadAllUser(state, action) {
             state.user = action.payload;
         }
@@ -22,5 +26,7 @@ export const userSlice = createSlice({
 
 
 export const {
-    loadOneUser
+    loadOneUser,
+    loadOneUserChat,
+    loadAllUser
 } = userSlice.actions;

@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal'
 import Main_auth from "../pages/auth/main_auth"
 import { useContext } from "react"
 import { AuthContext } from "../../context/authContext"
-import Chat from "../pages/home/chat"
+// import Chat from "../pages/home/chat"
 
 function Header() {
     const { open, check, setCheck, handleOpen, handleClose, user, Logout } = useContext(AuthContext)
@@ -39,7 +39,7 @@ function Header() {
                                 <li className="li-user">{user.email}
                                     <div className="box-setting-logout">
                                         <ul>
-                                            <li className="li-box-setting li-box"><a href="/manager">Admin</a></li>
+                                            {user.role === "admin" && <li className="li-box-setting li-box"><a href="/manager">Admin</a></li>}
                                             <li className="li-box-setting li-box"><a href="/user_profile">Thông tin tài khoản</a></li>
                                             <li onClick={Logout} className="li-box-logout li-box">Đăng xuất</li>
                                         </ul>

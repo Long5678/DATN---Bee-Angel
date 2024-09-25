@@ -30,6 +30,10 @@ import Home from './components/pages/admin/content_wraper/home.jsx';
 import Main_danhMuc from './components/pages/admin/content_wraper/danhMuc/main_danhMuc.jsx';
 import List_tourManager from './components/pages/admin/content_wraper/tourManager/list_TourManager.jsx'
 import { PopupContextProvider } from './context/popupContext.jsx'
+import { SocketContextProvider } from './context/socketContext.jsx'
+import ChatApp from './components/pages/admin/content_wraper/chats/chatApp.jsx'
+import { NotificationProvider } from './context/notificationContext.jsx'
+import Main_user from './components/pages/admin/content_wraper/user/main_user.jsx'
 
 
 const routers = createBrowserRouter([
@@ -100,6 +104,14 @@ const routers = createBrowserRouter([
         path: "/manager/tour",
         element: <List_tourManager />
       },
+      {
+        path: "/manager/chats",
+        element: <ChatApp />
+      },
+      {
+        path: "/manager/users",
+        element: <Main_user />
+      },
     ]
   },
 
@@ -108,11 +120,15 @@ const routers = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <AuthContextProvider>
-      <PopupContextProvider>
-        <React.StrictMode>
-          <RouterProvider router={routers} />
-        </React.StrictMode>
-      </PopupContextProvider>
+      <SocketContextProvider>
+        <PopupContextProvider>
+          <NotificationProvider>
+            <React.StrictMode>
+              <RouterProvider router={routers} />
+            </React.StrictMode>
+          </NotificationProvider>
+        </PopupContextProvider>
+      </SocketContextProvider>
     </AuthContextProvider>
   </Provider>
 )

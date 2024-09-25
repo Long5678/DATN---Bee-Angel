@@ -6,6 +6,16 @@
     margin: 0 !important;
 }
 
+.css-1p823my-MuiListItem-root {
+    cursor: pointer;
+}
+
+.css-1p823my-MuiListItem-root:hover {
+    background-color: gainsboro;
+}
+
+// 
+
 .btn-mui-sidebar {
     width: 100%;
     margin-bottom: 5px !important;
@@ -109,6 +119,16 @@
     background-color: rgba(00, 00, 00, 0.3);
 }
 
+.overlay-admin-user {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    z-index: 9999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
 .flex-btn-add {
     display: flex;
     justify-content: flex-end;
@@ -191,4 +211,144 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+// user
+.d-flex-user {
+    display: flex;
+}
+
+.d-flex-user .avatar-user-manager {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.d-flex-user .avatar-user-manager img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.tr-user {
+    line-height: 50px;
+}
+
+
+// detail user admin
+// fixid box update user
+.fixid-boxUpdate {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    z-index: 9999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
+.fixid-boxUpdate.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.box-popop .modal-flex-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 15px 15px;
+    padding-left: 0;
+    // border-bottom: 1px solid black;
+}
+
+.box-popop .bg-avatar {
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.bg-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name-img {
+    position: relative;
+    display: flex;
+    height: 50px;
+    padding: 0 20px;
+}
+
+.name-img .avatar-user {
+    position: absolute;
+    top: -35px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid white;
+}
+
+.avatar-user img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name-img .name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-top: 10px;
+    padding-left: 82px;
+}
+
+.box-popop .line {
+    height: 7px;
+    background-color: rgb(232, 230, 230);
+}
+
+.box-popop .profile-user {
+    padding: 10px 10px;
+}
+
+.profile-user .group-grow {
+    display: flex;
+    padding-top: 14px;
+    font-size: 0.9rem;
+}
+
+.group-grow .key {
+    flex: 1;
+    color: rgb(118, 117, 117);
+}
+
+.group-grow .value {
+    flex: 2;
+}
+
+.box-popop .box-btn-update {
+    width: 93%;
+    margin: auto;
+    text-align: center;
+    border-top: 1px solid rgb(144, 135, 135);
+}
+
+.box-btn-update .btn-update {
+    display: inline-block;
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+.modal-flex-close .btn-close {
+    cursor: pointer;
+}
+
+.btn-close-user {
+    cursor: pointer;
 }

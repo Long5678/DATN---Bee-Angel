@@ -4,6 +4,21 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 const sendMail = require("../utils/sendMail")
 const crypto = require("crypto")
+const {
+    initializeApp
+} = require("firebase/app");
+const {
+    getStorage
+} = require("firebase/storage");
+const {
+    getDownloadURL,
+    ref,
+    uploadBytesResumable,
+    deleteObject
+} = require('firebase/storage');
+const firebaseConfig = require("../Configs/firebase.config");
+const app = initializeApp(firebaseConfig);
+const storages = getStorage(app);
 
 const createToken = (_id) => {
     const jwtkey = process.env.JWT_SECRET_KEY
@@ -21,7 +36,11 @@ const registerUser = async (req, res) => {
             email,
             phone,
             password,
-            role
+            role,
+            avatar,
+            address,
+            gender,
+            birth_day,
         } = req.body;
         // tìm phone
         let user = await userModel.findOne({
@@ -32,7 +51,7 @@ const registerUser = async (req, res) => {
         });
 
         // nếu phone ok là đã đăng ký rồi thì hiện lỗi ko cho đăng ký
-        if (user ) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
+        if (user) return res.status(400).json("SĐT hoặc email này đã được đăng ký rồi...");
         if (checkEmail) return res.status(400).json("Email này đã được đăng ký rồi...");
 
         // nếu thỏa mãn
@@ -41,7 +60,11 @@ const registerUser = async (req, res) => {
             email,
             phone,
             password,
-            role
+            role,
+            avatar: avatar || "",
+            address: address || "",
+            gender: gender || "",
+            birth_day: birth_day || "",
         })
 
         // đoạn này mã hóa password
@@ -52,12 +75,12 @@ const registerUser = async (req, res) => {
             await user.save();
             res.status(200).json("Đăng ký tài khoản thành công.");
         } catch (error) {
-            console.error("Error saving user to MongoDB:", error);  // Hiển thị lỗi rõ ràng
+            console.error("Error saving user to MongoDB:", error); // Hiển thị lỗi rõ ràng
         }
         // await user.save();
         // const token = createToken(user._id)
         // res.status(200).json({ _id: user.id, name, email, token });
-        
+
 
     } catch (error) {
         console.log(error);
@@ -68,10 +91,15 @@ const registerUser = async (req, res) => {
 
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    const {
+        email,
+        password
+    } = req.body;
 
     try {
-        let user = await userModel.findOne({ email });
+        let user = await userModel.findOne({
+            email
+        });
 
         if (!user) {
             return res.status(400).json("Sai Email hoặc mật khẩu...");
@@ -95,7 +123,10 @@ const loginUser = async (req, res) => {
 
     } catch (error) {
         console.error('Error in loginUser:', error.message);
-        res.status(500).json({ message: 'Internal Server Error', error: error.message });
+        res.status(500).json({
+            message: 'Internal Server Error',
+            error: error.message
+        });
     }
 };
 
@@ -143,24 +174,89 @@ const findUserByPhone = async (req, res) => {
     }
 }
 
+// update user
+const updateUser = async (req, res) => {
+    try {
+        let {
+            userId
+        } = req.params;
+        let user = await userModel.findById(userId)
+        // console.log(user);
+
+        let {
+            name,
+            phone,
+            email,
+            role,
+            address,
+            gender,
+            birth_day
+        } = req.body;
+
+        if (name) user.name = name;
+        if (email) user.email = email;
+        if (phone) user.phone = phone;
+        if (role) user.role = role;
+        if (address) user.address = address;
+        if (gender) user.gender = gender;
+        if (birth_day) user.birth_day = birth_day;
+
+        if (user.avatar) {
+            try {
+                const imageFileName = decodeURIComponent(user.avatar.split('/').pop().split('?')[0]);
+                const imageRef = ref(storages, imageFileName);
+                await deleteObject(imageRef);
+
+
+            } catch (error) {
+                return res.status(500).json(error.message);
+            }
+
+        }
+        // Xử lý cập nhật avatar
+        if (req.file) {
+            const file = req.file;
+            // Tùy thuộc vào cách lưu file (local hoặc cloud), bạn cần upload file và lấy URL
+            const storageRef = ref(storages, `users/${file.originalname}`);
+            const metadata = {
+                contentType: file.mimetype
+            };
+            const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+            user.avatar = downloadURL; // Cập nhật avatar
+        }
+
+        await user.save();
+
+        res.status(200).json(user);
+
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
 const forgotPassword = asyncHandler(async (req, res) => {
-    const { email } = req.query;
+    const {
+        email
+    } = req.query;
     if (!email) throw new Error('email không tồn tại !');
 
-    const user = await userModel.findOne({ email });
-    if (!user) throw new Error('user không tồn tại !'); 
+    const user = await userModel.findOne({
+        email
+    });
+    if (!user) throw new Error('user không tồn tại !');
 
     const resetToken = user.createPasswordchangedToken(); // Tạo token đặt lại mật khẩu
     await user.save();
 
-<<<<<<< HEAD
-   const html = `Xin vui lòng click vào link sau để thay đổi mật khẩu, link sẽ hết hạn trong vào 15p tiếp theo <a href=${process.env.FRONTEND_URL}/auth/resetPassword?token=${resetToken}>Click here</a>`;
-=======
-    const html = `Xin vui lòng click vào link sau để thay đổi mật khẩu, link sẽ hết hạn trong vào 15p tiếp theo <a href=${process.env.URL_SERVER}/auth/resetPassword/${resetToken}>Click here</a>`;
->>>>>>> 996d7cf62830389f14fbcbebcab8c6d7ed30db85
+    const html = `Xin vui lòng click vào link sau để thay đổi mật khẩu, link sẽ hết hạn trong vào 15p tiếp theo <a href=${process.env.URL_SERVER}/auth/resetPassword?token=${resetToken}>Click here</a>`;
 
     const data = {
-        email, 
+        email,
         html
     };
 
@@ -173,18 +269,23 @@ const forgotPassword = asyncHandler(async (req, res) => {
 });
 
 const resetPassword = asyncHandler(async (req, res) => {
-    const { password, token } = req.body;
+    const {
+        password,
+        token
+    } = req.body;
 
     if (!password || !token) {
         throw new Error('Nhập không hợp lệ!');
     }
 
     // lấy token trên url tiến hành băm 1 lần nữa rồi so sánh
-    const hashedToken  = crypto.createHash('sha256').update(token).digest('hex');
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
     // Tìm user dựa trên token đã hash
     const user = await userModel.findOne({
         passwordResetToken: hashedToken, // tiến hành So sánh
-        passwordResetExpires: { $gt: Date.now() } // Kiểm tra xem token còn hiệu lực không
+        passwordResetExpires: {
+            $gt: Date.now()
+        } // Kiểm tra xem token còn hiệu lực không
     });
 
     if (!user) {
@@ -209,6 +310,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     });
 });
 
+
 // xuất ra để file routes sử dụng
 module.exports = {
     registerUser,
@@ -216,6 +318,7 @@ module.exports = {
     findUser,
     getUsers,
     findUserByPhone,
+    updateUser,
     forgotPassword,
     resetPassword
 }

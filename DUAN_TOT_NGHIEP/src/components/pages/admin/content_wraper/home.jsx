@@ -18,7 +18,7 @@ function Home() {
               </div>
           </div>
 
-          {/* <section className="content">
+          <section className="content">
               <div className="container-fluid">
                   <div className="row">
                       <div className="col-lg-3 col-6">
@@ -76,7 +76,7 @@ function Home() {
                   </div>
 
               </div>
-          </section> */}
+          </section>
   </>
 }
 

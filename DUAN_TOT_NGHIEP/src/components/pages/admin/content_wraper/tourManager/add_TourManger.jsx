@@ -58,6 +58,7 @@ function Add_TourManger() {
             formData.append(`videos`, video);
         });
         dispatch(createTour(formData))
+        setPopupVisible(false)
     }
 
     

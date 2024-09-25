@@ -1,6 +1,8 @@
 import axios from "axios";
 import {
-    loadOneUser
+    loadOneUser,
+    loadOneUserChat,
+    loadAllUser
 } from "./user_slice";
 import {
     loadAllDanhMuc,
@@ -16,16 +18,39 @@ import {
     addOneTour,
     delOneTour,
     loadOneTour,
-    updateOneTour,
-    loadingTour
+    // updateOneTour,
+    // loadingTour
 } from "./tour_slice";
+
+
+import {
+    loadAllChat,
+    addOneChat,
+    loadOneChat
+} from "./chat_slice";
+import {
+    loadMessage_ByIdChat,
+    addNewMessage
+} from "./message_slice";
 
 // phần user
 export function getOneUser(id) {
     return async (dispatch) => {
         try {
-             let res = await axios.get(`http://localhost:3000/auth/find/${id}`)
-             dispatch(loadOneUser(res.data))
+            let res = await axios.get(`http://localhost:3000/auth/find/${id}`)
+            dispatch(loadOneUser(res.data))
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
+export function getOneUserChat(id) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/auth/find/${id}`)
+            dispatch(loadOneUserChat(res.data))
         } catch (error) {
             console.log(error);
 
@@ -38,7 +63,7 @@ export function enterEmail(email) {
         try {
             let res = await axios.get(`http://localhost:3000/auth/forgotpassword?email=${email}`)
             console.log(res.data);
-            
+
             // dispatch(loadOneUser(res.data))
         } catch (error) {
             console.log(error);
@@ -46,6 +71,35 @@ export function enterEmail(email) {
         }
     }
 }
+
+
+export function updateUser(id, data) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.put(`http://localhost:3000/auth/updateUser/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data' // Thiết lập header cho multipart/form-data
+                }
+            });
+            dispatch(loadOneUser(res.data))
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
+export function getAllUser() {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/auth`)
+            dispatch(loadAllUser(res.data))
+        } catch (error) {
+            console.log(error);
+        } 
+    }
+}
+
 
 
 // phần danh mục
@@ -70,9 +124,10 @@ export function createDanhMuc(name, description) {
     return async (dispatch) => {
         try {
             let res = await axios.post(`http://localhost:3000/Admin/tourTypes/add`, {
-                name, description
+                name,
+                description
             })
-            dispatch(addOneDanhMuc(res.data.data))
+            dispatch(addOneDanhMuc(res.data))
         } catch (error) {
             console.log(error);
 
@@ -111,10 +166,11 @@ export function getOneDanhMuc(id) {
 export function updateDanhMuc(id, name, description) {
     return async (dispatch) => {
         try {
-            let res = await axios.put(`http://localhost:3000/Admin/tourTypes/edit/${id}`,{
-                name, description
+            let res = await axios.put(`http://localhost:3000/Admin/tourTypes/edit/${id}`, {
+                name,
+                description
             })
-            dispatch(updateOneDanhMuc(res.data.data))
+            dispatch(updateOneDanhMuc(res.data))
         } catch (error) {
             console.log(error);
         }
@@ -129,11 +185,11 @@ export function createTour(data) {
         try {
             console.log("action_data", data);
             let res = await axios.post(`http://localhost:3000/Admin/tours/add`, data, {
-                 headers: {
-                     'Content-Type': 'multipart/form-data',
-                 },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             })
-            dispatch(addOneTour(res.data.data))
+            dispatch(addOneTour(res.data))
         } catch (error) {
             console.log(error);
 
@@ -147,7 +203,7 @@ export function getAllTour() {
     return async (dispatch) => {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours`)
-            dispatch(loadAllTour(res.data.data))
+            dispatch(loadAllTour(res.data))
         } catch (error) {
             console.log(error);
         } finally {
@@ -175,7 +231,89 @@ export function getOneTour(id) {
     return async (dispatch) => {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours/detail/${id}`)
-            dispatch(loadOneTour(res.data.data))
+            dispatch(loadOneTour(res.data))
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
+
+
+// phần action của chat ****
+// thêm đoạn chat
+export function createChat(firsId, secondId) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.post(`http://localhost:3000/chats`, {
+             firsId, secondId
+            })
+            console.log(res.data);
+            
+            dispatch(addOneChat(res.data))
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
+// get all đoạn chat dựa vào id tk đăng nhập
+export function getAllChatByIdUser(id) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/chats/${id}`)
+            dispatch(loadAllChat(res.data))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingDM(false))
+        }
+
+    }
+}
+
+// tìm đoạn chat đó dựa vào id của mình và id user đó
+export function getOneChat_ByYourId_And_UserId(firsId, secondId) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/chats/find/${firsId}/${secondId}`)
+            dispatch(loadOneChat(res.data))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingDM(false))
+        }
+
+    }
+}
+
+
+// phần messager ****
+// get all đoạn chat của mình vs họ dựa vào id đoạn chat đó
+export function getAllMessage_ByIdChat(id) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/messages/${id}`)
+            dispatch(loadMessage_ByIdChat(res.data))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingDM(false))
+        }
+
+    }
+}
+
+// thêm 1 tin nhắn mới
+export function createMessage(chatId, senderId, text) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.post(`http://localhost:3000/messages`, {
+               chatId, senderId, text
+            })
+            dispatch(addNewMessage(res.data))
         } catch (error) {
             console.log(error);
 

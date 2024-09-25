@@ -4,7 +4,7 @@ import Item_profileEdit from "./item_profileEdit";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { AuthContext } from "../../../context/authContext";
 import { useDispatch, useSelector } from "react-redux";
-import {getOneUser} from "../../../redux/action_thunk";
+import { getOneUser, updateUser } from "../../../redux/action_thunk";
 
 function Profile_userInfor() {
     const dispatch = useDispatch();
@@ -24,13 +24,26 @@ function Profile_userInfor() {
     };
 
     useEffect(() => {
-        if(user) {
+        if (user) {
             dispatch(getOneUser(user?._id))
         }
-    },[user])
+    }, [user])
 
-    console.log("userOne", userOne);
-    
+    // hàm cập nhật ảnh
+    function onChangeFile(e) {
+        let avatar = e.target.files[0];
+        const formData = new FormData();
+        formData.append("name", userOne.name);
+        formData.append("email", userOne.email);
+        formData.append("phone", userOne.phone);
+        formData.append("address", userOne.address);
+        formData.append("gender", userOne.gender);
+        formData.append("birth_day", userOne.birth_day);
+        formData.append(`avatar`, avatar);
+
+        dispatch(updateUser(userOne?._id, formData))
+    }
+
     return <>
         <section className="profile_userInfor">
             <form action="">
@@ -41,13 +54,17 @@ function Profile_userInfor() {
                             <span className="head_span">Lưu thông tin của Quý khách để đặt dịch vụ nhanh hơn</span>
                         </div>
                         <div className="avatr_profile">
-                            <img src="/src/publics/image/avatar_buiminh.jpg" alt="" />
+                            {userOne.avatar ?
+                                <img src={userOne.avatar} alt="" />
+                                :
+                                <img src="/src/publics/image/avatar_null.jpg" alt="" />
+                            }
                         </div>
                     </section>
 
                     <section>
                         <label className="label-file" htmlFor="file_avatar_edit"><CameraAltIcon /></label>
-                        <input type="file" id="file_avatar_edit" />
+                        <input onChange={(e) => onChangeFile(e)} type="file" id="file_avatar_edit" />
                     </section>
                 </section>
 
@@ -86,7 +103,7 @@ function Profile_userInfor() {
                             {checkField === "address" ?
                                 <Item_profileEdit handleCancle={handleCancle} handleSave={handleSave} label="Địa chỉ" />
                                 :
-                                <Item_profile title="K122/20 Trần Cao Vân, TP.Đà Nẵng" value="address" checkField={checkField} handleEdit={handleEdit} />
+                                <Item_profile title={userOne?.address} value="address" checkField={checkField} handleEdit={handleEdit} />
                             }
                         </li>
                         <li className="li_body_profile">
@@ -94,7 +111,7 @@ function Profile_userInfor() {
                             {checkField === "birthday" ?
                                 <Item_profileEdit handleCancle={handleCancle} handleSave={handleSave} label="Ngày sinh" />
                                 :
-                                <Item_profile title="28-11-2004" value="birthday" checkField={checkField} handleEdit={handleEdit} />
+                                <Item_profile title={userOne?.birth_day} value="birthday" checkField={checkField} handleEdit={handleEdit} />
                             }
                         </li>
                         <li className="li_body_profile">
@@ -102,7 +119,7 @@ function Profile_userInfor() {
                             {checkField === "gender" ?
                                 <Item_profileEdit handleCancle={handleCancle} handleSave={handleSave} label="Giới tính" />
                                 :
-                                <Item_profile title="Nam" value="gender" checkField={checkField} handleEdit={handleEdit} />
+                                <Item_profile title={userOne?.gender} value="gender" checkField={checkField} handleEdit={handleEdit} />
                             }
                         </li>
                     </ul>

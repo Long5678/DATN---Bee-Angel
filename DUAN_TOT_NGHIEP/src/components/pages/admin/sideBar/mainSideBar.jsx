@@ -47,12 +47,29 @@ function MainSideBar() {
                                   aria-controls="panel1-content"
                                   id="panel1-header"
                               >
-                                  Loại Tour
+                                  Home
+                              </AccordionSummary>
+                              <AccordionDetails>
+                                  <ul className='ul-admin-sideBar'>
+                                      <Button className='btn-mui-sidebar' variant="contained"><a href='/manager'>Home</a></Button>
+                                  </ul>
+                              </AccordionDetails>
+
+                          </Accordion>
+                      </li>
+
+                      <li className="nav-item menu-open li-sidebar">
+                          <Accordion>
+                              <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel1-content"
+                                  id="panel1-header"
+                              >
+                                  Danh Mục
                               </AccordionSummary>
                               <AccordionDetails>
                                   <ul className='ul-admin-sideBar'>
                                       <Button className='btn-mui-sidebar' variant="contained"><a href='/manager/danhMuc'>Danh sách</a></Button>
-                                      <Button className='btn-mui-sidebar' variant="contained"><a href='/manager'>Home</a></Button>
                                   </ul>
                               </AccordionDetails>
                        
@@ -71,6 +88,42 @@ function MainSideBar() {
                               <AccordionDetails>
                                   <ul className='ul-admin-sideBar'>
                                       <Button className='btn-mui-sidebar' variant="contained"><a href='/manager/tour'>Danh sách</a></Button>
+                                  </ul>
+                              </AccordionDetails>
+
+                          </Accordion>
+                      </li>
+
+                      <li className="nav-item menu-open li-sidebar">
+                          <Accordion>
+                              <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel1-content"
+                                  id="panel1-header"
+                              >
+                                  Chat User
+                              </AccordionSummary>
+                              <AccordionDetails>
+                                  <ul className='ul-admin-sideBar'>
+                                      <Button className='btn-mui-sidebar' variant="contained"><a href='/manager/chats'>Nhắn tin</a></Button>
+                                  </ul>
+                              </AccordionDetails>
+
+                          </Accordion>
+                      </li>
+
+                      <li className="nav-item menu-open li-sidebar">
+                          <Accordion>
+                              <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel1-content"
+                                  id="panel1-header"
+                              >
+                                  Khách hàng
+                              </AccordionSummary>
+                              <AccordionDetails>
+                                  <ul className='ul-admin-sideBar'>
+                                      <Button className='btn-mui-sidebar' variant="contained"><a href='/manager/users'>User</a></Button>
                                   </ul>
                               </AccordionDetails>
 

@@ -1,5 +1,15 @@
 const express = require("express")
-const { registerUser, loginUser, findUser, getUsers, findUserByPhone, forgotPassword, resetPassword, upload, updateAvatar } = require("../Controllers/userController")
+const {
+    registerUser,
+    loginUser,
+    findUser,
+    getUsers,
+    findUserByPhone,
+    updateUser,
+    forgotPassword,
+    resetPassword,
+} = require("../Controllers/userController")
+const upload = require('../middlewares/uploadMiddleware');
 
 const router = express.Router();
 
@@ -7,6 +17,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/find/:userId", findUser);
 router.get("/findByPhone/:phone", findUserByPhone);
+router.put("/updateUser/:userId",upload.single('avatar'),updateUser);
 router.get("/forgotpassword", forgotPassword);
 router.put("/resetpassword", resetPassword);
 router.get("/", getUsers);

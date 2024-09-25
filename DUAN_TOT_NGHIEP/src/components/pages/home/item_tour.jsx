@@ -28,7 +28,7 @@ function Item_tour({_id, name, price, status, location, description, images }) {
     return <>
         <section className="tour-item">
             <section className="tour-image-block">
-                <img src={`http://localhost:3000/uploads/${images[0]}`} alt="Đại Nội Huế" className="tour-image" />
+                <img src={images[0]} alt="Đại Nội Huế" className="tour-image" />
             </section>
             <section className="tour-info">
                 <div className="tour-meta">
