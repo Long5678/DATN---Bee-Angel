@@ -1,19 +1,10 @@
 const express = require('express');
-<<<<<<< HEAD
-const {
-    addTour,
-    updateTour,
-    deleteTour,
-    getAllTours,
-    getTourById
-} = require('../Controllers/tourController');
-=======
-const { addTour, updateTour, deleteTour, getAllTours } = require('../Controllers/tourController');
->>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
+const { addTour, updateTour, deleteTour, getAllTours, getTourById } = require('../Controllers/tourController');
 const upload = require('../middlewares/uploadMiddleware');
 const router = express.Router();
 
 router.get('/', getAllTours);
+router.get('/:id', getTourById);
 router.post('/add', upload.fields([
     { name: 'images', maxCount: 5 },
     { name: 'videos', maxCount: 1 }
@@ -23,9 +14,5 @@ router.put('/edit/:id', upload.fields([
     { name: 'videos', maxCount: 1 }
 ]), updateTour);
 router.delete('/delete/:id', deleteTour);
-<<<<<<< HEAD
-router.get('/detail/:id', getTourById);
-=======
->>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
 
 module.exports = router;
