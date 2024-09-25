@@ -32,6 +32,12 @@ import {
     loadMessage_ByIdChat,
     addNewMessage
 } from "./message_slice";
+import{
+    loadCommentByTour,
+    addComment,
+    delOneComment,
+    loadingComment
+}from "./comment_slice";
 
 // phần user
 export function getOneUser(id) {
@@ -232,7 +238,6 @@ export function getOneTour(id) {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours/detail/${id}`)
             dispatch(loadOneTour(res.data))
-<<<<<<< HEAD
         } catch (error) {
             console.log(error);
 
@@ -315,11 +320,38 @@ export function createMessage(chatId, senderId, text) {
                chatId, senderId, text
             })
             dispatch(addNewMessage(res.data))
-=======
->>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
+
         } catch (error) {
             console.log(error);
 
+        }
+    }
+}
+
+// rating & Comment
+// Add comment
+export function createComment(ratingScore, content){
+    return async (dispatch) => {
+        try{
+            let res = await axios.post(`http://localhost:3000/Comment/create`, {
+                ratingScore, content
+            })
+            dispatch(addComment(res.data))
+        } catch (error) {
+            console.log(error);
+        }  
+    }
+}
+
+//load Comment by Tour
+export function getCommentByTour(tourId) {
+    return async(dispatch) => {
+        try{
+            let res = await axios.get(`http://localhost:3000/Comment/${tourId}`)
+            dispatch(loadCommentByTour(res.data))
+        }catch(error){
+            console.log(error);
+            
         }
     }
 }
