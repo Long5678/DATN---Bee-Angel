@@ -72,7 +72,7 @@ export function createDanhMuc(name, description) {
             let res = await axios.post(`http://localhost:3000/Admin/tourTypes/add`, {
                 name, description
             })
-            dispatch(addOneDanhMuc(res.data.data))
+            dispatch(addOneDanhMuc(res.data))
         } catch (error) {
             console.log(error);
 
@@ -133,7 +133,7 @@ export function createTour(data) {
                      'Content-Type': 'multipart/form-data',
                  },
             })
-            dispatch(addOneTour(res.data.data))
+            dispatch(addOneTour(res.data))
         } catch (error) {
             console.log(error);
 
@@ -175,7 +175,7 @@ export function getOneTour(id) {
     return async (dispatch) => {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours/detail/${id}`)
-            dispatch(loadOneTour(res.data.data))
+            dispatch(loadOneTour(res.data))
         } catch (error) {
             console.log(error);
 
