@@ -48,7 +48,7 @@ const addTour = asyncHandler(async (req, res) => {
     });
 
     await newTour.save();
-    res.status(201).json({newTour});
+    res.status(201).json(newTour);
 });
 
 const updateTour = asyncHandler(async (req, res) => {
@@ -109,7 +109,7 @@ const updateTour = asyncHandler(async (req, res) => {
     tour.videos = updatedVideos;
 
     const updatedTour = await tour.save();
-    res.status(200).json({updatedTour});
+    res.status(200).json(updatedTour);
 });
 
 
@@ -141,7 +141,7 @@ const deleteTour = asyncHandler(async (req, res) => {
 const getAllTours = asyncHandler(async (req, res) => {
     const tours = await TourModel.find();
 
-        res.status(200).json({tours});
+        res.status(200).json(tours);
 });
 
 // Lấy thông tin chi tiết của một tour theo ID
@@ -149,7 +149,7 @@ const getTourById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const tour = await TourModel.findById(id);
 
-    res.status(200).json({tour});
+    res.status(200).json(tour);
 });
 
 module.exports = { addTour, updateTour, deleteTour, getAllTours, getTourById }
