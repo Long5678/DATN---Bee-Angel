@@ -14,9 +14,13 @@ function Item_comment({_id, content, userId, tourId, ratingScore}) {
             {/* {loading && <p>Đang tải bình luận...</p>}
                             {error && <p>Có lỗi xảy ra: {error}</p>} */}
             <div className="comment">
-                <div className="avatar">👤</div>
+                <div className="avatar">{recipientUser?.avatar ? 
+                    <img src={recipientUser.avatar} alt="" />
+                :
+                    <img src="/src/publics/image/avatar_null.jpg" alt="" />
+                }</div>
                 <div className="comment-content">
-                    <h4>{recipientUser.name}</h4>
+                    <h5>{recipientUser.name}</h5>
                     <p>{content}</p>
                 </div>
             </div>
