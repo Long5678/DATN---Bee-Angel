@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCommentByTour } from '../../../redux/action_thunk';
 import { useSearchParams } from "react-router-dom"; // Giả sử action này đã được định nghĩa
+// import { useFindUserComment } from '../../../hooks/usefindusercomment';
+import Item_comment from './item_comment';
 
 function Comment_tour() {
     const [searchParams] = useSearchParams();
     const idTour = searchParams.get("id"); // Lấy token từ URL
     const dispatch = useDispatch();
     let commentDatas = useSelector((state) => state.CommentSL.commentDatas)
+    const users = useSelector((state) => state.userSL.users || []); // Assuming users are stored here
     const [newComment, setNewComment] = useState('');  // Quản lý input cho bình luận mới
+    const userOne = useSelector((state) => state.userSL.userOne)
+    // const { recipientUser } = useFetchRecipientUser();
+    // console.log(userOne.name);
 
     // Lấy bình luận khi component mount
     useEffect(() => {
@@ -20,6 +26,23 @@ function Comment_tour() {
         console.log('Sending comment:', newComment);
         setNewComment('');
     };
+
+
+    // const getUserNameById = (userId) => {
+    // console.log(userId);
+
+    //     // const user = users.find((user) => user.id === userId); // Find user by id in the current state
+
+    //     if (userId) {
+    //         // If the user is not found, dispatch an action to fetch the user
+    //         dispatch(getOneUser(userId));
+    //         // console.log(userId);
+    //         return "Loading..."; // Temporarily return "Loading..." while the user data is being fetched
+
+
+    //     }
+    //     // return user.name; // Return the user's name once loaded
+    // };
 
     return (
         <>
@@ -43,19 +66,10 @@ function Comment_tour() {
                         </div>
 
                         {/* Comment section */}
-                        <div className="comment-section">
-                            {/* {loading && <p>Đang tải bình luận...</p>}
-                            {error && <p>Có lỗi xảy ra: {error}</p>} */}
-                            {commentDatas.map((comment, index) => (
-                                <div key={index} className="comment">
-                                    <div className="avatar">👤</div>
-                                    <div className="comment-content">
-                                        <h4>{comment.username}</h4>
-                                        <p>{comment.content}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        {commentDatas.map((item, index) => {
+                            return <Item_comment key={index} {...item} />
+                        })}
+
                     </div>
                 </div>
             </div>
