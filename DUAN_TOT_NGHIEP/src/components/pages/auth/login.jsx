@@ -18,7 +18,7 @@ function Login({setCheckBoxForget}) {
                 {errors.email && <span className="message-errors">Vui lòng không để trống*</span>}
             </div>
             <div className="form_group">
-                <TextField onFocus={() => setLoginErr(null)} {...register("password", { required: true })} className="textField-auth" label="Mật khẩu" size="small" variant="outlined" type="password" />
+                <TextField onFocus={() => setLoginErr(null)} {...register("password", { required: true })} className="textField-auth" label="Mật khẩu" size="small" variant="outlined" />
                 {errors.email && <span className="message-errors">Vui lòng không để trống*</span>}
             </div>
             <p onClick={() => setCheckBoxForget(true)} className='p-forgetPass'><a >Quên mật khẩu?.</a></p>

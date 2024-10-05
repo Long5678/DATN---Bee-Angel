@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDanhMuc } from '../../../../../redux/action_thunk';
 import { AuthContext } from '../../../../../context/authContext';
+import Loading from '../../../../layouts/loading';
 
 function List_DM() {
   let { user } = useContext(AuthContext)
@@ -31,7 +32,7 @@ function List_DM() {
           </tr>
         </thead>
         <tbody>
-          {isLoadingDM && <div className="loader"></div>}
+          {isLoadingDM && <Loading top={"34"} left={"57"} position="fixed" />}
           {data}
         </tbody>
       </table>

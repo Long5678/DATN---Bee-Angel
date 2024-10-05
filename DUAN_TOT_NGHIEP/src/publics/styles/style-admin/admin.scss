@@ -152,6 +152,15 @@
     padding: 20px;
 }
 
+.overlay-await-addTour {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
 
 .nonePopup-addtour {
     z-index: 99;
@@ -171,28 +180,41 @@
 
 
 .box-popop-addtour {
+    // position: relative;
     width: 650px;
-    min-height: 100px;
+    min-height: 300px;
     border-radius: 5px;
     box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 30px 20px -20px rgba(51, 51, 51, 0.25), 0 4px 20px 0 rgba(51, 51, 51, 0.2);
     background-color: white;
     padding: 15px;
 }
 
+
 .ul-image-manager {
-    padding-left: 20px;
+    padding-left: 0px;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .ul-image-manager li {
-    color: tomato;
+    color:#3874cb;
+    padding-right: 10px;
 }
 
+.ul-image-manager li .span-close {
+    cursor: pointer;
+    padding-left: 5px;
+}
 
+.ul-image-manager li .span-close i {
+    color: red;
+}
 // css loading
 .loader {
-    position: fixed;
-    top: 34%;
-    left: 57%;
+    // position: fixed;
+    // top: 34%;
+    // left: 57%;
     width: 48px;
     height: 48px;
     border: 5px solid #fff;
@@ -201,6 +223,42 @@
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+    z-index: 999;
+}
+
+.loaderAdd {
+    position: fixed;
+    top: 15%;
+    left: 54%;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-bottom-color: #3874cb;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.loaderAddTour {
+    position: fixed;
+    top: 35%;
+    left: 54%;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-bottom-color: #3874cb;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.span-addTour {
+     position: fixed;
+     top: 42%;
+     left: 53%;
+     color: tomato;
 }
 
 @keyframes rotation {
@@ -350,5 +408,64 @@
 }
 
 .btn-close-user {
+    cursor: pointer;
+}
+
+
+// plane tour admin css
+.btns-change-tour {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.btns-change-tour .btn-thongTin {
+    padding-right: 10px;
+    border-right: 1px solid black;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.btns-change-tour .btn-plane {
+    padding-left: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.box-admin-tourPlane {
+    padding: 10px;
+    border: 1px solid #E5E5E5;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.box-admin-tourPlane .text-plane {
+    margin-bottom: 5px;
+}
+
+.overflow-plane {
+    overflow: auto;
+    height: 200px;
+}
+
+.listDateTour {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.listDateTour .boxDateTour {
+    border: 1px solid #316cf4;
+    color: #316cf4;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-radius: 3px;
+}
+
+.boxDateTour span {
+    padding-left: 5px;
+}
+
+.boxDateTour span i {
+    color: red;
     cursor: pointer;
 }

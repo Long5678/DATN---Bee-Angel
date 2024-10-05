@@ -24,7 +24,7 @@ export const useFetchRecipientUser = (chat, user) => {
             if (!recipientId) {
                 return;
             }
-            // phần này sử lý api , load user dựa vào id
+            // phần này sử lý api , load user dựa vào id  
             let res = await axios.get(`http://localhost:3000/auth/find/${recipientId}`)
             setRecipientUser(res.data)
         }

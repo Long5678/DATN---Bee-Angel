@@ -6,6 +6,7 @@ import Search_TourManager from "./search_TourManager"
 import { AuthContext } from "../../../../../context/authContext"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllDanhMuc, getAllTour } from "../../../../../redux/action_thunk"
+import Edit_TourManager from "./edit_TourManager"
 
 
 function List_tourManager() {
@@ -19,7 +20,7 @@ function List_tourManager() {
   }, [user])
 
   useEffect(() => {
-     dispatch(getAllTour())
+     dispatch(getAllTour(4))
   }, [user])
 
 
@@ -39,6 +40,7 @@ function List_tourManager() {
         </div>
       </div>
     </div>
+    <Edit_TourManager />
     <Add_TourManger />
     <Search_TourManager />
 

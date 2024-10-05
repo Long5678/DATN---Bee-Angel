@@ -34,7 +34,7 @@ import { SocketContextProvider } from './context/socketContext.jsx'
 import ChatApp from './components/pages/admin/content_wraper/chats/chatApp.jsx'
 import { NotificationProvider } from './context/notificationContext.jsx'
 import Main_user from './components/pages/admin/content_wraper/user/main_user.jsx'
-
+import MainBlog from './components/pages/admin/content_wraper/blog/main_Blog.jsx'
 
 const routers = createBrowserRouter([
   {
@@ -103,6 +103,10 @@ const routers = createBrowserRouter([
       {
         path: "/manager/tour",
         element: <List_tourManager />
+      },
+      {
+        path: "/manager/blog",
+        element: <MainBlog />
       },
       {
         path: "/manager/chats",

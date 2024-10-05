@@ -2,15 +2,27 @@ import "../../publics/styles/header.scss"
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Main_auth from "../pages/auth/main_auth"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { AuthContext } from "../../context/authContext"
-// import Chat from "../pages/home/chat"
-
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { getAllDanhMuc } from "../../redux/action_thunk"
 function Header() {
+    let dispatch = useDispatch();
+    const navigation = useNavigate()
+    let danhMucDatas = useSelector((state) => state.danhMucSL.danhMucDatas)
     const { open, check, setCheck, handleOpen, handleClose, user, Logout } = useContext(AuthContext)
     console.log("user", user);
 
+    useEffect(() => {
+        dispatch(getAllDanhMuc())
+    }, [])
 
+    function handleListTourDM(id) {
+        // lấy id của nó
+        navigation(`/tours?id=${id}`)
+    }
+    
     return <>
         <header className="header-user">
             <section className="main-header-user">
@@ -24,9 +36,9 @@ function Header() {
                             <>
                                 <div className="list-tour-detail">
                                     <ul>
-                                        <li className="li-box-setting li-box">Tour Huế</li>
-                                        <li className="li-box-logout li-box">Tour Đà Nẵng</li>
-                                        <li className="li-box-logout li-box">Tour Quảng Nam</li>
+                                        {danhMucDatas.map((item,index) => {
+                                            return <li key={index} onClick={() => handleListTourDM(item._id)} className="li-box-setting li-box">{item.name}</li>
+                                        })}
                                     </ul>
                                 </div>
                             </>
@@ -36,7 +48,16 @@ function Header() {
                         <li className="li-item-header"><a href="/dieuKhoan">Điều Khoản</a></li>
                         {user ?
                             <>
-                                <li className="li-user">{user.email}
+                                <li className="li-user">
+                                    <div className="avatar-header">
+                                        {user.avatar
+                                            ?
+                                            <img src={user.avatar} alt="" />
+                                            :
+                                            <img src="/src/publics/image/avatar_null.jpg" alt="" />
+                                        }
+                                    </div>
+                                    <span>{user.name}</span>
                                     <div className="box-setting-logout">
                                         <ul>
                                             {user.role === "admin" && <li className="li-box-setting li-box"><a href="/manager">Admin</a></li>}
@@ -65,10 +86,9 @@ function Header() {
                 {/* phần này render ra tab login register */}
                 <Main_auth check={check} setCheck={setCheck} />
             </Box>
-        </Modal> 
+        </Modal>
 
 
-       {/* <Chat /> */}
     </>
 }
 

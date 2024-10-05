@@ -1,17 +1,21 @@
 import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { delDanhMuc, getOneDanhMuc } from '../../../../../redux/action_thunk';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { PopupContext } from '../../../../../context/popupContext';
+// import { errorDelDM } from '../../../../../redux/danhMuc_slice';
 
 function Item_DM({ _id, name, description, i }) {
     let dispatch = useDispatch()
+    // const isErrorDelDM = useSelector((state) => state.danhMucSL.isErrorDelDM)
     const { setPopupEdit } = useContext(PopupContext)
 
     const handleEdit = (id) => {
         dispatch(getOneDanhMuc(id))
         setPopupEdit(true)
     }
+
+
     return <>
         <tr>
             <th className='center-th' scope="row">{i + 1}</th>

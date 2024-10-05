@@ -5,12 +5,10 @@ const path = require("path");
 const userRoute = require("./Routes/userRoute");
 const tourRoutes = require('./Routes/tourRoute');
 const tourTypeRoutes = require('./Routes/tourTypeRoutes');
-<<<<<<< HEAD
 const chatRoutes = require('./Routes/chatRoute')
 const messageRoutes = require('./Routes/messageRoute')
-=======
->>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
 const CommentRoutes = require('./Routes/commentRoute');
+const blogRoutes = require('./Routes/blogRoute')
 
 const app = express();
 require("dotenv").config()
@@ -29,11 +27,9 @@ app.use("/auth", userRoute)
 app.use('/Admin/tours', tourRoutes);
 app.use('/Admin/tourTypes', tourTypeRoutes);
 app.use('/Comment', CommentRoutes)
-<<<<<<< HEAD
 app.use("/chats", chatRoutes)
 app.use("/messages", messageRoutes)
-=======
->>>>>>> 2f057056b336753e3c614d57be88b4d2adeb52ff
+app.use('/Admin/blog', blogRoutes);
 
 app.get("/", (req, res) => {
     res.send("welcom your zalo chat")

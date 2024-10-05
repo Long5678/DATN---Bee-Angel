@@ -1,35 +1,15 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { getOneTour } from "../../../redux/action_thunk";
-import { useSearchParams } from "react-router-dom";
 
-function Detail_tour() {
-    // lấy id từ url
-    const [searchParams] = useSearchParams();
-    const idTour = searchParams.get("id"); // Lấy token từ URL
-    let dispatch = useDispatch()
-    let tourOne = useSelector((state) => state.tourSL.tourOne)
-
-    useEffect(() => {
-        if(idTour) {
-            dispatch(getOneTour(idTour))
-        }
-        // Cuộn lên đầu trang khi component render
-        window.scrollTo(0, 0);
-    }, [idTour])
-
-    const priceNumber = Number(tourOne?.price); // chuyển thành kiểu number
+function Detail_tour({ name, price, location, description, videos, dateTour }) {
+    const priceNumber = Number(price); // chuyển thành kiểu number
     const formatPrice = priceNumber.toLocaleString('vi-VN');
-
-    console.log("Tour one",tourOne);
 
     return <>
         <div className="detail-tour">
-           
+
             <div className="video-plane video-tour-detail">
-                {tourOne?.videos?.length > 0 ? (
+                {videos?.length > 0 ? (
                     <video controls autoPlay>
-                        <source src={`${tourOne?.videos[0]}`} type="video/mp4" />
+                        <source src={`https://firebasestorage.googleapis.com/v0/b/bee-angel.appspot.com/o/products%2F${videos[0]}?alt=media`} type="video/mp4" />
                     </video>
                 ) : (
                     <p>Video không khả dụng</p>
@@ -38,7 +18,7 @@ function Detail_tour() {
 
             {/* phần content tour */}
             <div className="content-detail-tour">
-                <h2 className="tour-title tour-detail-title">{tourOne?.name}</h2>
+                <h2 className="tour-title tour-detail-title">{name}</h2>
                 <div className="d-flex-star-comment">
                     <div className="count-star"><span>4.8</span>
                         <div className="list-star">
@@ -58,11 +38,21 @@ function Detail_tour() {
                     </li>
                     <li>
                         <div className="key">Nơi khởi hành:</div>
-                        <div className="value">{tourOne?.location}</div>
+                        <div className="value">{location}</div>
                     </li>
                     <li>
                         <div className="key">Mô tả:</div>
-                        <div className="value">{tourOne?.description}</div>
+                        <div style={{lineHeight: "1.5"}} className="value">{description}</div>
+                    </li>
+                    <li>
+                        <div className="key">Lịch khởi hành:</div>
+                        <div className="value d-flex-khoiHanh">
+                            {dateTour?.length > 0 && dateTour.map((item,index) => {
+                                return <div key={index} className="box-khoiHanh">{item}</div>
+                            })}
+                           
+                         
+                        </div>
                     </li>
                     <li className="li-detail-price">
                         <div className="key">Giá tiền:</div>

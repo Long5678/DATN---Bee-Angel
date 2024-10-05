@@ -17,7 +17,7 @@ function Item_tour({_id, name, price, status, location, description, images }) {
 
     function handleDatTour(e) {
         e.stopPropagation(); // Ngăn chặn sự kiện click lan lên phần tử cha
-        navigation("/datTour")
+        navigation(`/datTour?id=${_id}`)
     }
 
 
@@ -28,7 +28,8 @@ function Item_tour({_id, name, price, status, location, description, images }) {
     return <>
         <section className="tour-item">
             <section className="tour-image-block">
-                <img src={images[0]} alt="Đại Nội Huế" className="tour-image" />
+                {/* <img src={images[0]} alt="Đại Nội Huế" className="tour-image" /> */}
+                <img src={`https://firebasestorage.googleapis.com/v0/b/bee-angel.appspot.com/o/products%2F${images[0]}?alt=media`} alt="Đại Nội Huế" className="tour-image" />
             </section>
             <section className="tour-info">
                 <div className="tour-meta">
@@ -39,11 +40,12 @@ function Item_tour({_id, name, price, status, location, description, images }) {
                 <p className="tour-description">{shortenedContent}</p>
                 <div className="d-flex">
                     <p className="tour-price">Price <span>{formatPrice}</span> VND</p>
-                    {user ?
-                        <button className="book-button"><a href="/datTour">Đặt Vé</a></button>
+                    {/* {user ?
+                        <button className="book-button" onClick={(e) => handleDatTour(e)}>Đặt Vé</button>
                         :
                         <button onClick={() => setOpen(true)} className="book-button">Đặt Vé</button>
-                    }
+                    } */}
+                    <p>{status}</p>
 
                 </div>
 
