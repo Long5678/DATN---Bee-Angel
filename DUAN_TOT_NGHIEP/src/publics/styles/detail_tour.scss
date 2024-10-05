@@ -307,16 +307,17 @@
     margin: 20px auto;
 }
 
-.comment .avatar {
-    width: 40px;
-    height: 40px;
+.comment .avatar img {
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     background-color: #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    margin-right: 15px;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
 .comment-content {
@@ -334,7 +335,7 @@
 }
 
 .comment-content p {
-    margin: 5px 0 0;
+    margin: 10px 0 0 20px;
     color: #555;
 }
 

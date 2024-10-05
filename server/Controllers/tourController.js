@@ -1,4 +1,5 @@
 const TourModel = require('../Models/tourModel');
+<<<<<<< HEAD
 const {
     initializeApp
 } = require("firebase/app");
@@ -11,6 +12,11 @@ const {
     uploadBytesResumable,
     deleteObject
 } = require('firebase/storage');
+=======
+const { initializeApp } = require("firebase/app");
+const { getStorage } = require("firebase/storage");
+const { getDownloadURL, ref, uploadBytesResumable, deleteObject } = require('firebase/storage');
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 const firebaseConfig = require("../Configs/firebase.config");
 const asyncHandler = require('express-async-handler');
 
@@ -18,6 +24,7 @@ const app = initializeApp(firebaseConfig);
 const storages = getStorage(app);
 
 const addTour = asyncHandler(async (req, res) => {
+<<<<<<< HEAD
     const {
         name,
         description,
@@ -31,6 +38,9 @@ const addTour = asyncHandler(async (req, res) => {
 
     // Chuyển đổi chuỗi JSON thành mảng đối tượng
     const parsedPlanes = JSON.parse(planes); // Thêm dòng này
+=======
+    const { name, description, price, location, type, status } = req.body;
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 
     const downloadImageURLs = [];
     const downloadVideoURLs = [];
@@ -40,9 +50,13 @@ const addTour = asyncHandler(async (req, res) => {
     try {
         for (const file of req.files['images']) {
             const storageRef = ref(storages, `products/${file.originalname}`);
+<<<<<<< HEAD
             const metadata = {
                 contentType: file.mimetype
             };
+=======
+            const metadata = { contentType: file.mimetype };
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
             const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
             const downloadURL = await getDownloadURL(snapshot.ref);
             // downloadImageURLs.push(downloadURL);
@@ -52,9 +66,13 @@ const addTour = asyncHandler(async (req, res) => {
         if (req.files['videos']) {
             for (const file of req.files['videos']) {
                 const storageRef = ref(storages, `products/${file.originalname}`);
+<<<<<<< HEAD
                 const metadata = {
                     contentType: file.mimetype
                 };
+=======
+                const metadata = { contentType: file.mimetype };
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
                 // downloadVideoURLs.push(downloadURL);
@@ -62,8 +80,9 @@ const addTour = asyncHandler(async (req, res) => {
             }
         }
     } catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(500).json({ message: error.message});
     }
+<<<<<<< HEAD
 
     const newTour = new TourModel({
         name,
@@ -87,6 +106,10 @@ const updateTour = asyncHandler(async (req, res) => {
         id
     } = req.params;
     const {
+=======
+    
+    const newTour = new TourModel({
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
         name,
         description,
         price,
@@ -105,21 +128,51 @@ const updateTour = asyncHandler(async (req, res) => {
     // Nhận danh sách ảnh cũ từ body, để tí kiểm tra là mảng ảnh này với mảng ảnh trong mông
     const existingImages = JSON.parse(req.body.existingImages || '[]');
 
+<<<<<<< HEAD
     const tour = await TourModel.findById(id);
 
     // Danh sách ảnh và video cũ từ tour hiện tại
     let updatedVideos = [tour.videos[0]];
     console.log("exten", existingImages);
     // cái existingImages là cái mảng chứa ảnh, lúc mà mình edit video thì nó hiện ra ảnh của video đó, ví dụ mình xóa ảnh đó thì nó sẽ còn lại 1 ảnh kia, 1 ảnh đó là ảnh cũ còn lại
+=======
+const updateTour = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { name, description, price, location, type, status } = req.body;
+    const tour = await TourModel.findById(id);
+
+    try {
+        for (const imageURL of tour.images) {
+            const imageFileName = decodeURIComponent(imageURL.split('/').pop().split('?')[0]);
+            const imageRef = ref(storages, imageFileName);
+            await deleteObject(imageRef);
+        }
+
+        for (const videoURL of tour.videos) {
+            const videoFileName = decodeURIComponent(videoURL.split('/').pop().split('?')[0]);
+            const videoRef = ref(storages, videoFileName);
+            await deleteObject(videoRef);
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message});
+    }
+
+    const updatedImages = [];
+    const updatedVideos = [];
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 
     try {
         // Nếu có ảnh mới, tải lên và thêm vào danh sách ảnh
         if (req.files && req.files['images']) {
             for (const file of req.files['images']) {
                 const storageRef = ref(storages, `products/${file.originalname}`);
+<<<<<<< HEAD
                 const metadata = {
                     contentType: file.mimetype
                 };
+=======
+                const metadata = { contentType: file.mimetype };
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
                 existingImages.push(file.originalname); // Thêm URL ảnh mới vào danh sách ảnh
@@ -131,9 +184,13 @@ const updateTour = asyncHandler(async (req, res) => {
         if (req.files && req.files['videos']) {
             for (const file of req.files['videos']) {
                 const storageRef = ref(storages, `products/${file.originalname}`);
+<<<<<<< HEAD
                 const metadata = {
                     contentType: file.mimetype
                 };
+=======
+                const metadata = { contentType: file.mimetype };
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
                 updatedVideos = []; // tạo mảng mới để mất cái dữ liệu ban đầu đi
@@ -186,9 +243,13 @@ const updateTour = asyncHandler(async (req, res) => {
         // }
 
     } catch (error) {
+<<<<<<< HEAD
         return res.status(500).json({
             message: error.message
         });
+=======
+        return res.status(500).json({ message: error.message});
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
     }
 
     // Cập nhật tour với dữ liệu mới
@@ -198,10 +259,15 @@ const updateTour = asyncHandler(async (req, res) => {
     tour.location = location || tour.location;
     tour.type = type || tour.type;
     tour.status = status || tour.status;
+<<<<<<< HEAD
     tour.images = existingImages; // Cập nhật danh sách ảnh mới
     tour.videos = updatedVideos || tour.videos; // Cập nhật danh sách video mới
     tour.planes = parsedPlanes || tour.planes;
     tour.dateTour = dateTour || tour.dateTour;
+=======
+    tour.images = updatedImages; 
+    tour.videos = updatedVideos;
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 
 
     // // Lưu tour đã cập nhật
@@ -211,9 +277,13 @@ const updateTour = asyncHandler(async (req, res) => {
 
 
 const deleteTour = asyncHandler(async (req, res) => {
+<<<<<<< HEAD
     const {
         id
     } = req.params;
+=======
+    const { id } = req.params;
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
     const tour = await TourModel.findById(id);
 
     try {
@@ -255,37 +325,51 @@ const deleteTour = asyncHandler(async (req, res) => {
             }
         }
     } catch (error) {
+<<<<<<< HEAD
         return res.status(500).json({
             message: error.message
         });
+=======
+        return res.status(500).json({ message: error.message});
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
     }
     console.log("Xóa thành công");
 
+<<<<<<< HEAD
     await TourModel.deleteOne({
         _id: id
     });
     res.status(200).json({
         tour
     });
+=======
+    await tour.deleteOne();
+    res.status(200).json({tour});
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 });
 
 
 const getAllTours = asyncHandler(async (req, res) => {
+<<<<<<< HEAD
     const limit = parseInt(req.query.limit) || 3; // Mặc định lấy 3 tour nếu không có limit
     const tours = await TourModel.find().limit(limit);
     res.status(200).json(tours);
+=======
+    const tours = await TourModel.find();
+
+        res.status(200).json(tours);
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 });
 
 // Lấy thông tin chi tiết của một tour theo ID
 const getTourById = asyncHandler(async (req, res) => {
-    const {
-        id
-    } = req.params;
+    const { id } = req.params;
     const tour = await TourModel.findById(id);
 
     res.status(200).json(tour);
 });
 
+<<<<<<< HEAD
 // get all tour by id danh mục
 const getAllTourByIdDM = asyncHandler(async (req, res) => {
     const {
@@ -353,3 +437,6 @@ module.exports = {
     getAllTourByIdDM,
     getTourByNameanDateTour
 }
+=======
+module.exports = { addTour, updateTour, deleteTour, getAllTours, getTourById }
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd

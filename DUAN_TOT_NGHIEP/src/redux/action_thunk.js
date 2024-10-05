@@ -35,6 +35,12 @@ import {
     loadMessage_ByIdChat,
     addNewMessage
 } from "./message_slice";
+import{
+    loadCommentByTour,
+    addComment,
+    delOneComment,
+    loadingComment
+}from "./comment_slice";
 
 import {
     loadAllBlog,
@@ -49,6 +55,8 @@ export function getOneUser(id) {
     return async (dispatch) => {
         try {
             let res = await axios.get(`http://localhost:3000/auth/find/${id}`)
+            console.log(res.data);
+            
             dispatch(loadOneUser(res.data))
         } catch (error) {
             console.log(error);
@@ -317,6 +325,7 @@ export function getOneTour(id) {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours/detail/${id}`)
             dispatch(loadOneTour(res.data))
+<<<<<<< HEAD
         } catch (error) {
             console.log(error);
 
@@ -415,6 +424,8 @@ export function getOneBlog(id) {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/blog/${id}`)
             dispatch(loadOneBlog(res.data))
+=======
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
         } catch (error) {
             console.log(error);
 
@@ -513,9 +524,41 @@ export function createMessage(chatId, senderId, text) {
                 text
             })
             dispatch(addNewMessage(res.data))
+<<<<<<< HEAD
+=======
+
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
         } catch (error) {
             console.log(error);
 
+        }
+    }
+}
+
+// rating & Comment
+// Add comment
+export function createComment(ratingScore, content){
+    return async (dispatch) => {
+        try{
+            let res = await axios.post(`http://localhost:3000/Comment/create`, {
+                ratingScore, content
+            })
+            dispatch(addComment(res.data))
+        } catch (error) {
+            console.log(error);
+        }  
+    }
+}
+
+//load Comment by Tour
+export function getCommentByTour(tourId) {
+    return async(dispatch) => {
+        try{
+            let res = await axios.get(`http://localhost:3000/Comment/${tourId}`)
+            dispatch(loadCommentByTour(res.data))
+        }catch(error){
+            console.log(error);
+            
         }
     }
 }
