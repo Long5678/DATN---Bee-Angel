@@ -1,57 +1,20 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import "../../../publics/styles/list-tour.scss"
 import Item_tour from "./item_tour"
 import { getAllTour } from "../../../redux/action_thunk"
-
-let list_dataTour = [
-  {
-    title: "Tour Huế",
-    price: "1.500.000",
-    title_child: "KINH THÀNH HUẾ - HUẾ",
-    image: "https://cdn.media.dulich24.com.vn/diemden/kinh-thanh-hue-5562/kinh-thanh-hue.jpg",
-    content: " Kinh Thành Huế, hoàn thành dưới triều Minh Mạng sau 27 năm xây dựng, là một phần quan trọng của Cố đô Huế.",
-  },
-  {
-    title: "Tour Bà Nà 2N1Đ",
-    price: "1.000.000",
-    title_child: "BÀ NÀ - ĐÀ NẴNG",
-    image: "https://tiki.vn/blog/wp-content/uploads/2023/03/ba-na-hills.jpg",
-    content: "Bà Nà Hills Đà Nẵng, điểm lịch nổi tiếng cách Đà Nẵng 30km với độ cao 1.500m so với biển, được mệnh danh là 'Sapa của miền Trung'. ",
-  },
-  {
-    title: "Tour Hội An 3N2Đ",
-    price: "2.500.000",
-    title_child: "PHỐ CỔ - HỘI AN",
-    image: "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/10/6/1101769/Hoi-An-22.jpeg",
-    content: "Hội An, một phần quan trọng của tỉnh Quảng Nam, Việt Nam, là một thành phố cổ nằm 30km về phía Nam của thành phố Đà Nẵng ",
-  },
-  {
-    title: "Tour Hội An 3N2Đ",
-    price: "2.500.000",
-    title_child: "PHỐ CỔ - HỘI AN",
-    image: "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/10/6/1101769/Hoi-An-22.jpeg",
-    content: "Hội An, một phần quan trọng của tỉnh Quảng Nam, Việt Nam, là một thành phố cổ nằm 30km về phía Nam của thành phố Đà Nẵng ",
-  },
-  {
-    title: "Tour Bà Nà 2N1Đ",
-    price: "1.000.000",
-    title_child: "BÀ NÀ - ĐÀ NẴNG",
-    image: "https://tiki.vn/blog/wp-content/uploads/2023/03/ba-na-hills.jpg",
-    content: "Bà Nà Hills Đà Nẵng, điểm lịch nổi tiếng cách Đà Nẵng 30km với độ cao 1.500m so với biển, được mệnh danh là 'Sapa của miền Trung'. ",
-  },
-]
+import Loading from "../../layouts/loading"
 
 function List_tour() {
   let dispatch = useDispatch()
   let tourDatas = useSelector((state) => state.tourSL.tourDatas)
+  let isLoadingTour = useSelector((state) => state.tourSL.isLoadingTour)
+  // State để lưu số lượng tour sẽ được hiển thị
+  const [limit, setLimit] = useState(3);
 
   useEffect(() => {
-    dispatch(getAllTour())
-  }, [])
-
-  console.log(tourDatas);
-  
+    dispatch(getAllTour(limit))
+  }, [limit])
 
   return <>
     <article className="main-list-tour">
@@ -62,11 +25,16 @@ function List_tour() {
         </section>
         <div className="line-tour"></div>
 
+        {isLoadingTour && <Loading top={35} left={50} position="absolute" />}
+        {/* <Loading top={35} left={50} position="absolute" /> */}
         <section className="list-tour">
           {tourDatas.map((item, index) => {
             return <Item_tour key={index} {...item} />
           })}
         </section>
+        <div className="div-btn-xemThem">
+          <button onClick={() => setLimit(prevLimit => prevLimit + 3)} className="btn-xemThem">Xem Thêm</button>
+        </div>
       </section>
     </article>
   </>

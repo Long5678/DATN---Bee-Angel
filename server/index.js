@@ -5,11 +5,21 @@ const path = require("path");
 const userRoute = require("./Routes/userRoute");
 const tourRoutes = require('./Routes/tourRoute');
 const tourTypeRoutes = require('./Routes/tourTypeRoutes');
+<<<<<<< HEAD
+const chatRoutes = require('./Routes/chatRoute')
+const messageRoutes = require('./Routes/messageRoute')
+const CommentRoutes = require('./Routes/commentRoute');
+const blogRoutes = require('./Routes/blogRoute')
+=======
 const vehicleTypeRoutes = require('./Routes/vehicleTypeRoutes')
 const vehicleRoute = require('./Routes/vehicleRoute')
 const CommentRoute = require('./Routes/commentRoute')
 const RatingRoute = require('./Routes/ratingRoute')
+<<<<<<< HEAD
 const priceRoutes = require('./Routes/priceRoutes')
+=======
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
+>>>>>>> 095bdba5dc8e75704b023840e253d41d9560bdbd
 
 const app = express();
 require("dotenv").config()
@@ -26,11 +36,21 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/auth", userRoute)
 app.use('/Admin/tours', tourRoutes);
 app.use('/Admin/tourTypes', tourTypeRoutes);
+<<<<<<< HEAD
+app.use('/Comment', CommentRoutes)
+app.use("/chats", chatRoutes)
+app.use("/messages", messageRoutes)
+app.use('/Admin/blog', blogRoutes);
+=======
 app.use('/Admin/vehicleType', vehicleTypeRoutes);
 app.use('/Admin/vehicle', vehicleRoute);
 app.use('/Comment', CommentRoute)
 app.use('/Rating', RatingRoute)
+<<<<<<< HEAD
 app.use('/price', priceRoutes);
+=======
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
+>>>>>>> 095bdba5dc8e75704b023840e253d41d9560bdbd
 
 app.get("/", (req, res) => {
     res.send("welcom your zalo chat")

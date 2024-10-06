@@ -4,8 +4,10 @@ import {
 
 const initialState = {
     isLoadingDM: false,
+    isErrorDM: "",
     danhMucDatas: [],
     danhMucOne: {},
+    isErrorDelDM: "",
 };
 
 export const danhMucSlice = createSlice({
@@ -37,6 +39,13 @@ export const danhMucSlice = createSlice({
         loadingDM(state, action) {
             state.isLoadingDM = action.payload;
         },
+
+        errorDM(state, action) {
+            state.isErrorDM = action.payload;
+        },
+        errorDelDM(state, action) {
+            state.isErrorDelDM = action.payload;
+        },
     }
 })
 
@@ -47,5 +56,7 @@ export const {
     delOneDanhMuc,
     loadOneDanhMuc,
     updateOneDanhMuc,
-    loadingDM
+    loadingDM,
+    errorDM,
+    errorDelDM
 } = danhMucSlice.actions;

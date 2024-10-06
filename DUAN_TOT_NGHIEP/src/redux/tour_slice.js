@@ -4,6 +4,7 @@ import {
 
 const initialState = {
     isLoadingTour: false,
+    isLoadingAddTour: false,
     tourDatas: [],
     tourOne: {},
 };
@@ -37,6 +38,9 @@ export const tourSlice = createSlice({
         loadingTour(state, action) {
             state.isLoadingTour = action.payload;
         },
+        loadingAddTour(state, action) {
+            state.isLoadingAddTour = action.payload;
+        },
     }
 })
 
@@ -47,5 +51,6 @@ export const {
     delOneTour,
     loadOneTour,
     updateOneTour,
-    loadingTour
+    loadingTour,
+    loadingAddTour
 } = tourSlice.actions;

@@ -11,6 +11,8 @@ import {
     loadOneDanhMuc,
     updateOneDanhMuc,
     loadingDM,
+    errorDM,
+    errorDelDM,
 } from "./danhMuc_slice";
 
 import {
@@ -18,8 +20,9 @@ import {
     addOneTour,
     delOneTour,
     loadOneTour,
-    // updateOneTour,
-    // loadingTour
+    loadingTour,
+    loadingAddTour,
+    updateOneTour,
 } from "./tour_slice";
 
 
@@ -38,6 +41,14 @@ import{
     delOneComment,
     loadingComment
 }from "./comment_slice";
+
+import {
+    loadAllBlog,
+    addOneBlog,
+    delOneBlog,
+    loadOneBlog,
+    updateOneBlog,
+} from "./blog_slice"
 
 // phần user
 export function getOneUser(id) {
@@ -104,7 +115,7 @@ export function getAllUser() {
             dispatch(loadAllUser(res.data))
         } catch (error) {
             console.log(error);
-        } 
+        }
     }
 }
 
@@ -137,7 +148,12 @@ export function createDanhMuc(name, description) {
             })
             dispatch(addOneDanhMuc(res.data))
         } catch (error) {
-            console.log(error);
+            if (error.response.status === 400) {
+                console.log(error.response.data.message);
+                dispatch(errorDM(error.response.data.message))
+            } else {
+                console.log("Đăng nhập thất bại !");
+            }
 
         }
     }
@@ -150,7 +166,10 @@ export function delDanhMuc(id) {
             await axios.delete(`http://localhost:3000/Admin/tourTypes/delete/${id}`)
             dispatch(delOneDanhMuc(id))
         } catch (error) {
-            console.log(error);
+            if (error.response.status === 400) {
+                console.log(error.response.data.message);
+                dispatch(errorDelDM(error.response.data.message))
+            }
         }
     }
 }
@@ -191,7 +210,7 @@ export function updateDanhMuc(id, name, description) {
 export function createTour(data) {
     return async (dispatch) => {
         try {
-            console.log("action_data", data);
+            dispatch(loadingAddTour(true))
             let res = await axios.post(`http://localhost:3000/Admin/tours/add`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -200,22 +219,88 @@ export function createTour(data) {
             dispatch(addOneTour(res.data))
         } catch (error) {
             console.log(error);
+        } finally {
+            dispatch(loadingAddTour(false))
+        }
+    }
+}
 
+// update tour
+export function updateTour(id, data) {
+    return async (dispatch) => {
+        try {
+            dispatch(loadingAddTour(true))
+            console.log("action_data", data);
+            let res = await axios.put(`http://localhost:3000/Admin/tours/edit/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            dispatch(updateOneTour(res.data))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingAddTour(false))
         }
     }
 }
 
 
 // get all Tour
-export function getAllTour() {
+export function getAllTour(limit) {
     return async (dispatch) => {
         try {
-            let res = await axios.get(`http://localhost:3000/Admin/tours`)
+            dispatch(loadingTour(true))
+            // let limit = 3
+            let res = await axios.get(`http://localhost:3000/Admin/tours?limit=${limit}`)
             dispatch(loadAllTour(res.data))
         } catch (error) {
             console.log(error);
         } finally {
-            dispatch(loadingDM(false))
+            dispatch(loadingTour(false))
+        }
+
+    }
+}
+
+// get all tour by iddm
+export function getAllTourDM(id) {
+    return async (dispatch) => {
+        try {
+            dispatch(loadingTour(true))
+            // let limit = 3
+            let res = await axios.get(`http://localhost:3000/Admin/tours/tourDM/${id}`)
+            dispatch(loadAllTour(res.data))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingTour(false))
+        }
+
+    }
+}
+
+// get tour theo name hoặc dateTour
+export function getTourByNameAnDateTour(name, dateTour) {
+    return async (dispatch) => {
+        try {
+            dispatch(loadingTour(true))
+            console.log(name);
+            
+            let res = await axios.get(`http://localhost:3000/Admin/tours/getDateTouranName?${name ? `name=${name}` : ''}${dateTour ? `&dateTour=${dateTour}` : ''}`)
+            dispatch(loadAllTour(res.data))
+        } catch (error) {
+               if (error.response.status === 404) {
+                   console.log(error.response.data.message);
+                //    dispatch(errorDelDM(error.response.data.message))
+               }
+                if (error.response.status === 500) {
+                    console.log(error.response.data.message);
+                    // dyispatch(errorDelDM(error.response.data.message))
+                }
+
+        } finally {
+            dispatch(loadingTour(false))
         }
 
     }
@@ -240,6 +325,107 @@ export function getOneTour(id) {
         try {
             let res = await axios.get(`http://localhost:3000/Admin/tours/detail/${id}`)
             dispatch(loadOneTour(res.data))
+<<<<<<< HEAD
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
+// *** blog 
+//create blog
+export function createBlog(data) {
+    return async (dispatch) => {
+        try {
+            console.log("action_data", data);
+            let res = await axios.post(`http://localhost:3000/Admin/blog/create`, data); // Pass 'data' directly
+            dispatch(addOneBlog(res.data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+}
+
+//lấy tất cả blog người dùng views
+// get all Blog
+export function getAllBlog() {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/Admin/blog`)
+            dispatch(loadAllBlog(res.data))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingDM(false))
+        }
+
+    }
+}
+
+// get newest Blog
+export function getNewestBlog() {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/Admin/blog/sorted/newest`);
+            dispatch(loadAllBlog(res.data));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingDM(false));
+        }
+    };
+}
+
+// get oldest Blog
+export function getOldestBlog() {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/Admin/blog/sorted/oldest`);
+            dispatch(loadAllBlog(res.data));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(loadingDM(false));
+        }
+    };
+}
+
+
+// del Blog
+export function delBlog(id) {
+    return async (dispatch) => {
+        try {
+            await axios.delete(`http://localhost:3000/Admin/blog/${id}`)
+            dispatch(delOneBlog(id))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+//update Blog
+// update one danh mục by id
+export function updatePostBlog(id, data) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.put(`http://localhost:3000/Admin/blog/${id}`, data)
+            dispatch(updateOneBlog(res.data))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
+// get one blog by id
+export function getOneBlog(id) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/Admin/blog/${id}`)
+            dispatch(loadOneBlog(res.data))
+=======
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
         } catch (error) {
             console.log(error);
 
@@ -248,6 +434,19 @@ export function getOneTour(id) {
 }
 
 
+export function getOnePost(id) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.get(`http://localhost:3000/Admin/blog/${id}`)
+            // console.log(res.data);
+            dispatch(loadOneBlog(res.data))
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
 
 // phần action của chat ****
 // thêm đoạn chat
@@ -255,10 +454,11 @@ export function createChat(firsId, secondId) {
     return async (dispatch) => {
         try {
             let res = await axios.post(`http://localhost:3000/chats`, {
-             firsId, secondId
+                firsId,
+                secondId
             })
             console.log(res.data);
-            
+
             dispatch(addOneChat(res.data))
         } catch (error) {
             console.log(error);
@@ -319,10 +519,15 @@ export function createMessage(chatId, senderId, text) {
     return async (dispatch) => {
         try {
             let res = await axios.post(`http://localhost:3000/messages`, {
-               chatId, senderId, text
+                chatId,
+                senderId,
+                text
             })
             dispatch(addNewMessage(res.data))
+<<<<<<< HEAD
+=======
 
+>>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
         } catch (error) {
             console.log(error);
 

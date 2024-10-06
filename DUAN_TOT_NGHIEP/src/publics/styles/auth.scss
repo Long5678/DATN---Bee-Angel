@@ -44,11 +44,19 @@
     color: #9F224E !important;
 }
 
-.line-auth {
+.active-color-addTour {
+    color: #316cf4 !important;
+}
+
+.line-auth,.line-addTour {
     width: 100px;
     height: 3px;
     background-color: #901b44;
     transition: transform 0.3s ease-in-out; // Hiệu ứng chuyển động mượt
+}
+
+.line-addTour {
+  background-color: #316cf4 !important;
 }
 
 // register

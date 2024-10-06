@@ -28,7 +28,8 @@ function Item_tour({_id, name, price, status, location, description, images }) {
     return <>
         <section className="tour-item">
             <section className="tour-image-block">
-                <img src={images[0]} alt="Đại Nội Huế" className="tour-image" />
+                {/* <img src={images[0]} alt="Đại Nội Huế" className="tour-image" /> */}
+                <img src={`https://firebasestorage.googleapis.com/v0/b/bee-angel.appspot.com/o/products%2F${images[0]}?alt=media`} alt="Đại Nội Huế" className="tour-image" />
             </section>
             <section className="tour-info">
                 <div className="tour-meta">
@@ -39,11 +40,16 @@ function Item_tour({_id, name, price, status, location, description, images }) {
                 <p className="tour-description">{shortenedContent}</p>
                 <div className="d-flex">
                     <p className="tour-price">Price <span>{formatPrice}</span> VND</p>
+<<<<<<< HEAD
                     {user ?
+=======
+                    {/* {user ?
+>>>>>>> 095bdba5dc8e75704b023840e253d41d9560bdbd
                         <button className="book-button" onClick={(e) => handleDatTour(e)}>Đặt Vé</button>
                         :
                         <button onClick={() => setOpen(true)} className="book-button">Đặt Vé</button>
-                    }
+                    } */}
+                    <p>{status}</p>
 
                 </div>
 
