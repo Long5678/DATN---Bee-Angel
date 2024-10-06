@@ -17,7 +17,7 @@ function Item_tour({_id, name, price, status, location, description, images }) {
 
     function handleDatTour(e) {
         e.stopPropagation(); // Ngăn chặn sự kiện click lan lên phần tử cha
-        navigation("/datTour")
+        navigation(`/datTour?id=${_id}`)
     }
 
 
@@ -40,7 +40,7 @@ function Item_tour({_id, name, price, status, location, description, images }) {
                 <div className="d-flex">
                     <p className="tour-price">Price <span>{formatPrice}</span> VND</p>
                     {user ?
-                        <button className="book-button"><a href="/datTour">Đặt Vé</a></button>
+                        <button className="book-button" onClick={(e) => handleDatTour(e)}>Đặt Vé</button>
                         :
                         <button onClick={() => setOpen(true)} className="book-button">Đặt Vé</button>
                     }

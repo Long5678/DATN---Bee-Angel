@@ -14,6 +14,7 @@ import { AuthContextProvider } from './context/authContext.jsx';
 import User_layouts from './components/pages/user_layouts.jsx';
 import Main_home from './components/pages/home/main_home.jsx';
 import Main_datTour from './components/pages/dat_tour/main_datTour.jsx';
+import Main_thanhtoan from './components/pages/thanhtoan/main_thanhtoan.jsx';
 import Main_tours from './components/pages/tours/main_tours.jsx';
 import Main_detail_tour from './components/pages/detail_tour/main_detail_tour.jsx';
 import Main_dieuKhoan from './components/pages/dieuKhoan/main_dieuKhoan.jsx';
@@ -56,6 +57,10 @@ const routers = createBrowserRouter([
       {
         path: "/detail",
         element: <Main_detail_tour />
+      },
+      {
+        path: "/thanhtoan",
+        element: <Main_thanhtoan />
       },
       {
         path: "/dieuKhoan",
