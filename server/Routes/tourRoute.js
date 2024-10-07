@@ -8,12 +8,10 @@ const {
     getAllTourByIdDM,
     getTourByNameanDateTour
 } = require('../Controllers/tourController');
-const { addTour, updateTour, deleteTour, getAllTours, getTourById } = require('../Controllers/tourController');
 const upload = require('../middlewares/uploadMiddleware');
 const router = express.Router();
 
 router.get('/', getAllTours);
-router.get('/:id', getTourById);
 router.post('/add', upload.fields([
     { name: 'images', maxCount: 5 },
     { name: 'videos', maxCount: 1 }

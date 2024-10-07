@@ -14,7 +14,6 @@ import { AuthContextProvider } from './context/authContext.jsx';
 import User_layouts from './components/pages/user_layouts.jsx';
 import Main_home from './components/pages/home/main_home.jsx';
 import Main_datTour from './components/pages/dat_tour/main_datTour.jsx';
-import Main_thanhtoan from './components/pages/thanhtoan/main_thanhtoan.jsx';
 import Main_tours from './components/pages/tours/main_tours.jsx';
 import Main_detail_tour from './components/pages/detail_tour/main_detail_tour.jsx';
 import Main_dieuKhoan from './components/pages/dieuKhoan/main_dieuKhoan.jsx';
@@ -36,6 +35,9 @@ import ChatApp from './components/pages/admin/content_wraper/chats/chatApp.jsx'
 import { NotificationProvider } from './context/notificationContext.jsx'
 import Main_user from './components/pages/admin/content_wraper/user/main_user.jsx'
 import MainBlog from './components/pages/admin/content_wraper/blog/main_Blog.jsx'
+import MainTestSMS from './components/pages/testSMS/mainTestSMS.jsx'
+import Main_thanhtoan from "./components/pages/thanhtoan/main_thanhtoan.jsx"
+
 
 const routers = createBrowserRouter([
   {
@@ -89,6 +91,10 @@ const routers = createBrowserRouter([
       {
         path: "/tinTuc/detail",
         element: <Main_detail_post />
+      },
+      {
+        path: "/testSMS",
+        element: <MainTestSMS />
       },
     ]
   },
