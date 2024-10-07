@@ -9,6 +9,7 @@ function TourForm() {
   const [numberOfPeople, setNumberOfPeople] = useState(1);
   const [numberOfChildren, setNumberOfChildren] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [depositPrice, setDepositPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -20,11 +21,13 @@ function TourForm() {
         numberOfChildren: children,
       });
       setTotalPrice(response.data.totalPrice);
+      setDepositPrice(response.data.depositPrice);
       setErrorMessage("");
     } catch (error) {
       console.error("Error details:", error);
       setErrorMessage(error.response?.data?.message || "Có lỗi xảy ra. Vui lòng thử lại.");
       setTotalPrice(0);
+      setDepositPrice(0);
     }
   };
 
@@ -46,12 +49,21 @@ function TourForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Lưu totalPrice vào localStorage
-  localStorage.setItem("totalPrice", totalPrice);
 
-  // Chuyển hướng đến trang thanh toán
-  navigate(`/thanhtoan`);
+    localStorage.setItem("totalPrice", totalPrice);
+    localStorage.setItem("depositPrice", depositPrice);
+
+    window.location.href = "/thanhtoan"
+  };
+
+  const handlePayFull = () => {
+    localStorage.setItem("paymentType", "full");
+    handleSubmit();
+  };
+
+  const handlePayDeposit = () => {
+    localStorage.setItem("paymentType", "deposit");
+    handleSubmit();
   };
 
   return (
@@ -61,15 +73,15 @@ function TourForm() {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Họ và tên</label>
-            <input type="text" placeholder="vui lòng nhập" required />
+            <input type="text" placeholder="vui lòng nhập"  />
           </div>
           <div className="form-group">
             <label>Email</label>
-            <input type="email" placeholder="vui lòng nhập" required />
+            <input type="email" placeholder="vui lòng nhập"  />
           </div>
           <div className="form-group">
             <label>Số điện thoại</label>
-            <input type="tel" placeholder="vui lòng nhập" required />
+            <input type="tel" placeholder="vui lòng nhập" />
           </div>
           <div className="form-group-wrapper">
             <div className="form-group">
@@ -95,9 +107,14 @@ function TourForm() {
               />
             </div>
           </div>
-          <div className="form-group">
-            <h3>Tổng tiền: <span>{totalPrice > 0 ? totalPrice : 0} VND</span></h3>
-            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          <div className="additional-info">
+            <div className="form-group">
+              <h3>Tổng tiền: <span>{totalPrice > 0 ? totalPrice : 0} VND</span></h3>
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            </div>
+            <div className="form-group">
+              <button onClick={handlePayDeposit}>Đặt cọc 50%</button>
+            </div>
           </div>
           <div className="additional-info">
             <div className="form-group">
@@ -108,7 +125,7 @@ function TourForm() {
               <input type="checkbox" id="terms" required />
               <label htmlFor="terms">Tôi đồng ý điều khoản mà website đưa ra</label>
             </div>
-            <button type="submit">Thanh toán</button>
+            <button onClick={handlePayFull}>Thanh toán</button>
           </div>
         </form>
       </div>

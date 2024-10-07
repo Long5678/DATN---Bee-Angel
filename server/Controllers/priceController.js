@@ -32,9 +32,16 @@ const handleCalculatePrice = asyncHandler(async (req, res) => {
     // Tính giá tổng cộng
     const totalPrice = calculatePrice(basePrice, numberOfPeople, numberOfChildren);
 
+    // Tính số tiền đặt cọc (50% của giá tổng cộng)
+    const depositPrice = totalPrice * 0.5;
+
+    const tienconlai = totalPrice - depositPrice
+
     return res.status(200).json({
         message: `Giá tiền cho ${numberOfPeople} người lớn và ${numberOfChildren} trẻ em là: ${totalPrice} VND`,
         totalPrice,
+        depositPrice,
+        tienconlai
     });
 });
 

@@ -1,5 +1,4 @@
 const TourModel = require('../Models/tourModel');
-<<<<<<< HEAD
 const {
     initializeApp
 } = require("firebase/app");
@@ -12,11 +11,9 @@ const {
     uploadBytesResumable,
     deleteObject
 } = require('firebase/storage');
-=======
 const { initializeApp } = require("firebase/app");
 const { getStorage } = require("firebase/storage");
 const { getDownloadURL, ref, uploadBytesResumable, deleteObject } = require('firebase/storage');
->>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 const firebaseConfig = require("../Configs/firebase.config");
 const asyncHandler = require('express-async-handler');
 
