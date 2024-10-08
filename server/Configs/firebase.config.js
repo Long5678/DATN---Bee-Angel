@@ -1,5 +1,5 @@
 const firebaseConfig = {
-    apiKey: "",
+    apiKey: "AIzaSyDRsBZLKB0VeV3pitYTLexbzfEM0x9KVFA",
     authDomain: "bee-angel.firebaseapp.com",
     projectId: "bee-angel",
     storageBucket: "bee-angel.appspot.com",
