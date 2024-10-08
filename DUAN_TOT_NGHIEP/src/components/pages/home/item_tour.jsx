@@ -40,15 +40,12 @@ function Item_tour({_id, name, price, status, location, description, images }) {
                 <p className="tour-description">{shortenedContent}</p>
                 <div className="d-flex">
                     <p className="tour-price">Price <span>{formatPrice}</span> VND</p>
-<<<<<<< HEAD
                     {user ?
-=======
-                    {/* {user ?
->>>>>>> 095bdba5dc8e75704b023840e253d41d9560bdbd
+
                         <button className="book-button" onClick={(e) => handleDatTour(e)}>Đặt Vé</button>
                         :
                         <button onClick={() => setOpen(true)} className="book-button">Đặt Vé</button>
-                    } */}
+                    }
                     <p>{status}</p>
 
                 </div>
