@@ -23,7 +23,7 @@ const addTourType = asyncHandler(async (req, res) => {
     });
 
     await newTourType.save();
-    res.status(201).json({newTourType});
+    res.status(201).json(newTourType);
 });
 
 const updateTourType = asyncHandler(async (req, res) => {
@@ -42,7 +42,7 @@ const updateTourType = asyncHandler(async (req, res) => {
     tourType.description = description || tourType.description;
 
     const updatedTourType = await tourType.save();
-    res.status(200).json({updatedTourType});
+    res.status(200).json(updatedTourType);
 });
 
 const deleteTourType = asyncHandler(async (req, res) => {
@@ -50,7 +50,6 @@ const deleteTourType = asyncHandler(async (req, res) => {
         id
     } = req.params;
 
-<<<<<<< HEAD
     const checkTypeTour = await tourModel.find({
         type: id
     })
@@ -63,15 +62,10 @@ const deleteTourType = asyncHandler(async (req, res) => {
            })
 
        }
-=======
-    await tourType.deleteOne();
-    res.status(200).json({tourType});
->>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
 });
 
 // Lấy tất cả các loại tour
 const getTourTypes = asyncHandler(async (_req, res) => {
-<<<<<<< HEAD
     const tourTypes = await TourTypeModel.find().sort({
         createdAt: -1
     });
@@ -94,10 +88,3 @@ module.exports = {
     getTourTypes,
     getTourTypeById
 };
-=======
-    const tourTypes = await TourTypeModel.find().sort({ createdAt: -1 });
-    res.status(200).json({tourTypes});
-});
-
-module.exports = { addTourType, updateTourType, deleteTourType, getTourTypes };
->>>>>>> e10f03657868254fe7274b7aa979ca37bc99c4dd
