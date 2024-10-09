@@ -1,10 +1,10 @@
 const express = require("express")
-const { addComment, getCommentsByTour, deleteComment } = require("../Controllers/commentController")
+const { createComment, replyToComment, getCommentsByTourId } = require("../Controllers/commentController")
 const router = express.Router()
 
-router.get("/:tourId", getCommentsByTour);
-router.post("/create", addComment);
-router.delete("/del/:id", deleteComment);
+router.get("/:tourId", getCommentsByTourId);
+router.post("/create", createComment);
+router.post("/:commentId/reply", replyToComment);
 
 
 
