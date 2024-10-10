@@ -13,6 +13,7 @@ function Main_thanhtoan() {
     const price = localStorage.getItem("totalPrice");
     const deposit = localStorage.getItem("depositPrice");
     const paymentType = localStorage.getItem("paymentType");
+    const sale = localStorage.getItem("sale");
 
     setTotalPrice(price ? parseInt(price) : 0);
     setDepositPrice(deposit ? parseInt(deposit) : 0);

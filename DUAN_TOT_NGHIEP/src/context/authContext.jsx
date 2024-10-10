@@ -33,6 +33,9 @@ export const AuthContextProvider = ({ children }) => {
                 password: data.pass,
                 phone: data.phone,
                 role: data.role,
+                address: '',
+                gender: '',
+                birth_day: '',
             })
             console.log("Đăng ký thành công", res);
             setCheck(false)

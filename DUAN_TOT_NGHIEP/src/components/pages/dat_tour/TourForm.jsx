@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../publics/styles/datTour.scss";
 
 function TourForm() {
+  const [userInfo, setUserInfo] = useState(null);
   const [searchParams] = useSearchParams();
   const idTour = searchParams.get("id");
   const [numberOfPeople, setNumberOfPeople] = useState(1);
@@ -13,6 +14,13 @@ function TourForm() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUserInfo = localStorage.getItem("userInfo");
+    if (storedUserInfo) {
+      setUserInfo(JSON.parse(storedUserInfo)); // Chuyển đổi từ chuỗi JSON về đối tượng
+    }
+  }, []);
 
   const handleCalculatePrice = async (people, children) => {
     try {
@@ -52,12 +60,17 @@ function TourForm() {
 
     localStorage.setItem("totalPrice", totalPrice);
     localStorage.setItem("depositPrice", depositPrice);
+    localStorage.setItem("numberOfPeople", numberOfPeople);
+    localStorage.setItem("numberOfChildren", numberOfChildren);
 
-    window.location.href = "/thanhtoan"
+
+    window.location.href = (`/thanhtoan?id=${idTour}&people=${numberOfPeople}&children=${numberOfChildren}`)
   };
 
   const handlePayFull = () => {
     localStorage.setItem("paymentType", "full");
+    localStorage.setItem("depositPrice", 0); // Set depositPrice to 0
+    localStorage.setItem("totalPrice", totalPrice); // Total price remains as is
     handleSubmit();
   };
 
@@ -70,18 +83,43 @@ function TourForm() {
     <div className="tour-form-container2">
       <div className="tour-form">
         <h2>Chi tiết thanh toán</h2>
+        {userInfo && (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Họ và tên</label>
-            <input type="text" placeholder="vui lòng nhập"  />
+            <input type="text" value={userInfo.name} placeholder="vui lòng nhập"/>
+          </div>
+          <div className="form-group-wrapper">
+            <div className="form-group">
+              <label>Ngày sinh</label>
+              <input type="date"value={userInfo.birth_day} placeholder="vui lòng nhập"/>
+            </div>
+            <div className="form-group">
+              <label>Giới tính</label>
+              <input type="text" value={userInfo.gender} placeholder="vui lòng nhập"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Địa chỉ</label>
+            <input type="text" value={userInfo.address} placeholder="vui lòng nhập"/>
           </div>
           <div className="form-group">
             <label>Email</label>
-            <input type="email" placeholder="vui lòng nhập"  />
+            <input type="email" value={userInfo.email} placeholder="vui lòng nhập"/>
           </div>
+          <div className="form-tel">
+            <div className="form-group col-9">
+              <label>Số điện thoại</label>
+              <input type="tel" value={userInfo.phone} placeholder="vui lòng nhập"/>
+            </div>
+            <div className="form-group col-3">
+                <button>Xác thực</button>
+              </div>
+          </div>
+          
           <div className="form-group">
-            <label>Số điện thoại</label>
-            <input type="tel" placeholder="vui lòng nhập" />
+            <label>Ngày khỏi hành</label>
+            <input type="number" placeholder="vui lòng nhập"/>
           </div>
           <div className="form-group-wrapper">
             <div className="form-group">
@@ -108,13 +146,16 @@ function TourForm() {
             </div>
           </div>
           <div className="additional-info">
-            <div className="form-group">
-              <h3>Tổng tiền: <span>{totalPrice > 0 ? totalPrice : 0} VND</span></h3>
-              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            <div className="form-flex">
+              <div className="form-group col-7">
+                <h3 className="ok">Tổng tiền:<span className="title-red mx-2">{totalPrice > 0 ? totalPrice : 0}</span>VND</h3>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+              </div>
+              <div className="form-group col-5">
+                <button onClick={handlePayDeposit}>Đặt cọc 50%</button>
+              </div>
             </div>
-            <div className="form-group">
-              <button onClick={handlePayDeposit}>Đặt cọc 50%</button>
-            </div>
+            
           </div>
           <div className="additional-info">
             <div className="form-group">
@@ -128,6 +169,7 @@ function TourForm() {
             <button onClick={handlePayFull}>Thanh toán</button>
           </div>
         </form>
+        )}
       </div>
     </div>
   );

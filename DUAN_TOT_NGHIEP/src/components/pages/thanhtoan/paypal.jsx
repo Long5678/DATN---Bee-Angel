@@ -1,11 +1,13 @@
 import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const style = { layout: "vertical" };
 
 const ButtonWrapper = ({ currency, showSpinner, amount }) => {
     const [{ isPending, options }, dispatch] = usePayPalScriptReducer();
-    
+    const navigate = useNavigate(); // Initialize navigate
+
     useEffect(() => {
         dispatch({
             type: 'resetOptions',
@@ -30,6 +32,7 @@ const ButtonWrapper = ({ currency, showSpinner, amount }) => {
                     }).then(orderId => orderId)}
                 onApprove={(data, actions) => actions.order.capture().then(async (response) => {
                     console.log(response);
+                    navigate("/hoanthanh"); // Redirect to success page after successful payment
                 })}
             />
         </>
