@@ -32,16 +32,22 @@ const handleCalculatePrice = asyncHandler(async (req, res) => {
     // Tính giá tổng cộng
     const totalPrice = calculatePrice(basePrice, numberOfPeople, numberOfChildren);
 
-    // Tính số tiền đặt cọc (50% của giá tổng cộng)
-    const depositPrice = totalPrice * 0.5;
+    // sau khi giảm giá
+    const sale = totalPrice * 0.9;
 
-    const tienconlai = totalPrice - depositPrice
+    // Tính số tiền đặt cọc (50% của giá tổng cộng)
+    const depositPrice = sale * 0.5;
+
+        // Không để kết quả âm
+        const finalDepositPrice = Math.max(depositPrice, 0);
+        const finalTienConLai = Math.max(sale - finalDepositPrice, 0);
 
     return res.status(200).json({
         message: `Giá tiền cho ${numberOfPeople} người lớn và ${numberOfChildren} trẻ em là: ${totalPrice} VND`,
         totalPrice,
-        depositPrice,
-        tienconlai
+        sale,
+        depositPrice: finalDepositPrice,
+        tienconlai: finalTienConLai
     });
 });
 
