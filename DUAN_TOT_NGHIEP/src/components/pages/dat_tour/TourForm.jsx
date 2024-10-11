@@ -30,6 +30,13 @@ function TourForm() {
 
 
 
+  useEffect(() => {
+    const storedUserInfo = localStorage.getItem("userInfo");
+    if (storedUserInfo) {
+      setUserInfo(JSON.parse(storedUserInfo)); // Chuyển đổi từ chuỗi JSON về đối tượng
+    }
+  }, []);
+
   const handleCalculatePrice = async (people, children) => {
     try {
       const response = await axios.post(`http://localhost:3000/price/calculate-price/${idTour}`, {

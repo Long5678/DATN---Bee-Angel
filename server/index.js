@@ -10,6 +10,7 @@ const messageRoutes = require('./Routes/messageRoute')
 const CommentRoutes = require('./Routes/commentRoute');
 const blogRoutes = require('./Routes/blogRoute')
 const priceRoutes = require('./Routes/priceRoutes')
+const RatingRoute = require('./Routes/ratingRoute')
 
 const app = express();
 require("dotenv").config()
@@ -32,6 +33,7 @@ app.use("/chats", chatRoutes)
 app.use("/messages", messageRoutes)
 app.use('/Admin/blog', blogRoutes);
 app.use('/price', priceRoutes);
+app.use('/Rating', RatingRoute)
 
 app.get("/", (req, res) => {
     res.send("welcom your zalo chat")

@@ -6,7 +6,6 @@ import Banner from "../home/banner";
 
 function Main_datTour() {
   const token = localStorage.getItem('token'); // Kiểm tra token
-
   return (
     <>
       <Header />
