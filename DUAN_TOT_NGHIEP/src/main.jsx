@@ -37,7 +37,7 @@ import Main_user from './components/pages/admin/content_wraper/user/main_user.js
 import MainBlog from './components/pages/admin/content_wraper/blog/main_Blog.jsx'
 import MainTestSMS from './components/pages/testSMS/mainTestSMS.jsx'
 import Main_thanhtoan from "./components/pages/thanhtoan/main_thanhtoan.jsx"
-import Main_hoanthanh from "./components/pages/hoanthanh/view_thanhtoan.jsx"
+import Main_hoanthanh from "./components/pages/hoanthanh/main_hoanthanh.jsx"
 
 
 const routers = createBrowserRouter([

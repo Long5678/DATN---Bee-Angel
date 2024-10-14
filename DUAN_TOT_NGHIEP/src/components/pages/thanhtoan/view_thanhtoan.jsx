@@ -1,9 +1,13 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthContext } from "../../../context/authContext";
 import "../../../publics/styles/thanhtoan.scss";
 
 function ViewThanhtoan() {
+  let dispatch = useDispatch()
+  const {user} = useContext(AuthContext)
   const [userInfo, setUserInfo] = useState(null);
   const [searchParams] = useSearchParams();
   const idTour = searchParams.get("id");
@@ -74,33 +78,33 @@ function ViewThanhtoan() {
     <div className="tour-form-container1">
       <div className="tour-form">
         <h2>Xác nhận thông tin</h2>
-        {userInfo && (
+        {user && (
           <form>
             <div className="form-group">
               <label>Họ và tên</label>
-              <input type="text" value={userInfo.name} readOnly />
+              <input type="text" value={user.name} readOnly />
             </div>
             <div className="form-group-wrapper">
               <div className="form-group">
                 <label>Ngày sinh</label>
-                <input type="date" value={userInfo.birth_day} readOnly />
+                <input type="date" value={user.birth_day} readOnly />
               </div>
               <div className="form-group">
                 <label>Giới tính</label>
-                <input type="text" value={userInfo.gender} readOnly />
+                <input type="text" value={user.gender} readOnly />
               </div>
             </div>
             <div className="form-group">
               <label>Email</label>
-              <input type="email" value={userInfo.email} readOnly />
+              <input type="email" value={user.email} readOnly />
             </div>
             <div className="form-group">
               <label>Số điện thoại</label>
-              <input type="tel" value={userInfo.phone} readOnly />
+              <input type="tel" value={user.phone} readOnly />
             </div>
             <div className="form-group">
               <label>Địa chỉ</label>
-              <input type="text" value={userInfo.address} readOnly />
+              <input type="text" value={user.address} readOnly />
             </div>
           </form>
         )}

@@ -6,15 +6,6 @@ import Banner from "../home/banner";
 
 function Main_datTour() {
   const token = localStorage.getItem('token'); // Kiểm tra token
-
-  if (!token) {
-    return (
-      <div>
-        <h2>Vui lòng đăng nhập để tiếp tục.</h2>
-      </div>
-    );
-  }
-
   return (
     <>
       <Header />

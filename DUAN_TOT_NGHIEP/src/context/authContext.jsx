@@ -4,15 +4,15 @@ import axios from "axios"
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-    const [open, setOpen] = useState(false);  // này là hiện component auth
-    const [check, setCheck] = useState(true) // này để check là login hay componet register
+    const [open, setOpen] = useState(false);
+    const [check, setCheck] = useState(true)
     const handleOpen = () => {
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
-    const [registerErr, setRegisterErr] = useState(null); // set lỗi 400 register
-    const [loginErr, setLoginErr] = useState(null); // set lỗi 400 register
-    const [user, setUser] = useState(null); // state lưu user người dùng
+    const [registerErr, setRegisterErr] = useState(null);
+    const [loginErr, setLoginErr] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const loadUser = () => {
@@ -33,9 +33,9 @@ export const AuthContextProvider = ({ children }) => {
                 password: data.pass,
                 phone: data.phone,
                 role: data.role,
-                address: '',
-                gender: '',
-                birth_day: '',
+                address: data.address,
+                gender: data.gender,
+                birth_day: data.birth_day,
             })
             console.log("Đăng ký thành công", res);
             setCheck(false)

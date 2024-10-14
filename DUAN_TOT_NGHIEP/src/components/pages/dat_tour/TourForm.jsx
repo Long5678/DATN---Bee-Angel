@@ -1,19 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../publics/styles/datTour.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthContext } from "../../../context/authContext";
 
 function TourForm() {
+  let dispatch = useDispatch()
+  const {user} = useContext(AuthContext)
   const [userInfo, setUserInfo] = useState(null);
   const [searchParams] = useSearchParams();
   const idTour = searchParams.get("id");
   const [numberOfPeople, setNumberOfPeople] = useState(1);
   const [numberOfChildren, setNumberOfChildren] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [sale, setsale] = useState(0);
   const [depositPrice, setDepositPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
+  console.log(user);
+  
+
+  useEffect(() => {
+    const storedUserInfo = localStorage.getItem("userInfo");
+    if (storedUserInfo) {
+      setUserInfo(JSON.parse(storedUserInfo)); // Chuyển đổi từ chuỗi JSON về đối tượng
+    }
+  }, []);
+
+
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem("userInfo");
@@ -29,12 +44,14 @@ function TourForm() {
         numberOfChildren: children,
       });
       setTotalPrice(response.data.totalPrice);
+      setsale(response.data.sale);
       setDepositPrice(response.data.depositPrice);
       setErrorMessage("");
     } catch (error) {
       console.error("Error details:", error);
       setErrorMessage(error.response?.data?.message || "Có lỗi xảy ra. Vui lòng thử lại.");
       setTotalPrice(0);
+      setsale(0);
       setDepositPrice(0);
     }
   };
@@ -58,19 +75,25 @@ function TourForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    localStorage.setItem("totalPrice", totalPrice);
+    const paymentType = localStorage.getItem("paymentType");
+
+    const effectiveTotalPrice = paymentType === "full" ? sale : totalPrice;
+
+    localStorage.setItem("totalPrice", effectiveTotalPrice);
+    localStorage.setItem("sale", sale);
     localStorage.setItem("depositPrice", depositPrice);
     localStorage.setItem("numberOfPeople", numberOfPeople);
     localStorage.setItem("numberOfChildren", numberOfChildren);
 
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
-    window.location.href = (`/thanhtoan?id=${idTour}&people=${numberOfPeople}&children=${numberOfChildren}`)
-  };
+    window.location.href = `/thanhtoan?id=${idTour}&people=${numberOfPeople}&children=${numberOfChildren}`;
+};
 
   const handlePayFull = () => {
     localStorage.setItem("paymentType", "full");
-    localStorage.setItem("depositPrice", 0); // Set depositPrice to 0
-    localStorage.setItem("totalPrice", totalPrice); // Total price remains as is
+    localStorage.setItem("depositPrice", 0);
+    localStorage.setItem("totalPrice", sale); 
     handleSubmit();
   };
 
@@ -79,38 +102,45 @@ function TourForm() {
     handleSubmit();
   };
 
+  const navigation = useNavigate()
+
+  function handleDatTour(e) {
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan lên phần tử cha
+    navigation(`/thanhtoan?id=${idTour}`)
+}
+
   return (
     <div className="tour-form-container2">
       <div className="tour-form">
         <h2>Chi tiết thanh toán</h2>
-        {userInfo && (
+        {user && (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Họ và tên</label>
-            <input type="text" value={userInfo.name} placeholder="vui lòng nhập"/>
+            <input type="text" value={user.name} placeholder="vui lòng nhập"/>
           </div>
           <div className="form-group-wrapper">
             <div className="form-group">
               <label>Ngày sinh</label>
-              <input type="date"value={userInfo.birth_day} placeholder="vui lòng nhập"/>
+              <input type="date"value={user.birth_day} placeholder="vui lòng nhập"/>
             </div>
             <div className="form-group">
               <label>Giới tính</label>
-              <input type="text" value={userInfo.gender} placeholder="vui lòng nhập"/>
+              <input type="text" value={user.gender} placeholder="vui lòng nhập"/>
             </div>
           </div>
           <div className="form-group">
             <label>Địa chỉ</label>
-            <input type="text" value={userInfo.address} placeholder="vui lòng nhập"/>
+            <input type="text" value={user.address} placeholder="vui lòng nhập"/>
           </div>
           <div className="form-group">
             <label>Email</label>
-            <input type="email" value={userInfo.email} placeholder="vui lòng nhập"/>
+            <input type="email" value={user.email} placeholder="vui lòng nhập"/>
           </div>
           <div className="form-tel">
             <div className="form-group col-9">
               <label>Số điện thoại</label>
-              <input type="tel" value={userInfo.phone} placeholder="vui lòng nhập"/>
+              <input type="tel" value={user.phone} placeholder="vui lòng nhập"/>
             </div>
             <div className="form-group col-3">
                 <button>Xác thực</button>

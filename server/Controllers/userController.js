@@ -122,6 +122,9 @@ const loginUser = async (req, res) => {
             phone: user.phone,
             role: user.role,
             avatar: user.avatar,
+            address: user.address,
+                gender: user.gender,
+                birth_day: user.birth_day,
             token
         });
 
