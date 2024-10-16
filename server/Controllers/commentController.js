@@ -49,7 +49,7 @@ const getCommentsByTourId = async (req, res) => {
             .populate('userId', 'name')  // Lấy thông tin người dùng
             .populate({
                 path: 'replies',
-                populate: { path: 'userId', select: 'name' } // Lấy thông tin người dùng trong phản hồi
+                populate: { path: 'userId', select: 'name'} // Lấy thông tin người dùng trong phản hồi
             });
         if (!comments || comments.length === 0) {
             return res.status(404).json({ message: 'Không có bình luận nào cho tour này.' });
