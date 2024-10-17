@@ -1,5 +1,6 @@
 const Rating = require('../Models/ratingModel');
 
+const mongoose = require('mongoose');
 
 const employeeUserId = '66fa5d974c173b4285a5dc2d';
 
@@ -7,11 +8,11 @@ const createRating = async (req, res) => {
     try {
         const { userId, tourId, rating, review } = req.body;
 
-        // Kiểm tra nếu người dùng đã đánh giá sản phẩm này
-        const existingRating = await Rating.findOne({ userId, tourId });
-        if (existingRating) {
-            return res.status(400).json({ message: 'Bạn đã đánh giá sản phẩm này rồi!' });
-        }
+        // // Kiểm tra nếu người dùng đã đánh giá sản phẩm này
+        // const existingRating = await Rating.findOne({ userId, tourId });
+        // if (existingRating) {
+        //     return res.status(400).json({ message: 'Bạn đã đánh giá sản phẩm này rồi!' });
+        // }
 
         // Nếu chưa có đánh giá, tạo đánh giá mới
         const newRating = new Rating({
@@ -84,4 +85,32 @@ const getRatingByTour = async (req, res) => {
     }
 };
 
-module.exports = { createRating, getRatingByTour, addReplyToRating }
+
+const checkUserRated = async (req, res) => {
+    const { userId, tourId } = req.query;
+
+    // Log userId and tourId to debug
+    console.log('userId:', userId);
+    console.log('tourId:', tourId);
+
+    // Validate userId and tourId
+    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(tourId)) {
+        return res.status(400).json({ error: 'Invalid userId or tourId' });
+    }
+
+    try {
+        // Check if the user has rated this tour
+        const existingRating = await Rating.findOne({ userId, tourId });
+        if (existingRating) {
+            return res.json({ hasRated: true });
+        } else {
+            return res.json({ hasRated: false });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Lỗi server' });
+    }
+};
+
+
+module.exports = { createRating, getRatingByTour, addReplyToRating, checkUserRated }
