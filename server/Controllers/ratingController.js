@@ -88,39 +88,38 @@ const getRatingByTour = async (req, res) => {
 
 const checkUserRated = async (req, res) => {
     const { userId, tourId } = req.params; // Lấy tham số từ query
-    console.log(userId, tourId);
+    console.log("Received Params:", { userId, tourId });
 
     // Tạo điều kiện tìm kiếm động
     let searchCriteria = {};
 
     // Nếu có userId, thêm vào điều kiện tìm kiếm
     if (userId) {
-        searchCriteria.userId = userId; // Giả sử userId được lưu là ObjectId
+        searchCriteria.userId = userId; // userId là chuỗi
     }
 
     // Nếu có tourId, thêm vào điều kiện tìm kiếm
     if (tourId) {
-        searchCriteria.tourId = tourId; // Giả sử tourId được lưu là ObjectId
+        searchCriteria.tourId = tourId; // tourId là chuỗi
     }
+
+    console.log("Type of userId:", typeof userId, "Value:", userId);
+    console.log("Type of tourId:", typeof tourId, "Value:", tourId);
 
     try {
         // Tìm tất cả các đánh giá theo điều kiện tìm kiếm
         const ratings = await Rating.find(searchCriteria);
 
         if (ratings.length > 0) {
-            console.log("Đã tìm thấy đánh giá");
+            console.log("Đã tìm thấy đánh giá:", ratings);
             return res.status(200).json({ hasRated: true, ratings });
         } else {
             console.log("Không tìm thấy đánh giá");
             return res.status(200).json({ hasRated: false });
         }
-        
     } catch (error) {
-        console.error("Lỗi khi tìm kiếm:", error);
-        return res.status(500).json({
-            message: "Lỗi khi tìm kiếm tour.",
-            error: error.message
-        });
+        console.error("Lỗi trong quá trình tìm kiếm:", error);
+        return res.status(500).json({ error: 'Có lỗi xảy ra.' });
     }
 };
 
