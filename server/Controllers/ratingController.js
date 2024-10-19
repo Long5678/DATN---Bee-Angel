@@ -9,18 +9,18 @@ const createRating = async (req, res) => {
         const { userId, tourId, rating, review } = req.body;
 
         // // Kiểm tra nếu người dùng đã đánh giá sản phẩm này
-        // const existingRating = await Rating.findOne({ userId, tourId });
-        // if (existingRating) {
-        //     return res.status(400).json({ message: 'Bạn đã đánh giá sản phẩm này rồi!' });
-        // }
+        const existingRating = await Rating.findOne({ userId, tourId });
+        if (existingRating) {
+            return res.status(400).json({ message: 'Bạn đã đánh giá sản phẩm này rồi!' });
+        }
 
         // Nếu chưa có đánh giá, tạo đánh giá mới
         const newRating = new Rating({
             rating,
-            review, 
+            review,
             userId,
             tourId
-            
+
         });
 
         // Lưu đánh giá mới
@@ -87,30 +87,44 @@ const getRatingByTour = async (req, res) => {
 
 
 const checkUserRated = async (req, res) => {
-    const { userId, tourId } = req.query;
+    const { userId, tourId } = req.params; // Lấy tham số từ query
+    console.log(userId, tourId);
 
-    // Log userId and tourId to debug
-    console.log('userId:', userId);
-    console.log('tourId:', tourId);
+    // Tạo điều kiện tìm kiếm động
+    let searchCriteria = {};
 
-    // Validate userId and tourId
-    if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(tourId)) {
-        return res.status(400).json({ error: 'Invalid userId or tourId' });
+    // Nếu có userId, thêm vào điều kiện tìm kiếm
+    if (userId) {
+        searchCriteria.userId = userId; // Giả sử userId được lưu là ObjectId
+    }
+
+    // Nếu có tourId, thêm vào điều kiện tìm kiếm
+    if (tourId) {
+        searchCriteria.tourId = tourId; // Giả sử tourId được lưu là ObjectId
     }
 
     try {
-        // Check if the user has rated this tour
-        const existingRating = await Rating.findOne({ userId, tourId });
-        if (existingRating) {
-            return res.json({ hasRated: true });
+        // Tìm tất cả các đánh giá theo điều kiện tìm kiếm
+        const ratings = await Rating.find(searchCriteria);
+
+        if (ratings.length > 0) {
+            console.log("Đã tìm thấy đánh giá");
+            return res.status(200).json({ hasRated: true, ratings });
         } else {
-            return res.json({ hasRated: false });
+            console.log("Không tìm thấy đánh giá");
+            return res.status(200).json({ hasRated: false });
         }
+        
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Lỗi server' });
+        console.error("Lỗi khi tìm kiếm:", error);
+        return res.status(500).json({
+            message: "Lỗi khi tìm kiếm tour.",
+            error: error.message
+        });
     }
 };
+
+
 
 
 module.exports = { createRating, getRatingByTour, addReplyToRating, checkUserRated }

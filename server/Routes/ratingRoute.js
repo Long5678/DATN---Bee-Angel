@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.post("/create", createRating);
 router.get("/:tourId", getRatingByTour);
-router.get("/check", checkUserRated);
+router.get("/check/:userId/:tourId", checkUserRated);
 
 
 
