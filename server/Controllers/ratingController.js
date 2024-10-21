@@ -50,25 +50,7 @@ const createRating = async (req, res) => {
     }
 };
 
-// Thêm phản hồi cho đánh giá
-const addReplyToRating = async (req, res) => {
-    try {
-        const ratingId = req.params.id;
-        const { reply, userId } = req.body;
 
-        const rating = await Rating.findById(ratingId);
-        if (!rating) {
-            return res.status(404).json({ message: 'Không tìm thấy đánh giá!' });
-        }
-
-        rating.replies.push({ reply, userId });
-        await rating.save();
-
-        res.status(200).json({ message: 'Phản hồi đã được thêm thành công!', rating });
-    } catch (error) {
-        res.status(500).json({ message: 'Đã xảy ra lỗi!', error });
-    }
-};
 
 // Lấy danh sách đánh giá
 const getRatingByTour = async (req, res) => {
@@ -125,26 +107,44 @@ const checkUserRated = async (req, res) => {
 
 const getAverageRatingForTour = async (req, res) => {
     const { tourId } = req.params;
+
+    try {
+        // Tính trung bình rating cho tourId
+        const averageRating = await Rating.aggregate([
+            { $match: { tourId: tourId } }, // Chỉ tính rating cho tourId cụ thể
+            { $group: { _id: null, avgRating: { $avg: "$rating" } } } // Tính trung bình từ trường "rating"
+        ]);
+
+        if (averageRating.length > 0) {
+            return res.status(200).json({ avgRating: averageRating[0].avgRating });
+        } else {
+            return res.status(200).json({ avgRating: 0 }); // Trường hợp chưa có đánh giá nào
+        }
+    } catch (error) {
+        console.error("Lỗi khi tính trung bình rating:", error);
+        return res.status(500).json({ error: "Có lỗi xảy ra khi tính trung bình rating." });
+    }
+};
+
+const countRatingsForTour = async (req, res) => {
+    const { tourId } = req.params; // Lấy tourId từ URL
   
     try {
-      // Tính trung bình rating cho tourId
-      const averageRating = await Rating.aggregate([
-        { $match: { tourId: tourId } }, // Chỉ tính rating cho tourId cụ thể
-        { $group: { _id: null, avgRating: { $avg: "$rating" } } } // Tính trung bình từ trường "rating"
-      ]);
+      // Đếm số lượng đánh giá của tour theo tourId
+      const ratingCount = await Rating.countDocuments({ tourId });
   
-      if (averageRating.length > 0) {
-        return res.status(200).json({ avgRating: averageRating[0].avgRating });
+      if (ratingCount > 0) {
+        return res.status(200).json({ ratingCount });
       } else {
-        return res.status(200).json({ avgRating: 0 }); // Trường hợp chưa có đánh giá nào
+        return res.status(404).json({ message: "Chưa có đánh giá nào cho tour này." });
       }
     } catch (error) {
-      console.error("Lỗi khi tính trung bình rating:", error);
-      return res.status(500).json({ error: "Có lỗi xảy ra khi tính trung bình rating." });
+      console.error("Lỗi khi đếm số lượng đánh giá:", error);
+      return res.status(500).json({ error: "Có lỗi xảy ra khi đếm số lượng đánh giá." });
     }
   };
+  
 
 
 
-
-module.exports = { createRating, getRatingByTour, addReplyToRating, checkUserRated, getAverageRatingForTour }
+module.exports = { createRating, getRatingByTour, checkUserRated, getAverageRatingForTour, countRatingsForTour }

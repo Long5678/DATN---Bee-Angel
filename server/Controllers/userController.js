@@ -28,8 +28,17 @@ const createToken = (_id) => {
     return jwt.sign({
         _id
     }, jwtkey, {
-        expiresIn: "3d"
+        expiresIn: "15m"
     });
+}
+
+const createRefreshToken = (_id) => {
+    const jwtRefreshKey = process.env.JWT_REFRESH_SECRET_KEY;
+    return jwt.sign(
+        { _id },
+        jwtRefreshKey,
+        { expiresIn: "15m" } // Refresh Token hết hạn sau 15 phút
+    );
 }
 
 const registerUser = async (req, res) => {
@@ -115,6 +124,7 @@ const loginUser = async (req, res) => {
         }
 
         const token = createToken(user._id);
+        const refreshToken = createRefreshToken(user._id);
         res.status(200).json({
             _id: user._id,
             email: user.email,
@@ -125,7 +135,8 @@ const loginUser = async (req, res) => {
             address: user.address,
                 gender: user.gender,
                 birth_day: user.birth_day,
-            token
+            token,
+            refreshToken
         });
 
     } catch (error) {
@@ -339,6 +350,36 @@ const sendOTP = asyncHandler(async (req, res) => {
 }
 );
 
+const refreshAccessToken = async (req, res) => {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        return res.status(403).json("Refresh token is required");
+    }
+
+    try {
+        // Xác minh refresh token
+        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET_KEY, (err, user) => {
+            if (err) return res.status(403).json("Invalid refresh token");
+
+            // Nếu token hợp lệ, tạo một access token mới
+            const newAccessToken = createToken(user._id);
+            const newRefreshToken = createRefreshToken(user._id);
+
+            res.json({
+                accessToken: newAccessToken,
+                refreshToken: newRefreshToken
+            });
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error refreshing token',
+            error: error.message
+        });
+    }
+};
+
+
 
 
 
@@ -353,4 +394,5 @@ module.exports = {
     forgotPassword,
     resetPassword,
     sendOTP,
+    refreshAccessToken
 }

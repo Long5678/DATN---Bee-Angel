@@ -9,6 +9,7 @@ const {
     forgotPassword,
     resetPassword,
     sendOTP,
+    refreshAccessToken
 } = require("../Controllers/userController")
 const upload = require('../middlewares/uploadMiddleware');
 
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post('/refresh-token', refreshAccessToken); // Route làm mới token
 router.get("/find/:userId", findUser);
 router.get("/findByPhone/:phone", findUserByPhone);
 router.put("/updateUser/:userId",upload.single('avatar'),updateUser);
