@@ -28,18 +28,18 @@ const createToken = (_id) => {
     return jwt.sign({
         _id
     }, jwtkey, {
-        expiresIn: "15m"
+        expiresIn: "1m"
     });
 }
 
-const createRefreshToken = (_id) => {
-    const jwtRefreshKey = process.env.JWT_REFRESH_SECRET_KEY;
-    return jwt.sign(
-        { _id },
-        jwtRefreshKey,
-        { expiresIn: "1d" } // Refresh Token hết hạn sau 15 phút
-    );
-}
+// const createRefreshToken = (_id) => {
+//     const jwtRefreshKey = process.env.JWT_REFRESH_SECRET_KEY;
+//     return jwt.sign(
+//         { _id },
+//         jwtRefreshKey,
+//         { expiresIn: "1m" } // Refresh Token hết hạn sau 15 phút
+//     );
+// }
 
 const registerUser = async (req, res) => {
     try {
@@ -124,7 +124,7 @@ const loginUser = async (req, res) => {
         }
 
         const token = createToken(user._id);
-        const refreshToken = createRefreshToken(user._id);
+        // const refreshToken = createRefreshToken(user._id);
         res.status(200).json({
             _id: user._id,
             email: user.email,
@@ -136,7 +136,7 @@ const loginUser = async (req, res) => {
                 gender: user.gender,
                 birth_day: user.birth_day,
             token,
-            refreshToken
+            // refreshToken
         });
 
     } catch (error) {
@@ -351,24 +351,25 @@ const sendOTP = asyncHandler(async (req, res) => {
 );
 
 const refreshAccessToken = async (req, res) => {
-    const { refreshToken } = req.body;
+    const { token } = req.body;
 
-    if (!refreshToken) {
+    if (!token) {
         return res.status(403).json("Refresh token is required");
     }
 
     try {
         // Xác minh refresh token
-        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET_KEY, (err, user) => {
+        jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
             if (err) return res.status(403).json("Invalid refresh token");
 
             // Nếu token hợp lệ, tạo một access token mới
-            const newAccessToken = createToken(user._id);
-            const newRefreshToken = createRefreshToken(user._id);
+            const newToken = createToken(user._id);
+            // const newRefreshToken = createRefreshToken(user._id);
 
             res.json({
-                accessToken: newAccessToken,
-                refreshToken: newRefreshToken
+                // accessToken: newAccessToken,
+                // refreshToken: newRefreshToken
+                token: newToken
             });
         });
     } catch (error) {
