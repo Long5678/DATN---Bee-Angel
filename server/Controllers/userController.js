@@ -37,7 +37,7 @@ const createRefreshToken = (_id) => {
     return jwt.sign(
         { _id },
         jwtRefreshKey,
-        { expiresIn: "15m" } // Refresh Token hết hạn sau 15 phút
+        { expiresIn: "1d" } // Refresh Token hết hạn sau 15 phút
     );
 }
 
