@@ -6,6 +6,7 @@ import "flatpickr/dist/flatpickr.css"; // Nhập CSS của flatpickr
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDanhMuc, getTourByNameAnDateTour } from "../../../redux/action_thunk";
+import { errFilter } from "../../../redux/tour_slice";
 
 function Banner() {
     let dispatch = useDispatch()
@@ -25,9 +26,10 @@ function Banner() {
             },
             onChange: (selectedDates, dateStr, instance) => {
                 setSelectedDate(dateStr); // Cập nhật state khi ngày thay đổi
+                
             }
         });
-        
+
     }, []);
 
     // hàm này khi focus vào input bạn đi đâu thì sẽ hiện các danh mục tour đó
@@ -54,14 +56,64 @@ function Banner() {
 
     // search tour theo yêu cầu
     const filterSearch = () => {
-        const [day,month,year] = selectedDate.trim().split("-");
-        const dateTour = `${day}/${month}`
+        const [day, month, year] = selectedDate.trim().split("-");
+        const dateTour = `${day}/${month}/${year}`
         dispatch(getTourByNameAnDateTour(valueTour, dateTour))
+        dispatch(errFilter())
     }
+
+    const images = [
+        "/src/publics/image/banner0.jpg",
+        "/src/publics/image/banner1.jpg",
+        "/src/publics/image/banner3.jpg",
+
+    ];
+    const [currentSlide, setCurrentSlide] = useState(0); // Slide hiện tại
+    const slideCount = images.length; // Tổng số slide
+
+    // Tự động chuyển slide sau mỗi 5 giây
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % slideCount); // Chuyển sang slide tiếp theo
+        }, 5000); // Thời gian 5 giây
+        return () => clearInterval(interval); // Clear interval khi component unmount
+    }, [slideCount]); // Cập nhật lại khi số lượng slide thay đổi
+    21
+    // Xử lý khi người dùng chọn slide thủ công
+    const handleManualSlide = (index) => {
+        setCurrentSlide(index); // Chuyển slide thủ công khi click vào nút
+    };
 
     return (
         <article className="main-banner">
-            <img src="/src/publics/image/banner0.jpg" alt="" />
+            {/* <img src="/src/publics/image/banner0.jpg" alt="" /> */}
+            <div className="slider">
+                <div
+                    className="slides"
+                    style={{
+                        transform: `translateX(${-currentSlide * 100}%)`, // Dịch chuyển slide
+                    }}
+                >
+                    {images.map((img, index) => (
+                        <div
+                            key={index}
+                            className="slide"
+                            style={{ backgroundImage: `url(${img})` }}
+                        />
+                    ))}
+                </div>
+                {/* <img src="/src/publics/image/banner0.jpg" alt="" /> */}
+                {/* <div className="navigation-manual">
+                    {images.map((_, index) => (
+                        <button
+                            key={index}
+                            className={`manual-btn ${index === currentSlide ? 'active' : ''}`} // Hiển thị nút active
+                            onClick={() => handleManualSlide(index)} // Gọi hàm chuyển slide khi click
+                        />
+                    ))}
+                </div> */}
+
+            </div>
 
             <section className="content-banner">
                 <div className="content-banner-title">Cuộc sống là những hành trình Hãy cứ đi khi cuộc đời cho phép</div>
@@ -89,7 +141,7 @@ function Banner() {
 
                     <div className="box-tour">
                         <div className="icon-inp"><CalendarMonthIcon /></div>
-                        <input type="text" ref={dateInputRef} placeholder="Ngày đi" />
+                        <input  type="text" ref={dateInputRef} placeholder="Ngày đi" />
                     </div>
                     <button onClick={filterSearch} className="btn-search">Tìm kiếm</button>
                 </section>

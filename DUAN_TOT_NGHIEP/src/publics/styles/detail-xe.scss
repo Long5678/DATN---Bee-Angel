@@ -1,0 +1,114 @@
+/* Bố cục tổng thể */
+.vehicle-details-page {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.vehicle-details-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    /* Ảnh chiếm 3 phần, nội dung chiếm 2 phần */
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Hình ảnh */
+/* Hình ảnh */
+.vehicle-image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 1rem;
+    overflow: hidden;
+    /* Đảm bảo hình ảnh không tràn ra ngoài vùng chứa */
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.vehicle-image-section img {
+    width: 100%;
+    height: auto;
+    /* Tự điều chỉnh chiều cao theo tỷ lệ ảnh */
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Thêm hiệu ứng chuyển đổi */
+}
+
+/* Hiệu ứng hover */
+.vehicle-image-section:hover img {
+    transform: scale(1.05);
+    /* Phóng to hình ảnh khi hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Thêm bóng mờ */
+}
+
+/* Nội dung thông tin */
+.vehicle-info-section {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.vehicle-title-details {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.vehicle-h2 {
+    font-size: 1.3rem;
+    // font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.vehicle-location {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+}
+
+
+.vehicle-price {
+    font-size: 1rem;
+    color: #dc3545;
+    margin: 1rem 0;
+}
+
+.vehicle-description p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.rent-button {
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.rent-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}

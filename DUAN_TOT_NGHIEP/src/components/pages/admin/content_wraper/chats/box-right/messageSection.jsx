@@ -32,7 +32,7 @@ function MessageSection() {
                         display="inline-block"
                         className="box-item-message"
                     >
-                        <Typography variant="body2">{msg.text}</Typography>
+                        <Typography className='text-chat' variant="body2">{msg.text}</Typography>
                         <Typography variant="caption" >
                             {moment(msg.createdAt).calendar()}
                         </Typography>

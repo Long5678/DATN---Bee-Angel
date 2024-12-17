@@ -20,10 +20,6 @@ const TourSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    location: {
-        type: String,
-        required: true
-    },
     type: {
         type: String,
         required: true
@@ -47,8 +43,35 @@ const TourSchema = new mongoose.Schema({
         }] // Hoặc type: [String] để định nghĩa rõ hơn
     }],
     dateTour: [{
-        type: String
-    }]
+        departureDate: {
+            type: String,
+            required: true
+        },
+        returnDate: {
+            type: String,
+            required: true
+        },
+    }],
+    numDay: {
+        type: String,
+        required: true
+    },
+    price_Adult: {
+        type: Number,
+        required: true
+    },
+    price_Children: {
+        type: Number,
+        required: true
+    },
+    bookingsCount: {
+        type: Number,
+        default: 0 // Bắt đầu từ 0
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false, // false là tour này còn hoạt động
+    }
 }, {
     timestamps: true
 });

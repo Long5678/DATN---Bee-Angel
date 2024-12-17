@@ -1,17 +1,13 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import ItemUser from "./itemUser"
-import { useDispatch, useSelector } from "react-redux"
-import { getAllUser } from "../../../../../redux/action_thunk"
+import { useSelector } from "react-redux"
 import { PopupContext } from "../../../../../context/popupContext"
 import DetailUser from "./detailUser"
 
 function ListUser() {
-  let { isPopupDetailUser, setIsPopupDetailUser } = useContext(PopupContext)
-  let dispatch = useDispatch()
+  let { isPopupDetailUser } = useContext(PopupContext)
   let userDatas = useSelector((state) => state.userSL.user)
-  useEffect(() => {
-    dispatch(getAllUser())
-  }, [])
+
 
   return <>
     {isPopupDetailUser && <DetailUser />}

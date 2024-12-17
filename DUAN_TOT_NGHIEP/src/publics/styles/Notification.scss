@@ -1,0 +1,192 @@
+/* NotificationDropdown.css */
+/* Notification.scss */
+.notification-dropdown {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 400px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: fade-in 0.2s ease-in-out;
+    /* Giới hạn chiều cao của modal và cho phép cuộn khi nội dung vượt quá */
+    max-height: 600px;
+    /* Chiều cao tối đa */
+    overflow-y: scroll;
+
+}
+
+.notification-dropdown h5 {
+    margin-top: 5;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.notification-dropdown p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.notification-dropdown::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* App.css */
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 23px;
+    transition: background-color 0.3s;
+}
+
+.background-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 18px;
+    background-color: #414141; /* Màu nền bên trong chuông */
+    border-radius: 50%;
+    z-index: -1; /* Đặt phía sau biểu tượng chuông */
+}
+
+.notification-icon i {
+    position: relative;
+    z-index: 1;
+}
+
+.notification-icon.active .background-circle {
+    display: block;
+}
+
+
+.notification-badge {
+    position: relative;
+    top: -12px;
+    right: 14px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    padding: 1px 4px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 9;
+}
+
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 5px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+
+}
+
+.notification-item:hover {
+    background-color: #ededed;
+
+}
+
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.time {
+    display: block;
+    font-size: 12px;
+    color: #a0a3a8;
+}
+
+.more-options {
+    background: none;
+    border: none;
+    color: #a0a3a8;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.feedback-btn {
+    background-color: white;
+    border: 1px solid #007bff;
+    color: #007bff;
+    padding: 0px 15px 0px 15px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.feedback-btn:hover {
+    background-color: #c7c7c7;
+}
+.status-label {
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.completed {
+    color: #3917e1; /* Màu xanh lá cho Hoàn tất */
+}
+
+.processing {
+    color: #ffc107; /* Màu vàng cho Đang diễn ra */
+}
+
+.canceled {
+    color: #dc3545; /* Màu đỏ cho Hủy bỏ */
+}
+
+.ready {
+    color: #f06b0b; /* Màu xanh dương cho Sẵn sàng khởi hành */
+}
+
+.waiting {
+    color: #30d821; /* Màu xanh ngọc cho Chờ xác nhận */
+}

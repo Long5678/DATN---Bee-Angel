@@ -7,6 +7,7 @@
 }
 
 .box-auth {
+    position: relative;
     margin: auto;
     width: 500px;
     min-height: 150px;
@@ -48,7 +49,8 @@
     color: #316cf4 !important;
 }
 
-.line-auth,.line-addTour {
+.line-auth,
+.line-addTour {
     width: 100px;
     height: 3px;
     background-color: #901b44;
@@ -56,7 +58,7 @@
 }
 
 .line-addTour {
-  background-color: #316cf4 !important;
+    background-color: #316cf4 !important;
 }
 
 // register
@@ -137,4 +139,28 @@ form p {
 
 .css-1pysi21-MuiFormLabel-root-MuiInputLabel-root {
     font-weight: unset !important;
+}
+
+.back-home {
+    display: none;
+}
+
+.errors-mk {
+    display: flex;
+}
+
+.errors-mk .confirmPass {
+    width: 100%;
+    margin-left: 10px;
+}
+
+
+.overlay-auth {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 9999999999;
 }

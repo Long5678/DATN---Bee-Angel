@@ -1,11 +1,27 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { PopupContext } from "../../../../../context/popupContext"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../../../../../redux/action_thunk';
+import { AuthContext } from '../../../../../context/authContext';
 function DetailUser() {
+    let dispatch = useDispatch()
     let { isPopupDetailUser, setIsPopupDetailUser } = useContext(PopupContext)
+    let {user} = useContext(AuthContext)
     let userOne = useSelector((state) => state.userSL.userOne)
     console.log("one", userOne);
+
+    const [roleType, setRoleType] = useState("");
+    useEffect(() => {
+        setRoleType(userOne?.role)
+    }, [userOne])
+
+    const handelEditRole = (role) => {
+        setRoleType(role)
+        let formData = new FormData()
+        formData.append("role", role)
+        dispatch(updateUser(userOne?._id, formData))
+    }
 
     return <>
         <div className={`${isPopupDetailUser ? "overlay-admin-user" : ""}`}>
@@ -52,6 +68,20 @@ function DetailUser() {
                     <div className='group-grow'>
                         <div className='key'>Địa chỉ</div>
                         <div className='value'>{userOne?.address ? userOne.address : "Chưa cập nhật"}</div>
+                    </div>
+                    <div className='group-grow'>
+                        <div className='key'>Vai trò</div>
+                        {user?.role === "admin" ?
+                            <select onChange={(e) => handelEditRole(e.target.value)} value={roleType} style={{ flex: "1.7" }} className="value form-select form-select-sm" aria-label="Small select example">
+                                <option value="user">Khách hàng</option>
+                                <option value="staff">Nhân viên</option>
+                                {/* <option value="admin">Quản trị</option> */}
+                            </select>
+                            :
+                            <div className='value'>{userOne?.role === "staff" ? "Nhân viên" : "Khách hàng"}</div>
+
+                        }
+
                     </div>
                 </div>
             </div>

@@ -1,0 +1,234 @@
+/* ChatInterface.css */
+
+.chat-container {
+    height: 500px;
+    width: 350px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    position: fixed;
+    right: 60px;
+    bottom: 50px;
+    z-index: 9999;
+}
+
+.chat-container .chat-box-header {
+    height: 14%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gainsboro;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.chat-container .chat-box-header .chat-header-profile {
+    display: flex;
+    align-items: center;
+}
+
+.chat-container .chat-box-header .chat-header-profile img {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 4px;
+    margin: 8px;
+}
+
+.chat-container .chat-box-header .chat-header-profile h4 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.chat-container .chat-box-header .chat-header-closebox {
+    margin: 8px;
+    margin-inline-end: 14px;
+}
+
+.chat-container .chat-box-header .chat-header-closebox button {
+    border: none;
+    background: none;
+}
+
+.chat-container .chat-box-body {
+    margin: 10px;
+    height: 72%;
+    flex-direction: column !important;
+    overflow-y: scroll;
+
+}
+
+.chat-container .chat-box-body::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-container .chat-box-body .chat-box-messenger {
+    // background-color: #0056b3;   
+    display: flex;
+    gap: 15px;
+    margin-bottom: 8px;
+    // width: 50%;
+}
+
+.chat-container .chat-box-body .chat-box-messenger span {
+    background-color: dodgerblue;
+    padding: 6px 15px;
+    color: white;
+    border-radius: 4px;
+    max-width: 80%;
+
+}
+
+.chatBox-user {
+    // flex-direction: column !important;
+    justify-content: flex-end !important;
+
+
+}
+
+.chatBox-user span {
+    background-color: dodgerblue !important;
+}
+
+.chatBox-admin span {
+    background-color: rgb(231 231 231) !important;
+    // border: 1px solid black;
+    color: black !important;
+}
+
+.chat-date-user {
+    // position: absolute;
+    // right: 0;
+    font-size: 0.7rem;
+    margin-top: 6px;
+
+}
+
+.chat-date-admin {
+    font-size: 0.7rem;
+    margin-top: 6px;
+    text-align: right;
+}
+
+.chat-box-footer {
+    border-radius: 8px;
+    height: 10%;
+    display: flex;
+    border-top: 1px solid gainsboro;
+    padding: 10px;
+    align-items: center;
+    background-color: white;
+
+}
+
+.chat-box-footer .chat-box-inp {
+    width: 85%;
+    outline: none;
+    border: none;
+}
+
+.chat-box-footer .chat-box-inp input {
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: white;
+
+}
+
+.chat-box-footer .chat-box-submit {
+    width: 11%;
+    height: auto;
+    margin-left: 5%;
+    background-color: #007bff;
+    border-radius: 50%;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+// btn
+.btn-chat {
+    position: fixed !important;
+    z-index: 99999;
+    right: 12px;
+    bottom: 12px;
+}
+
+/* Popover.css */
+
+// .popover-container {
+//     position: relative;
+//     display: inline-block;
+// }
+
+// .popover-trigger {
+//     padding: 10px 20px;
+//     background-color: #007bff;
+//     color: white;
+//     border: none;
+//     border-radius: 5px;
+//     cursor: pointer;
+// }
+
+// .popover-trigger:hover {
+//     background-color: #0056b3;
+// }
+
+
+
+// .popover-content h3 {
+//     margin: 0;
+//     font-size: 16px;
+//     font-weight: bold;
+// }
+
+// .popover-content p {
+//     font-size: 14px;
+//     margin-top: 5px;
+// }
+.icon-button {
+    background-color: #6A5ACD;
+    /* Dark color for the button */
+    border: none;
+    border-radius: 50%;
+    /* To make it circular */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.icon-button:hover {
+    background-color: #5a4cb2;
+    /* Darker on hover */
+}
+
+
+.popover-container .btn-chat .box-count-message-chat {
+    position: absolute;
+    top: -8px;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 0.8rem;
+    line-height: 25px;
+    /* Căn giữa văn bản theo chiều dọc */
+    text-align: center;
+    /* Căn giữa văn bản theo chiều ngang */
+
+}

@@ -36,7 +36,6 @@ function Box_enterPass() {
     return <>
         <Header />
         <div className='box-main-auth'>
-
             <div className='box-auth'>
                 <div className="auth-top">
                     <div className="btn-login-register">

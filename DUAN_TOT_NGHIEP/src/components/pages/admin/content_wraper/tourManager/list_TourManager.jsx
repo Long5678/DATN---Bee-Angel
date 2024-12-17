@@ -5,7 +5,7 @@ import Page_TourManager from "./page_TourManager"
 import Search_TourManager from "./search_TourManager"
 import { AuthContext } from "../../../../../context/authContext"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllDanhMuc, getAllTour } from "../../../../../redux/action_thunk"
+import { getAllDanhMuc, getAllTour, getAllTourAdmin } from "../../../../../redux/action_thunk"
 import Edit_TourManager from "./edit_TourManager"
 
 
@@ -20,7 +20,7 @@ function List_tourManager() {
   }, [user])
 
   useEffect(() => {
-     dispatch(getAllTour(4))
+     dispatch(getAllTourAdmin())
   }, [user])
 
 
@@ -52,6 +52,8 @@ function List_tourManager() {
             <th className='center-th' scope="col">#</th>
             <th scope="col">Tên Tour</th>
             <th scope="col">Đơn Giá</th>
+            <th scope="col">Giá Người lớn</th>
+            <th scope="col">Giá Trẻ Em</th>
             <th scope="col">Trạng Thái</th>
             <th scope="col">Loại Tour</th>
             <th scope="col">Handle</th>

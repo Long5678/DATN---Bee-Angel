@@ -1,0 +1,125 @@
+// reponsive phần auth và phần profile
+ 
+/* Tablet: 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {}
+
+/* Mobile lớn: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+      .header-table-moblie {
+          // display: none !important;
+      }
+
+      .mui-box-auth {
+          width: 100% !important;
+          height: 100%;
+          z-index: 99999999;
+          top: 56% !important;
+      }
+
+      .mui-box-auth .box-auth {
+          height: 100%;
+          width: 100%;
+      }
+
+      .auth-banner {
+          display: block !important;
+          height: 38%;
+          width: 100%;
+          overflow: hidden;
+      }
+
+      .auth-banner img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+      }
+
+      .back-home {
+          display: inline-block;
+          margin-right: 5px;
+          background-color: gainsboro !important;
+          color: black !important;
+      }
+
+
+      // profile
+      .main_userInfor .article-userInfor {
+          flex-direction: column;
+          padding: 0 !important;
+          // margin-bottom: 50px;
+      }
+
+      .article-userInfor .tab_userInfor {
+          width: 100% !important;
+          height: 166px !important;
+      }
+
+      .article-userInfor .profile_userInfor {
+          width: 100%;
+          margin-bottom: 38px !important;
+      }
+
+      .logOut-mobile {
+          display: block !important;
+      }
+}
+
+/* Mobile nhỏ: (Mobile nhỏ: 320px - 480px) */
+@media (min-width: 320px) and (max-width: 480px) {
+    .header-table-moblie {
+        // display: none !important;
+    }
+    .mui-box-auth {
+        width: 100% !important;
+        height: 100%;
+        z-index: 99999999;
+        top: 56% !important;
+    }
+
+    .mui-box-auth .box-auth {
+        height: 100%;
+        width: 100%;
+    }
+
+    .auth-banner {
+        display:  block !important;
+        height: 38%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .auth-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .back-home {
+        display: inline-block;
+        margin-right: 5px;
+        background-color: gainsboro !important;
+        color: black !important;
+    }
+
+
+    // profile
+    .main_userInfor .article-userInfor {
+        flex-direction: column;
+        padding: 0 !important;
+        // margin-bottom: 50px;
+    }
+
+    .article-userInfor .tab_userInfor {
+        width: 100% !important;
+        height: 166px !important;
+    }
+
+     .article-userInfor .profile_userInfor {
+         width: 100%;
+         margin-bottom: 38px !important;
+     }
+
+     .logOut-mobile {
+        display: block !important;
+     }
+}

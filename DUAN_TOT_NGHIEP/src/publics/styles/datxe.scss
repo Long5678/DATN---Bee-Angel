@@ -1,0 +1,492 @@
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.div-box-xeDetail-right {
+    width: 100%;
+    max-width: 400px; /* Ensures a responsive design */
+    margin-left: 30px;
+    position: sticky;
+    top: 65px;
+}
+
+.xe-details-card {
+    border-radius: 15px; /* Rounded corners */
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+.xe-image-details {
+    width: 100%;
+    height: 200px; /* Adjust height for proportion */
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px; /* Rounded top corners */
+    position: relative;
+}
+
+.xe-image-details img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.xe-header {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.xe-rating {
+    display: flex;
+    align-items: center;
+    background-color: #FFD700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: white;
+}
+
+.xe-rating i {
+    margin-right: 5px;
+}
+
+.xe-location {
+    display: flex;
+    align-items: center;
+    background-color: #007BFF;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: white;
+}
+
+.xe-location i {
+    margin-right: 5px;
+}
+
+.xe-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.xe-info h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.xe-info .p_xeInfo {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+    height: 40px; /* Adjust height to match layout */
+    overflow: hidden; /* Hide excess text */
+    text-overflow: ellipsis;
+}
+
+.xe-price-thanhToan {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.xe-price-thanhToan .price-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.xe-price-thanhToan .price-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f57f17;
+}
+
+// xe form
+.xe-form-container2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+//   background-color: #f0f0f0;
+  position: relative; /* Added this to enable absolute positioning of the title */
+}
+
+/* Title styles */
+.xe-main-title {
+    margin-top: 60px;
+    padding-top: 10px;
+}
+.xe-main-title .xe-title {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.xe-main-title .xe-title h1{
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 20px;
+}
+.xe-main-title .xe-title p{
+    margin-left: 20px;
+}
+
+/* Main form styles */
+.xe-form-container2 .xe-form {
+  width: 750px;
+  background-color: #fff;
+  margin-right: 80px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-top: 60px;
+}
+
+.xe-form-container2 .xe-form h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.xe-form-container2 .xe-form .form-group {
+  margin-bottom: 15px;
+}
+
+.xe-form-container2 .xe-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.xe-form-container2 .xe-form .form-group input,
+.xe-form-container2 .xe-form .form-group textarea {
+  width: 99.6%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+
+/* Container for grouped fields */
+form .form-group-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* Ensure individual form groups take up nearly half of the space */
+form .form-group-wrapper .form-group {
+  width: 48%;
+}
+
+form .form-group-wrapper .form-group input {
+  width: 86.6%;
+}
+
+/* Additional information section */
+.xe-form-container2 .additional-info-xe {
+  width: 750px; /* Match the form width */
+  background-color: #fff;
+  padding: 20px;
+  margin-right: 80px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.additional-info-xe .form-group textarea{
+    width: 99,6%;
+}
+
+.additional-info-xe .checkbox-group {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.additional-info-xe .checkbox-group input {
+  margin-right: 10px;
+}
+
+.additional-info-xe button {
+  width: 100%;
+  padding: 15px;
+  background-color: #F4BD4F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.additional-info-xe button:hover {
+  background-color: #fcc89b;
+}
+
+
+
+// lịch (celander)
+.calendar {
+    margin-top: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #f9a825;
+    color: #ffffff;
+}
+
+.month-picker {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.year-picker {
+    display: flex;
+    align-items: center;
+}
+
+.year-change {
+    cursor: pointer;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+.calendar-body {
+    padding: 16px;
+}
+
+.calendar-week-days {
+    display: flex;
+    justify-content: space-between;
+    color: #f9a825;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-days div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.calendar-days div:hover {
+    background-color: #e0e0e0;
+}
+
+.current-date {
+    background-color: #f9a825;
+    color: #ffffff;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.calendar-footer {
+    padding: 16px;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.date-time-formate {
+    padding: 16px;
+    background-color: #f9a825;
+    color: #ffffff;
+    text-align: center;
+}
+
+.time-formate,
+.date-formate {
+    font-size: 14px;
+}
+
+.month-list {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100px;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.month-list.show {
+    display: block;
+}
+
+.month-list div {
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.month-list div:hover {
+    background-color: #f0f0f0;
+}
+
+
+// css khung cccd
+#frontCardBook {
+    display: none;
+}
+
+#backCardBook {
+    display: none;
+}
+
+.lable-forCCCD {
+    width: 100%;
+}
+
+.box-cccd {
+    height: 200px;
+    border: 2px dashed cadetblue;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.d-flex-cccd {
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-flex-cccd i {
+    color: cadetblue;
+}
+
+.d-flex-cccd span {
+    color: cadetblue;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+
+.overlay-await-bookCar {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
+.box-img-cccd {
+    cursor: pointer;
+    height: 200px;
+    border: 2px dashed cadetblue;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.box-img-cccd img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-notSubmit {
+    background-color: #cccccc !important;
+    cursor: not-allowed !important;
+}
+
+.loaderBookCar {
+    position: fixed;
+    top: 44%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-bottom-color: #3874cb;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.span-addCar {
+    position: fixed;
+    top: 42%;
+    left: 53%;
+    color: tomato;
+}
+.span-bookCar {
+    position: fixed;
+    top: 51%;
+    left: 49%;
+    color: #3874cb;
+}
+
+
+.btn-notSubmit{
+    background-color: #cccccc !important;
+    cursor: not-allowed !important;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 400px) {
+    .calendar {
+        width: 90%;
+    }
+
+    .calendar-header,
+    .calendar-body,
+    .date-time-formate {
+        padding: 12px;
+    }
+
+    .month-picker,
+    .year-picker {
+        font-size: 16px;
+    }
+
+    .calendar-week-days,
+    .calendar-days div {
+        font-size: 12px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .xe-details-card {
+        width: 100%;
+    }
+}

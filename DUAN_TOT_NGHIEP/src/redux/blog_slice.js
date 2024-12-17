@@ -4,6 +4,7 @@ import {
 
 const initialState = {
     isLoadingBlog: false,
+    isLoadingAddBlog: false,
     blogDatas: [],
     blogOne: {},
 };
@@ -15,8 +16,11 @@ export const blogSlice = createSlice({
         loadAllBlog(state, action) {
             state.blogDatas = action.payload;
         },
+
         addOneBlog(state, action) {
-            state.blogDatas.push(action.payload)
+            console.log('cc', action.payload);
+
+            state.blogDatas.push(action.payload.newBlog)
         },
         delOneBlog(state, action) {
             state.blogDatas = state.blogDatas.filter((item) => {
@@ -33,6 +37,11 @@ export const blogSlice = createSlice({
             }
         },
 
+        loadingAddBlog(state, action) {
+            state.isLoadingAddBlog = action.payload;
+        },
+
+
         // laoding
         loadingBlog(state, action) {
             state.isLoadingBlog = action.payload;
@@ -47,5 +56,6 @@ export const {
     delOneBlog,
     loadOneBlog,
     updateOneBlog,
-    loadingBlog
+    loadingBlog,
+    loadingAddBlog
 } = blogSlice.actions;

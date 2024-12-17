@@ -1,0 +1,311 @@
+// lịch sử order *****
+.main_historyOrder {
+    width: 100%;
+    min-height: 100px;
+    // background-color: white;
+    // box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 10px 10px -10px rgba(51, 51, 51, 0.15), 0 2px 10px 0 rgba(51, 51, 51, 0.1);
+}
+
+.main_historyOrder .head_tab {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05),
+        0 10px 10px -10px rgba(51, 51, 51, 0.15),
+        0 2px 10px 0 rgba(51, 51, 51, 0.1);
+    background-color: white;
+}
+
+.main_historyOrder .head_tab span {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main_historyOrder .head_tab .active-tab {
+    color: #26bed6;
+}
+
+
+.line-tab {
+    height: 3px;
+    background-color: #26bed6;
+    transition: transform 0.3s ease-in-out; // Hiệu ứng chuyển động mượt
+}
+
+
+// phần list order hty
+.main_historyOrder .body_order {
+    margin-top: 10px;
+    position: relative;
+    min-height: 150px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05),
+        0 10px 10px -10px rgba(51, 51, 51, 0.15),
+        0 2px 10px 0 rgba(51, 51, 51, 0.1);
+    background-color: white;
+}
+
+.main_historyOrder .body_order .list_orderHTY {
+    display: flex;
+    flex-direction: column;
+}
+
+.main_historyOrder .body_order .list_orderHTY .item_orderHTY {
+    border-bottom: 3px solid gainsboro;
+    // border-bottom: 1px solid #26bed6;
+    padding: 8px 0px;
+}
+
+.item_orderHTY .d-flex-content-orderHTY {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    // padding-bottom: 8px;
+    // border-bottom: 1px solid gainsboro;
+}
+.item_orderHTY .d-flex-content-orderHTY .d-flex-hty{
+    display: flex;
+    width: 60%;
+    // flex: 1;
+}
+.item_orderHTY .d-flex-content-orderHTY .d-flex-hty .img-orderHTY {
+    width: 120px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 3px;
+    flex: 2.5;
+}
+
+.item_orderHTY .d-flex-content-orderHTY .d-flex-hty .img-orderHTY img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.d-flex-name-count-orderHTY {
+    display: flex;
+    flex-direction: column;
+    flex: 4;
+    align-self: flex-start;
+    padding-left: 12px;
+}
+
+.d-flex-name-count-orderHTY .name-tour-orderHTY {
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.d-flex-content-orderHTY .people-orderHTY {
+    font-size: 0.8rem;
+}
+
+.d-flex-content-orderHTY .people-orderHTY b {
+    color: #333333e3;
+}
+// .status-totalPrice-orderHTY {
+//     // width: 30%;
+// }
+.status-totalPrice-orderHTY .date-orderHTY {
+    position: relative;
+    top: -10px;
+    right: 0px;
+    font-size: 0.8rem;
+}
+
+.d-flex-content-orderHTY .price-orderHTY {
+    flex: 1;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+
+.status-totalPrice-orderHTY {
+    align-self: end;
+    text-align: right;
+}
+
+.status-totalPrice-orderHTY .totalPrice-orderHTY span {
+    color: black;
+    font-size: 1.3rem;
+}
+
+.status-totalPrice-orderHTY .status-orderHTY {
+    display: inline-block;
+}
+
+.status-totalPrice-orderHTY .status-orderHTY span {
+    color: green;
+    font-size: 1rem;
+}
+
+.btn-detail-orderHTY {
+    border: none;
+    background-color: #6A5ACD;
+    color: white;
+    border-radius: 3px;
+    padding: 6px 20px;
+    margin-left: 10px;
+}
+
+.btn-danger-orderHTY {
+    border: none;
+    background-color: rgba(255, 0, 0, 0.77);
+    color: white;
+    border-radius: 3px;
+    padding: 6px 20px;
+    margin-left: 10px;
+}
+
+// invoice 
+.invoice-container {
+    width: auto;
+    margin: auto;
+    // border: 2px solid #87CEEB;
+    padding: 0px;
+    font-family: Arial, sans-serif;
+}
+
+.invoice-container .invoice-d {
+    margin: 8px;
+}
+
+.invoice-container .invoice-d p {
+    text-align: center;
+    margin: 2px;
+}
+
+.invoice-container b {
+    font-size: 14px;
+}
+
+.invoice-container b p {
+    font-size: 14px;
+}
+
+// .invoice-container .header {
+//     text-align: center;
+//     font-size: 24px;
+//     font-weight: bold;
+// }
+
+.invoice-container h4 {
+    text-align: center;
+    color: #333;
+}
+
+.invoice-container p {
+    font-size: 12px;
+}
+
+.invoice-container .detail-hty-d {
+    display: flex;
+}
+
+.invoice-container .detail-hty-d .section p {
+    font-size: 14px;
+}
+
+.invoice-container .section {
+    margin: 3px 4px;
+    line-height: 1.8;
+}
+
+.invoice-container .payment-method {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.invoice-container .payment-method .payment-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.invoice-container .footer {
+    margin-top: 0;
+}
+
+.invoice-container .footer p {
+    text-align: center;
+    margin: 0px;
+}
+
+.invoice-container .invoice-thank-you {
+    margin-top: 9px;
+}
+
+.invoice-container .invoice-thank-you .thank-you {
+    text-align: center;
+    margin: 3px;
+    font-weight: bold;
+}
+
+.close-hty-btn {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    border: none;
+    background: none;
+    font-size: larger;
+}
+
+.invoice-container .paid-stamp {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    // background: red;
+    border: 1px solid;
+    color: red;
+    font-weight: bold;
+    border-radius: 50%;
+    /* Tạo hình tròn */
+    padding: 25px 6px;
+    transform: rotate(-20deg);
+    // font-size: 18px;
+}
+
+.invoice-container .paid-stamp p {
+    font-size: 12px;
+    display: table-cell;
+}
+
+/* Màu xanh lá cây cho trạng thái "Hoàn thành" */
+.status-label.completed {
+    color: green;
+    // background-color: green;
+}
+
+/* Màu xanh nước biển cho trạng thái "Đặt cọc" */
+.status-label.deposit {
+    color: brown;
+    // background-color: blue;
+}
+
+.list_order1 {
+    display: flex;
+    justify-content: center;
+    height: 84px;
+    align-items: center;
+    text-align: center;
+  }
+  
+
+.box-err-order {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.ok{
+    margin-top: 7px;
+}

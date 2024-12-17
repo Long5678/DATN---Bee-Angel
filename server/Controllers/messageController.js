@@ -1,4 +1,5 @@
 const messageModel = require("../Models/messageModel")
+// Model này được sử dụng để giao tiếp với collection messages trong MongoDB.
 
 const createMessage = async (req, res) => {
     try {
@@ -18,6 +19,7 @@ const createMessage = async (req, res) => {
             image: image || "",
         })
 
+        // lưu đối tượng vào mongoDB
         const response = await message.save();
 
         res.status(200).json(response);

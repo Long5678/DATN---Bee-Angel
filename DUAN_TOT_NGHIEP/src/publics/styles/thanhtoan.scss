@@ -13,6 +13,7 @@
     width: 30%;
     margin: auto;
 }
+
 .tour-details-card {
     border-top-left-radius: 30px;
     position: relative;
@@ -137,11 +138,12 @@
 
 // tour form
 .tour-form-container1 {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  padding: 6px;
-  position: relative; /* Added this to enable absolute positioning of the title */
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 6px;
+    position: relative;
+    /* Added this to enable absolute positioning of the title */
 }
 
 /* Title styles */
@@ -149,25 +151,26 @@
     margin-top: 60px;
     padding-top: 10px;
 }
+
 .tour-main-title .tour-title {
     max-width: 1200px;
     margin: auto;
 }
 
-.tour-main-title .tour-title h1{
-  font-size: 1rem;
+.tour-main-title .tour-title h1 {
+    font-size: 1rem;
 }
 
 /* Main form styles */
 .tour-form-container1 .tour-form {
-  width: 80%;
-  background-color: #fff;
-  margin-right: 80px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  margin-top: 60px;
+    width: 80%;
+    background-color: #fff;
+    margin-right: 80px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin-top: 60px;
 }
 
 .tour-form-container1 .price-form {
@@ -176,7 +179,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
 
 .price-forms {
     width: 40%;
@@ -184,77 +187,78 @@
 }
 
 .tour-form-container1 .tour-form h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
 .tour-form-container1 .tour-form .form-group {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .tour-form-container1 .tour-form .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .tour-form-container1 .tour-form .form-group input,
 .tour-form-container1 .tour-form .form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  outline: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
 }
 
 /* Container for grouped fields */
 form .form-group-wrapper {
-  display: flex;
+    display: flex;
 }
 
 /* Ensure individual form groups take up nearly half of the space */
 form .form-group-wrapper .form-group {
-  width: 48%;
+    width: 48%;
 }
 
 form .form-group-wrapper .form-group input {
-  width: 86.6%;
+    width: 86.6%;
 }
 
 /* Additional information section */
 .tour-form-container1 .additional-info {
-  width: 750px; /* Match the form width */
-  background-color: #fff;
-  padding: 20px;
-  margin-right: 80px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 750px;
+    /* Match the form width */
+    background-color: #fff;
+    padding: 20px;
+    margin-right: 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .additional-info .checkbox-group {
-  margin: 20px 0;
-  display: flex;
-  align-items: center;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
 }
 
 .additional-info .checkbox-group input {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .additional-info button {
-  width: 100%;
-  padding: 15px;
-  background-color: #F4BD4F;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-top: 2px;
+    width: 100%;
+    padding: 15px;
+    background-color: #F4BD4F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 2px;
 }
 
 .additional-info button:hover {
-  background-color: #fcc89b;
+    background-color: #fcc89b;
 }
 
 
@@ -379,6 +383,19 @@ form .form-group-wrapper .form-group input {
     background-color: #f0f0f0;
 }
 
+.img-thanhToan-cccd {
+    display: inline-block;
+    width: 140px;
+    height: 80px;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+.img-thanhToan-cccd img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 /* Responsive Design for Smaller Screens */
 @media (max-width: 400px) {
     .calendar {
@@ -417,5 +434,3 @@ form .form-group-wrapper .form-group input {
 .form-title .title-bold {
     font-weight: bold;
 }
-
-

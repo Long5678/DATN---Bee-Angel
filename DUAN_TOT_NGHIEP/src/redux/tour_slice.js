@@ -5,6 +5,7 @@ import {
 const initialState = {
     isLoadingTour: false,
     isLoadingAddTour: false,
+    isErrFilter: "",
     tourDatas: [],
     tourOne: {},
 };
@@ -41,6 +42,13 @@ export const tourSlice = createSlice({
         loadingAddTour(state, action) {
             state.isLoadingAddTour = action.payload;
         },
+
+        errFilter(state,action) {
+            state.isErrFilter = action.payload;
+        },
+        bookingCount(state, action) {
+            state.tourOne = action.payload;
+        },
     }
 })
 
@@ -52,5 +60,7 @@ export const {
     loadOneTour,
     updateOneTour,
     loadingTour,
-    loadingAddTour
+    loadingAddTour,
+    errFilter,
+    bookingCount
 } = tourSlice.actions;

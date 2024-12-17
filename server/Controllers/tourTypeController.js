@@ -50,6 +50,9 @@ const deleteTourType = asyncHandler(async (req, res) => {
         id
     } = req.params;
 
+    console.log("id danh mucj", id);
+    
+
     const checkTypeTour = await tourModel.find({
         type: id
     })
@@ -66,9 +69,7 @@ const deleteTourType = asyncHandler(async (req, res) => {
 
 // Lấy tất cả các loại tour
 const getTourTypes = asyncHandler(async (_req, res) => {
-    const tourTypes = await TourTypeModel.find().sort({
-        createdAt: -1
-    });
+    const tourTypes = await TourTypeModel.find()
     res.status(200).json(tourTypes);
 });
 

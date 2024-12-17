@@ -1,7 +1,7 @@
 import Header from "../../layouts/header"
 import Detail_tour from "./detail_tour"
 import Plane_tour from "./plane_tour"
-import Comment_tour from "./comment_tour"
+import CommentSection from "../comment/CommentSection"
 import "../../../publics/styles/detail_tour.scss"
 import { getOneTour } from "../../../redux/action_thunk";
 import { useSearchParams } from "react-router-dom";
@@ -23,16 +23,17 @@ function Main_detail_tour() {
     window.scrollTo(0, 0);
   }, [idTour])
 
-  console.log("Tour one", tourOne);
-  
+  // console.log("Tour one", tourOne);
+
 
   return <>
     <Header />
-    <div className="boxMain-detail-tour">
-      <Detail_tour {...tourOne} />
-      <Plane_tour  {...tourOne} />
-      <Comment_tour />
-    </div>
+      <div className="boxMain-detail-tour">
+        <Detail_tour {...tourOne} />
+        <Plane_tour  {...tourOne} />
+        <CommentSection />
+      </div>
+
   </>
 }
 

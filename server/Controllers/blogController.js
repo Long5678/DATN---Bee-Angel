@@ -8,31 +8,43 @@ const {
 const {
     getDownloadURL,
     ref,
+    getMetadata,
     uploadBytesResumable,
     deleteObject
 } = require('firebase/storage');
 const firebaseConfig = require("../Configs/firebase.config");
 const asyncHandler = require('express-async-handler');
-
+// const SeoChecker = require("seo-checker");
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const storages = getStorage(app);
 
-// Helper function to extract file names from URLs
-const extractFileNameFromUrl = (url) => decodeURIComponent(url.split('/').pop().split('?')[0]);
+
 
 // Tạo bài blog mới
 const createBlog = asyncHandler(async (req, res) => {
     const {
         title,
         content,
-        author
+        author,
+        tags,
+        metaTitle,
+        metaDescription
     } = req.body;
+    const slug = title.toLowerCase().split(' ').join('-'); // Tạo slug URL thân thiện SEO
 
-    const downloadImageURLs = [];
-    const downloadVideoURLs = [];
+    const uploadImages = [];
+    const uploadVideo = [];
 
     try {
+
+        const existingBlog = await Blog.findOne({
+            slug
+        });
+        if (existingBlog) {
+            // Nếu tồn tại, tạo slug mới bằng cách thêm số đếm vào cuối slug
+            slug = `${slug}-${Date.now()}`;
+        }
         if (req.files && req.files['imageUrl']) {
             for (const file of req.files['imageUrl']) {
                 const storageRef = ref(storages, `blogs/${file.originalname}`);
@@ -41,7 +53,8 @@ const createBlog = asyncHandler(async (req, res) => {
                 };
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
-                downloadImageURLs.push(downloadURL);
+                // downloadImageURLs.push(downloadURL);
+                uploadImages.push(file.originalname)
             }
         }
 
@@ -53,7 +66,8 @@ const createBlog = asyncHandler(async (req, res) => {
                 };
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
-                downloadVideoURLs.push(downloadURL);
+                // downloadVideoURLs.push(downloadURL);
+                uploadVideo.push(file.originalname)
             }
         }
     } catch (error) {
@@ -64,20 +78,38 @@ const createBlog = asyncHandler(async (req, res) => {
         title,
         content,
         author,
-        imageUrl: downloadImageURLs,
-        videoUrl: downloadVideoURLs,
-        datePosted: Date.now(),
-        views: 0
+        slug,
+        tags: tags || [],
+        metaTitle: metaTitle || title,
+        metaDescription: metaDescription || content.substring(0, 150),
+        imageUrl: uploadImages,
+        videoUrl: uploadVideo,
+        // datePosted: new Date(),
     });
 
+
     await newBlog.save();
-    res.status(201).json(newBlog);
+    res.status(201).json({
+        newBlog
+    });
 });
 
 // Lấy tất cả các bài blog
 const getBlogs = asyncHandler(async (req, res) => {
-    const blogs = await Blog.find();
-    res.status(200).json(blogs);
+    try {
+        const blogs = await Blog.find(); // Fetch all blogs from the database
+        if (blogs.length === 0) {
+            return res.status(404).json({
+                message: "No blogs found."
+            });
+        }
+        res.status(200).json(blogs); // Send the blogs as a response
+    } catch (error) {
+        res.status(500).json({
+            message: "Error fetching blogs.",
+            error: error.message
+        });
+    }
 });
 
 // Lấy một bài blog (tăng view)
@@ -85,15 +117,28 @@ const getBlogById = asyncHandler(async (req, res) => {
     const {
         id
     } = req.params;
-    const blog = await Blog.findById(id);
-    if (!blog) return res.status(404).json({
-        message: 'Blog not found'
-    });
 
-    blog.views += 1; // Increment the views by 1
-    await blog.save();
-    res.status(200).json(blog);
+
+
+    try {
+        const blog = await Blog.findById(id);
+        if (!blog) {
+            return res.status(404).json({
+                message: "Blog not found"
+            });
+        }
+
+        blog.views += 1; // Increment the views
+        await blog.save();
+
+        res.status(200).json(blog);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
 });
+
 
 //newBlog
 const getBlogsSortedByNewest = asyncHandler(async (req, res) => {
@@ -114,7 +159,6 @@ const getBlogsSortedByOldest = asyncHandler(async (req, res) => {
 
 
 
-// Cập nhật bài blog
 const updateBlog = asyncHandler(async (req, res) => {
     const {
         id
@@ -122,27 +166,28 @@ const updateBlog = asyncHandler(async (req, res) => {
     const {
         title,
         content,
-        author
+        author,
+        tags,
+        metaTitle,
+        metaDescription
     } = req.body;
+
+    const existingImages = JSON.parse(req.body.existingImages || '[]');
+
     const blog = await Blog.findById(id);
+    if (!blog) {
+        return res.status(404).json({
+            message: 'Blog not found'
+        });
+    }
 
-    if (!blog) return res.status(404).json({
-        message: 'Blog not found'
-    });
+    let updatedVideos = [blog.videoUrl[0]];
 
-    const updatedImageURLs = req.files && req.files['imageUrl'] ? [] : blog.imageUrl;
-    const updatedVideoURLs = req.files && req.files['videoUrl'] ? [] : blog.videoUrl;
+
 
     try {
-        // Xóa ảnh cũ nếu có tệp ảnh mới
+        // Nếu có ảnh mới, tải lên và thêm vào danh sách ảnh
         if (req.files && req.files['imageUrl']) {
-            for (const imageURL of blog.imageUrl) {
-                const imageFileName = extractFileNameFromUrl(imageURL);
-                const imageRef = ref(storages, `blogs/${imageFileName}`);
-                await deleteObject(imageRef);
-            }
-
-            // Upload ảnh mới
             for (const file of req.files['imageUrl']) {
                 const storageRef = ref(storages, `blogs/${file.originalname}`);
                 const metadata = {
@@ -150,19 +195,13 @@ const updateBlog = asyncHandler(async (req, res) => {
                 };
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
-                updatedImageURLs.push(downloadURL);
+                existingImages.push(file.originalname); // Thêm URL ảnh mới vào danh sách ảnh
+                console.log("Đã up ảnh mới:", downloadURL);
             }
         }
 
-        // Xóa video cũ nếu có tệp video mới
+        // Nếu có video mới, tải lên và thêm vào danh sách video
         if (req.files && req.files['videoUrl']) {
-            for (const videoURL of blog.videoUrl) {
-                const videoFileName = extractFileNameFromUrl(videoURL);
-                const videoRef = ref(storages, `blogs/${videoFileName}`);
-                await deleteObject(videoRef);
-            }
-
-            // Upload video mới
             for (const file of req.files['videoUrl']) {
                 const storageRef = ref(storages, `blogs/${file.originalname}`);
                 const metadata = {
@@ -170,62 +209,216 @@ const updateBlog = asyncHandler(async (req, res) => {
                 };
                 const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
                 const downloadURL = await getDownloadURL(snapshot.ref);
-                updatedVideoURLs.push(downloadURL);
+                updatedVideos = []; // tạo mảng mới để mất cái dữ liệu ban đầu đi
+                updatedVideos.push(file.originalname); // Thêm URL video mới vào danh sách video
+                console.log("Đã up video mới:", downloadURL);
             }
         }
+
+
+
+        if (req.files && req.files['imageUrl']) {
+            for (const imageURL of blog.imageUrl) {
+                console.log("logImage", imageURL);
+                console.log("existingImages", existingImages);
+
+                // Lọc các ảnh cũ mà người dùng muốn giữ lại
+                const remainingOldImages = blog.imageUrl.filter(image => existingImages.includes(image));
+
+                console.log("remainingOldImages:", remainingOldImages); // Log danh sách ảnh cũ được giữ lại
+
+                const imageFileName = decodeURIComponent(imageURL.split('/').pop().split('?')[0]);
+
+                // Kiểm tra xem ảnh này có đang được sử dụng bởi blog nào khác không
+                const isImageUsedByOtherBlogs = await Blog.exists({
+                    imageUrl: imageURL,
+                    _id: {
+                        $ne: id
+                    }
+                });
+
+                // Nếu ảnh không được sử dụng bởi blog nào khác, kiểm tra và xóa
+                if (!isImageUsedByOtherBlogs) {
+                    console.log("Ảnh này không được dùng bởi blog nào khác, sẽ xóa:", imageFileName);
+
+                    try {
+                        // Tạo tham chiếu tới ảnh trong Firebase Storage
+                        const imageRef = ref(storages, `blogs/${imageFileName}`);
+
+                        // Kiểm tra ảnh có tồn tại trong Firebase Storage không
+                        const metadata = await getMetadata(imageRef); // Kiểm tra metadata để xác nhận ảnh tồn tại
+                        if (metadata) {
+                            // Nếu ảnh tồn tại, tiến hành xóa
+                            await deleteObject(imageRef);
+                            console.log("Đã xóa ảnh:", imageFileName);
+                        }
+                    } catch (error) {
+                        // Nếu ảnh không tồn tại (lỗi object-not-found), thông báo không cần xóa
+                        if (error.code === 'storage/object-not-found') {
+                            console.log("Ảnh không tồn tại trong Firebase Storage, không cần xóa:", imageFileName);
+                        } else {
+                            // Ném lỗi khác nếu có
+                            console.error("Lỗi khi xóa ảnh:", error.message);
+                            throw error;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
     } catch (error) {
         return res.status(500).json({
-            message: "Error uploading new files",
-            error: error.message
+            message: error.message
         });
     }
 
-    // Cập nhật blog với các trường mới hoặc giữ nguyên trường cũ nếu không thay đổi
+
+
+    // Update blog fields
     blog.title = title || blog.title;
     blog.content = content || blog.content;
     blog.author = author || blog.author;
-    blog.imageUrl = updatedImageURLs;
-    blog.videoUrl = updatedVideoURLs;
+    blog.slug = title ? title.toLowerCase().split(' ').join('-') : blog.slug;
+    blog.tags = tags || blog.tags;
+    blog.metaTitle = metaTitle || blog.metaTitle;
+    blog.metaDescription = metaDescription || blog.metaDescription;
+    blog.imageUrl = existingImages.length ? existingImages : blog.imageUrl;
+    //  blog.videoUrl = updatedVideos || blog.videoUrl;
+    blog.videoUrl = updatedVideos.length > 0 ? updatedVideos : blog.videoUrl;
 
     const updatedBlog = await blog.save();
     res.status(200).json(updatedBlog);
+
+
 });
 
-// Xóa bài blog
+// Lấy một bài blog theo slug
+const getBlogBySlug = asyncHandler(async (req, res) => {
+    const {
+        slug
+    } = req.params; // Lấy slug từ URL
+
+    try {
+        const blog = await Blog.findOne({
+            slug
+        }); // Tìm blog theo slug
+        if (!blog) {
+            return res.status(404).json({
+                message: "Blog not found"
+            });
+        }
+
+        blog.views += 1; // Tăng số lượt xem khi xem bài viết
+        await blog.save();
+
+        res.status(200).json(blog); // Trả về bài blog
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+});
+
+
 const deleteBlog = asyncHandler(async (req, res) => {
     const {
         id
     } = req.params;
 
+    // Kiểm tra nếu không có id
+    if (!id) {
+        return res.status(400).json({
+            message: "Blog ID is required."
+        });
+    }
+
+    const blogdel = await Blog.findByIdAndDelete(id);
+
+    // Kiểm tra nếu không tìm thấy blog
+    if (!blogdel) {
+        return res.status(404).json({
+            message: "Blog not found."
+        });
+    }
+
     try {
-        console.log(id);
-        const blogdel = await Blog.findByIdAndDelete(id);
-        // const tour = await TourModel.findById(id);
-        // Find and delete the tour document in a single step
+        // Xử lý xóa ảnh
+        for (const imageURL of blogdel.imageUrl) {
+            const imageFileName = decodeURIComponent(imageURL.split('/').pop().split('?')[0]);
+            const isImageUsedByOtherBlogs = await Blog.exists({
+                images: imageURL,
+                _id: {
+                    $ne: id
+                }
+            });
 
-        // if (!tour) {
-        //     return res.status(404).json({
-        //         message: "Tour not found"
-        //     });
-        // }
+            if (!isImageUsedByOtherBlogs) {
+                const imageRef = ref(storages, `blogs/${imageFileName}`);
+                await deleteObject(imageRef);
+            }
+        }
 
-        // Delete associated images and videos
-        // for (const imageURL of tour.images) {
-        //     const imageFileName = decodeURIComponent(imageURL.split('/').pop().split('?')[0]);
-        //     const imageRef = ref(storages, imageFileName);
-        //     await deleteObject(imageRef);
-        // }
+        // Xử lý xóa video
+        for (const videoURL of blogdel.videoUrl) {
+            const videoFileName = decodeURIComponent(videoURL.split('/').pop().split('?')[0]);
+            const isVideoUsedByOtherBlogs = await Blog.exists({
+                videos: videoURL,
+                _id: {
+                    $ne: id
+                }
+            });
 
-        // for (const videoURL of tour.videos) {
-        //     const videoFileName = decodeURIComponent(videoURL.split('/').pop().split('?')[0]);
-        //     const videoRef = ref(storages, videoFileName);
-        //     await deleteObject(videoRef);
-        // }
+            if (!isVideoUsedByOtherBlogs) {
+                const videoRef = ref(storages, `blogs/${videoFileName}`);
+                await deleteObject(videoRef);
+            }
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        });
+    }
 
-        res.status(200).json(blogdel);
+    console.log("Xóa thành công");
+    res.status(200).json({
+        message: "Blog deleted successfully.",
+        blogdel
+    });
+});
+
+
+// Search blogs by title
+const searchBlogsByTitle = asyncHandler(async (req, res) => {
+    const {
+        title
+    } = req.query;
+
+    if (!title) {
+        return res.status(400).json({
+            message: "Title is required for search."
+        });
+    }
+
+    try {
+        const blogs = await Blog.find({
+            title: {
+                $regex: new RegExp(title, "i")
+            } // Case-insensitive search
+        });
+
+        if (blogs.length === 0) {
+            return res.status(404).json({
+                message: "No blogs found with that title."
+            });
+        }
+
+        res.status(200).json(blogs);
     } catch (error) {
         res.status(500).json({
-            message: error.message
+            message: "Error while searching blogs.",
+            error: error.message
         });
     }
 });
@@ -237,5 +430,7 @@ module.exports = {
     updateBlog,
     deleteBlog,
     getBlogsSortedByNewest,
-    getBlogsSortedByOldest
+    getBlogsSortedByOldest,
+    searchBlogsByTitle,
+    getBlogBySlug
 };

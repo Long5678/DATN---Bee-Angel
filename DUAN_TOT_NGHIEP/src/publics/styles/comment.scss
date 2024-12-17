@@ -1,0 +1,385 @@
+/* Existing CSS (unchanged) */
+.comment-section {
+    // margin: auto;
+    background: white;
+    padding: 20px;
+    // border-radius: 8px;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.comment-author {
+    display: flex;
+    // align-items: center;
+    align-items: flex-start;
+}
+
+.comment-author .avatar-comment {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    overflow: hidden;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.comment-author .avatar-comment img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.comment-author .avatar-comment-reply {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    overflow: hidden;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.comment-author .avatar-comment-reply img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.comment-author h4 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.comment-author .d-flex-name-time {
+    display: flex;
+    width: 100%;
+}
+
+.d-flex-name-time .box-comment-name-email {
+    line-height: 1;
+}
+
+.d-flex-name-time .box-comment-name-email span {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.d-flex-name-time .box-comment-name-email h4 {
+    font-size: 1rem;
+}
+
+.comment-time {
+    margin-left: auto;
+    color: gray;
+    font-size: 0.9em;
+}
+
+.comment-text {
+    // margin: 10px 60px;
+    margin-top: 0px;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.reply-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    color: #727272;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 15px;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+.submit-btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0px !important;
+    transition: background-color 0.3s;
+}
+
+.reply-btn:hover {
+    text-decoration: underline;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Updated CSS */
+.replies {
+    margin-left: 50px;
+    // margin-top: 10px;
+    /* No left margin */
+    padding-left: 0;
+    /* No left padding */
+    border-left: none;
+    /* Remove left border */
+}
+
+/* Reply form styles */
+.comment-form {
+    margin-top: 20px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.reply-form textarea {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    // margin: 10px 60px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.reply h4 {
+    font-size: 1rem;
+}
+
+.repli {
+    display: flex;
+    // margin-left: 60px;
+    // margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+// css cho phần tour liên quan 
+.d-flex-comment-tourRelated {
+    display: flex;
+    width: 100%;
+}
+
+.d-flex-comment-tourRelated .comment-section {
+    // flex: 2;
+    width: 60%;
+}
+
+.d-flex-comment-tourRelated .boxMain-tourReadted {
+    // flex: 1;
+    width: 40%;
+    padding: 20px;
+}
+
+.listTourRelated {
+    display: flex;
+    flex-direction: column;
+}
+
+.listTourRelated .itemTour-related {
+    display: flex;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid #c7c8c9;
+    padding-bottom: 4px;
+}
+
+.itemTour-related .imgTour {
+    max-width: 150px;
+    min-width: 150px;
+    width: 150px;
+    height: 100px;
+    // border: 1px solid black;
+    overflow: hidden;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.itemTour-related .imgTour img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.itemTour-related .content-tour-related .name-tour-related {
+    font-weight: bold;
+}
+
+.itemTour-related .content-tour-related .description-tour-related {
+    font-size: 0.9rem;
+    // color: gray;
+}
+
+.itemTour-related .content-tour-related .price-tour-related {
+    color: tomato;
+    font-weight: bold;
+}
+
+.comment-form {
+    margin: 20px 0;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    font-size: 14px;
+}
+
+.comment-form input[type="file"] {
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-preview-container div {
+    position: relative;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview-container button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+// input[type="file"] {
+//     display: none;
+// }
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+.comment-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.comment-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.modalIMG {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalIMG-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.closeIMG {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+
+// 
+.loader-addComment {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: block;
+    margin-left: 30px;
+    margin-top: 15px;
+    position: relative;
+    color: tomato;
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+    0% {
+        box-shadow: -30px 0, -10px 0, 10px 0, 30px 0;
+        /* Khoảng cách đều giữa các hình */
+    }
+
+    33% {
+        box-shadow: -30px 0, -10px -10px, 10px 0, 30px 0;
+        /* Các hình di chuyển đồng đều */
+    }
+
+    66% {
+        box-shadow: -30px 0, -10px 0, 10px -10px, 30px 0;
+    }
+
+    100% {
+        box-shadow: -30px 0, -10px 0, 10px 0, 30px -10px;
+    }
+}

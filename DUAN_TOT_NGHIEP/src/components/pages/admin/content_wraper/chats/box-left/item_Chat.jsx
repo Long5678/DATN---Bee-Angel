@@ -7,11 +7,10 @@ import { getAllMessage_ByIdChat, getOneChat_ByYourId_And_UserId } from '../../..
 import { SocketContext } from '../../../../../../context/socketContext';
 import { Notification_context } from '../../../../../../context/notificationContext';
 import { unreadNotificationsFunc } from '../../../../../../hooks/unreadNotification';
+import { editOneNotifiChat } from '../../../../../../redux/thunk/notifiChat_thunk';
 function Item_Chat({ chat, user }) {
     let dispatch = useDispatch()
     const { recipientUser } = useFetchRecipientUser(chat, user);
-    console.log(recipientUser);
-    
     const { setCheckCurrentChat } = useContext(PopupContext)
     const { onlineUsers, thongBao } = useContext(SocketContext)
     // context  này sẽ xử lý các thông báo khi mà click vào thông báo đó
@@ -27,7 +26,7 @@ function Item_Chat({ chat, user }) {
         return;
     }
 
-    function handleUserChat() {
+    async function handleUserChat () {
         // cho nó hiên thôn tin đoạn chat lên
         setCheckCurrentChat(false)
         // đoạn này lấy sử dụng 2 id user để lấy thông tin đoạn chat đó
@@ -36,6 +35,10 @@ function Item_Chat({ chat, user }) {
         dispatch(getAllMessage_ByIdChat(chat?._id))
         // này là khi clic vào thông báo nào thì nó sẽ set là đã đọc và mất tb
         markThisUserNotificationsAsRead(thisUserNotifications,thongBao)
+        // Đánh dấu tất cả thông báo của người gửi là đã đọc trên server
+        thisUserNotifications.forEach((notification) => {
+            dispatch(editOneNotifiChat(notification._id));
+        });
     }
     return <>
         <ListItem onClick={handleUserChat}>

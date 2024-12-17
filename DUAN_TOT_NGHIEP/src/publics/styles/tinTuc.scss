@@ -54,7 +54,6 @@
 
 .boxTin_img {
     width: 240px;
-    height: 144px;
 }
 
 .boxTin_img img {
@@ -119,7 +118,6 @@
 .top_tinNoiBat h4 {
     margin: 0;
     padding: 10px;
-    text-decoration: underline;
 }
 
 .Text_tinTuc a {
@@ -195,3 +193,11 @@
 .detail_h2 h2 {
     font-family: "Merriweather", serif;
 }
+
+.truncate {
+    display: inline-block; /* Hoặc block/inline-block */
+    white-space: nowrap; /* Không cho xuống dòng */
+    overflow: hidden; /* Ẩn phần văn bản vượt quá */
+    text-overflow: ellipsis; /* Hiển thị dấu "..." */
+  }
+  

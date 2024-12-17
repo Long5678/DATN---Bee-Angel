@@ -1,0 +1,259 @@
+.hotel-list-container {
+    // padding-top: 60px;
+    text-align: center;
+}
+
+.card-hotel-content::-webkit-scrollbar {
+    display: none;
+}
+
+.close-hotel-btn {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    border: none;
+    background: none;
+}
+
+
+.hotel-list-container .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+
+.hotel-hv:hover h2 {
+    display: block;
+}
+
+
+.hotel-list {
+    display: flex;
+    // justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    flex: 4;
+}
+
+.hotel-card-M {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.hotel-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.hotel-card-M .card-image {
+    position: relative;
+}
+
+.hotel-card .card-image {
+    position: relative;
+}
+
+.card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-image .check-d input {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+}
+
+.card-image .location-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.hotel-card-M .card-hotel-content {
+    padding: 15px;
+}
+
+.hotel-card .card-hotel-content {
+    padding: 15px;
+}
+
+.card-hotel-content h2 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+}
+
+.card-hotel-content .stars {
+    color: #ffd700;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card-hotel-content p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    // font-size: 14px;
+    // line-height: 1.5;
+}
+
+.card-hotel-footer {
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    margin-top: 15px;
+}
+
+.card-hotel-footer .select-btn {
+    background-color: #673ab7;
+    color: white;
+    padding: 4px 24px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 11px;
+    // margin-right: 12px;
+}
+
+.card-hotel-footer .select-btn:hover {
+    background-color: #5e35b1;
+}
+
+.card-hotel-footer .price {
+    font-size: 1.2rem;
+    // font-size: 14px;
+    font-weight: bold;
+}
+
+.see-more-btn {
+    background-color: #673ab7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.see-more-btn:hover {
+    background-color: #5e35b1;
+}
+
+// hotel detail
+
+.hotel-detail {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.hotel-info {
+    width: 50%;
+    padding-right: 20px;
+}
+
+.hotel-name {
+    padding-inline: 12px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.hotel-rating {
+    font-size: 20px;
+    color: gold;
+}
+
+.hotel-price {
+    font-size: 24px;
+    color: #f00;
+    margin: 0;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #f00;
+}
+
+.hotel-description {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.hotel-description h3 {
+    margin-bottom: 10px;
+}
+
+.hotel-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #28a745;
+    color: white;
+}
+
+.hotel-images {
+    width: 45%;
+}
+
+.main-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.small-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.small-images img {
+    width: calc(50% - 5px);
+    border-radius: 8px;
+}

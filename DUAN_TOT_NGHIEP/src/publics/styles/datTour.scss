@@ -12,7 +12,6 @@
 .div-box-tourDetail-right {
     width: 30%;
     margin: auto;
-    margin-bottom: 100px;
 }
 .tour-details-card {
     border-top-left-radius: 30px;
@@ -53,8 +52,6 @@
 
 .tour-info {
     padding: 15px;
-    height: 1000px;
-    padding-bottom: 100px;
 }
 
 .tour-header {
@@ -122,7 +119,6 @@
 .tour-price-thanhToan {
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
     // justify-content: space-between;
     // align-items: center;
 }
@@ -173,7 +169,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  margin-top: 0px;
+  margin-top: 60px;
 }
 
 .tour-form-container2 .tour-form h2 {
@@ -193,7 +189,7 @@
 
 .tour-form-container2 .tour-form .form-group input,
 .tour-form-container2 .tour-form .form-group textarea {
-  width: 100%;
+  width: 93.6%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -204,6 +200,7 @@
 form .form-group-wrapper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 /* Ensure individual form groups take up nearly half of the space */
@@ -217,13 +214,12 @@ form .form-group-wrapper .form-group input {
 
 /* Additional information section */
 .tour-form-container2 .additional-info {
-  width: 100%; /* Match the form width */
+  width: 750px; /* Match the form width */
   background-color: #fff;
   padding: 20px;
   margin-right: 80px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
 }
 
 .additional-info .checkbox-group {
@@ -396,41 +392,3 @@ form .form-group-wrapper .form-group input {
         font-size: 12px;
     }
 }
-
-.form-flex {
-    width: 100%;
-    display: flex;
-}
-
-.form-group .title-red {
-    color: red;
-}
-
-.form-flex .form-group .ok {
-    margin-top: 10px;
-}
-
-.form-tel {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.form-tel .form-group .ok {
-    margin-top: 10px;
-}
-
-.form-tel .form-group button{
-    width: 100%;
-    padding: 15px;
-    background-color: #F4BD4F;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-top: 2px;
-    margin-top: 26px;
-
-}
-

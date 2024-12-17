@@ -1,6 +1,21 @@
 import "../../publics/styles/footer.scss"
+import "../../publics/styles/reponsive/rp-header.scss"
+import "../../publics/styles/reponsive/rp-footer.scss"
+import { useContext, useEffect } from "react"
+import { AuthContext } from "../../context/authContext"
+import { useDispatch, useSelector } from "react-redux"
+import { getOneUser } from "../../redux/action_thunk"
 
 function Footer() {
+    let dispatch = useDispatch()
+    const { handleOpen, user } = useContext(AuthContext)
+    useEffect(() => {
+        if(user && user._id) {
+            dispatch(getOneUser(user?._id))
+        }
+    }, [user?._id])
+
+    const userOne = useSelector((state) => state.userSL.userOne)
     return <>
         {/* <!-- Hero Slide --> */}
         <section className="hero-section">
@@ -63,7 +78,7 @@ function Footer() {
                 </div>
                 <form className="subscribe-form">
                     <input type="email" placeholder="BeeAngel@gmail.com" />
-                    <button type="submit">Gửi đến hòm thư</button>
+                    <button type="submit">Gửi qua Email</button>
                 </form>
             </section>
 
@@ -71,6 +86,47 @@ function Footer() {
                 <p>BEE ANGEL</p>
             </section>
         </footer>
+
+
+        {/* footer mobile */}
+        <section className="footer-mobile">
+            <div className="sideBart-mobile">
+                <div className="item-sideBart">
+                    <a href="/">
+                        <div><i className="fa-solid fa-house fa-xl"></i></div>
+                        <span>Trang chủ</span>
+                    </a>
+                </div>
+                <div className="item-sideBart">
+                    <a href="">
+                        <div><i className="fa-regular fa-message fa-xl"></i></div>
+                        <span>Tin nhắn</span>
+                    </a>
+                </div>
+                <div className="item-sideBart">
+                    <a href="">
+                        <div><i className="fa-solid fa-location-dot fa-xl"></i></div>
+                        <span>Chuyến đi</span>
+                    </a>
+                </div>
+                <div className="item-sideBart">
+                    {!user
+                        ?
+                        <a onClick={handleOpen} >
+                            <div><i className="fa-solid fa-right-to-bracket fa-xl"></i>
+                            </div>
+                            <span>Đăng nhập</span>
+                        </a>
+                        :
+                        <a href="/user_profile">
+                            <div><i className="fa-solid fa-face-smile fa-xl"></i></div>
+                            <span>{userOne?.name}</span>
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </section >
 
     </>
 }

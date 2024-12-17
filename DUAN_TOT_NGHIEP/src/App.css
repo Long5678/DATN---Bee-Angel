@@ -4,6 +4,8 @@
   font-family: Arial, sans-serif;
 }
 
+
+
 .message-alert {
   position: fixed;
   top: 55px;
@@ -34,4 +36,111 @@
 
 .message-alert-error {
   background-color: #d32f2f;
+}
+
+.main-sidebar {
+  position: fixed !important;
+}
+
+/* css cho avatar chỗ thông báo bên admin */
+.media img {
+  height: 50px;
+  object-fit: cover;
+}
+
+.float-right {
+  width: 10px;
+  border-radius: 50%;
+  height: 10px;
+  background-color: blue;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  overflow-y: scroll;
+  /* height: 300px; */
+  min-height: 100px;
+  max-height: 200px;
+}
+
+.dropdown-menu::-webkit-scrollbar {
+  display: none;
+}
+
+/* css 2 cái nút trong chỗ nếu hủy tour */
+.btn-close-cancle {
+  background-color: gainsboro;
+  padding: 3px 15px;
+  border: none;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.btn-close-danger {
+  color: white;
+  background-color: tomato;
+  padding: 3px 15px;
+  border: none;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+
+.mt-2 {
+  overflow-y: scroll;
+  height: 620px;
+  scrollbar-width: none;
+}
+
+.mt-2::-webkit-scrollbar {
+  display: none !important;
+}
+
+
+.box-rating-board {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.chartPriceOrderMonth {
+  padding: 0px 20px;
+  padding-bottom: 30px;
+}
+
+
+.fs-t {
+  font-size: 1rem !important;
+  color: black !important;
+}
+
+
+
+/* css ẩn 2 nút lên xuống của inp number */
+.custom-number::-webkit-inner-spin-button,
+.custom-number::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-number {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root input[type="number"]::-webkit-inner-spin-button,
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
 }

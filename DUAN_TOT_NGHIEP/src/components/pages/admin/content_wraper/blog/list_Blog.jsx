@@ -10,6 +10,8 @@ const ListBlog = () => {
     const { user } = useContext(AuthContext)
     let isLoadingBlog = useSelector((state) => state.blogSL.isLoadingBlog)
     let blogDatas  = useSelector((state) => state.blogSL.blogDatas);
+    console.log('okok', blogDatas);
+    
 
      // sử dụng effect để gửi action đến getAllBogs
   useEffect(() => {
@@ -30,8 +32,7 @@ const ListBlog = () => {
             <th className='center-th' scope="col">#</th>
             <th scope="col">Tên Blog</th>
             <th scope="col">Tác giả</th>
-            <th scope="col">Ngày Đăng</th>
-            <th scope="col">Views</th>
+            <th scope="col">Thời điểm hiện tại</th>
             <th scope="col">Handle</th>
           </tr>
         </thead>

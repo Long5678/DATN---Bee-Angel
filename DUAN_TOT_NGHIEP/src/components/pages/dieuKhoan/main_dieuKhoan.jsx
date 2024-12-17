@@ -6,87 +6,85 @@ function Main_dieuKhoan() {
     let datas = [
         {
             id: 1,
-            title: "1. Giới thiệu",
+            title: "1. Chấp thuận điều khoản",
             contents: [
-                "Các Điều khoản và Điều kiện này Điều khoản chi phối việc bạn sử dụng các dịch vụ do [Tên công ty] cung cấp, một công ty lữ hành chuyên về các tour du lịch và các gói du lịch. Bằng cách đặt hoặc sử dụng dịch vụ của chúng tôi, bạn đồng ý bị ràng buộc bởi các Điều khoản này."
+                "Khi truy cập và sử dụng trang web, quý khách mặc định đồng ý với các điều khoản này. Nếu không đồng ý, vui lòng ngừng sử dụng dịch vụ của chúng tôi."
             ]
         },
         {
             id: 2,
-            title: "2. Đặt chỗ và thanh toán",
+            title: "2. Đặt tour du lịch",
             contents: [
-                "Quy trình đặt phòng: Để đảm bảo đặt phòng, bạn cần đặt cọc [phần trăm] tại thời điểm đặt phòng. Số tiền còn lại phải thanh toán trước [số] ngày so với ngày khởi hành.",
-                "Phương thức thanh toán: Thanh toán có thể được thực hiện bằng thẻ tín dụng, chuyển khoản ngân hàng hoặc các phương thức khác được chỉ định trên trang web của chúng tôi.",
-                "Chính sách hủy: Việc hủy phải được thực hiện bằng văn bản. Việc hủy được thực hiện trước [số] ngày so với ngày khởi hành sẽ phải chịu phí hủy [phần trăm]. Không hoàn lại tiền cho việc hủy được thực hiện trước ngày khởi hành ít hơn [số] ngày.",
+                "Quý khách có thể chọn từ các tour du lịch có sẵn trên trang web. Thông tin về giá, lịch trình và các dịch vụ đi kèm được mô tả chi tiết cho từng tour.Khi đặt tour, quý khách cần cung cấp thông tin chính xác.Chúng tôi không chịu trách nhiệm cho các sai sót do quý khách cung cấp.Đặt cọc hoặc thanh toán toàn bộ chi phí tour là bắt buộc trước khi xác nhận đặt chỗ.Thông tin chi tiết về thanh toán sẽ được gửi qua email.",
             ]
         },
         {
             id: 3,
-            title: "3. Tài liệu du lịch",
+            title: "3. Đặt và thuê xe máy",
             contents: [
-                "Hộ chiếu và thị thực: Mỗi du khách có trách nhiệm đảm bảo rằng họ có hộ chiếu, thị thực hợp lệ và các giấy tờ cần thiết khác cho điểm đến mà họ đến.",
-                "Bảo hiểm du lịch: Chúng tôi đặc biệt khuyến nghị tất cả du khách nên mua bảo hiểm du lịch toàn diện để chi trả cho việc hủy chuyến đi, chi phí y tế và các rủi ro tiềm ẩn khác.",
+                "Quý khách cần có giấy phép lái xe hợp lệ để thuê xe máy.",
+                "Quá trình đặt xe máy bao gồm việc cung cấp các thông tin cần thiết như ngày thuê, địa điểm giao xe, loại xe mong muốn và thời gian thuê.",
+                "Chúng tôi có quyền từ chối cho thuê xe nếu quý khách không đáp ứng các điều kiện thuê hoặc có lịch sử vi phạm trước đó.,Trước khi nhận xe, quý khách cần kiểm tra tình trạng xe và báo ngay cho chúng tôi nếu có bất kỳ vấn đề gì.Quý khách chịu trách nhiệm với bất kỳ thiệt hại nào gây ra trong quá trình sử dụng.",
+                "Sau khi đã đặt cọc hoặc thanh toán toàn bộ chi phí thuê xe, quý khách sẽ được hoàn lại tiền trong trong vòng 15p đầu tiên kể từ khi đặt xe. Việc thay đổi thời gian thuê xe sẽ được xem xét tùy thuộc vào tình trạng sẵn có."
             ]
         },
         {
             id: 4,
-            title: "4. Giá cả và Bao gồm",
+            title: "4. Chính sách bảo mật thông tin",
             contents: [
-                "Giá cả: Tất cả giá được báo bằng [tiền tệ] và có thể thay đổi mà không cần báo trước. Giá bao gồm các dịch vụ được nêu trong xác nhận đặt phòng nhưng không bao gồm các mục mang tính cá nhân như bữa ăn không được nêu, tiền boa hoặc bảo hiểm du lịch.",
-                "Bao gồm: Giá tour bao gồm chỗ ở, phương tiện di chuyển và các tour có hướng dẫn viên như đã nêu trong hành trình.Các dịch vụ bổ sung như các chuyến tham quan tùy chọn có thể được cung cấp với một khoản phí bổ sung.",
+                "Chúng tôi cam kết bảo mật thông tin cá nhân của quý khách khi sử dụng dịch vụ. Các thông tin này chỉ được sử dụng cho mục đích cung cấp dịch vụ và liên lạc khi cần thiết.",
+                "Chúng tôi không chia sẻ hoặc bán thông tin cá nhân của quý khách cho bên thứ ba, trừ khi có sự đồng ý của quý khách hoặc theo yêu cầu pháp lý.",
+                
             ]
         },
         {
             id: 5,
-            title: "5. Thay đổi hành trình",
+            title: "5. Điều kiện sử dụng dịch vụ",
             contents: [
-                "Thay đổi của Công ty: [Tên công ty] có quyền thay đổi hành trình do những tình huống bất khả kháng, bao gồm nhưng không giới hạn ở điều kiện thời tiết, đình công hoặc các sự kiện khác nằm ngoài tầm kiểm soát của chúng tôi. Bất kỳ thay đổi nào sẽ được thông báo sớm nhất có thể.",
-                "Thay đổi của Khách du lịch: Nếu bạn muốn thay đổi đặt phòng sau khi xác nhận, có thể áp dụng thêm phí. Chúng tôi sẽ cố gắng hết sức để đáp ứng các thay đổi, nhưng không thể đảm bảo tình trạng còn phòng.",
-            ]
+                "Đối với tour du lịch: Quý khách cần tuân thủ các quy định về an toàn và lịch trình do chúng tôi hoặc đối tác cung cấp. Trong trường hợp vi phạm, quý khách sẽ chịu trách nhiệm cho mọi thiệt hại hoặc chi phí phát sinh.Đối với thuê xe máy: Quý khách cần tuân thủ luật giao thông địa phương và bảo quản xe trong thời gian thuê.Quý khách chịu trách nhiệm cho mọi thiệt hại hoặc sự cố xảy ra trong quá trình sử dụng."            ]
         },
         {
             id: 6,
-            title: "6. Trách nhiệm và nghĩa vụ",
+            title: "6. Trách nhiệm và giới hạn trách nhiệm",
             contents: [
-                "Trách nhiệm của công ty: [Tên công ty] hoạt động như một đại lý cho các nhà cung cấp dịch vụ du lịch và không thể chịu trách nhiệm cho bất kỳ hành động hoặc thiếu sót nào của các nhà cung cấp này. Trách nhiệm của chúng tôi chỉ giới hạn ở giá của các dịch vụ đã đặt.",
-                "Trách nhiệm của du khách: Du khách chịu trách nhiệm về đồ đạc cá nhân, sức khỏe và sự an toàn của mình trong suốt chuyến đi. [Tên công ty] không chịu trách nhiệm về bất kỳ thương tích, mất mát hoặc thiệt hại nào xảy ra trong suốt chuyến đi.",
+"Trách nhiệm của khách hàng: Quý khách chịu trách nhiệm đảm bảo tính chính xác của thông tin cung cấp và tuân thủ các quy định khi sử dụng dịch vụ.",
+"Giới hạn trách nhiệm của chúng tôi: Chúng tôi không chịu trách nhiệm cho bất kỳ thiệt hại nào do sai sót từ phía khách hàng hoặc các sự kiện bất khả kháng như thời tiết xấu, thiên tai, hoặc sự kiện ngoài tầm kiểm soát."
             ]
         },
         {
             id: 7,
-            title: "7. Bất khả kháng",
+            title: "7. Chính sách hủy tour",
             contents: [
-                "[Tên công ty] sẽ không chịu trách nhiệm đối với bất kỳ trường hợp không thực hiện nghĩa vụ của mình theo các Điều khoản này nếu trường hợp không thực hiện đó là do các sự kiện nằm ngoài tầm kiểm soát hợp lý của công ty, bao gồm nhưng không giới hạn ở thiên tai, chiến tranh, đình công hoặc hạn chế của chính phủ.",
+                "1.	Nếu Bên B hủy cọc tour trước 7 ngày so với ngày đặt cọc,. Bên B sẽ phải chịu mức phí phạt là [50 %] tổng giá trị phí cọc tour. .Còn sau 7 ngày so với ngày khởi hành thì mất  [100 %] tổng giá trị phí đặt cọc tour. Nếu hủy cọc trước 24h thì sẽ hoàn 100% cọc (Lưu ý; đặt10 ngày so với ngày khởi hành mới có lịch) " ,
+            "2.	Nếu Bên B hủy tour trước 4 ngày so với ngày khởi hành. Bên B sẽ phải chịu mức phí phạt là [30 %] tổng giá trị phí đặt tour.Còn sau 4 ngày so với ngày khởi hành thì mất  [100 %] tổng giá trị phí đặt tour. Nếu hủy cọc trước 24h thì sẽ hoàn 100%.",
+            "3.	Trong trường hợp Bên A hủy tour do sự kiện bất khả kháng (Thiên tai,...), Bên A sẽ hoàn lại số tiền Bên B đã thanh toán [80%] hoặc sắp xếp lịch trình khác phù hợp."
             ]
         },
         {
             id: 8,
-            title: "8. Luật quản lý",
+            title: "8. Thay đổi và chấm dứt dịch vụ",
             contents: [
-                "Các Điều khoản này được điều chỉnh và diễn giải theo luật pháp của [Quốc gia/Tiểu bang] và mọi tranh chấp phát sinh từ các Điều khoản này sẽ tuân theo quyền tài phán độc quyền của tòa án [Quốc gia/Tiểu bang].",
-            ]
+                "Chúng tôi có quyền thay đổi hoặc chấm dứt dịch vụ mà không cần báo trước nếu phát hiện khách hàng vi phạm điều khoản.Trong trường hợp vi phạm các quy định sử dụng, chúng tôi có quyền từ chối cung cấp dịch vụ trong tương lai hoặc chấm dứt hợp đồng."            ]
         },
         {
             id: 9,
             title: "9. Khiếu nại và Tranh chấp",
             contents: [
-                "Khiếu nại: Mọi khiếu nại phải được gửi bằng văn bản đến [Tên công ty] trong vòng [số] ngày kể từ ngày kết thúc chuyến tham quan. Chúng tôi sẽ cố gắng giải quyết mọi vấn đề nhanh nhất có thể.",
-                "Giải quyết tranh chấp: Trong trường hợp xảy ra tranh chấp, cả hai bên đồng ý trước tiên tìm cách giải quyết thông qua hòa giải trước khi theo đuổi hành động pháp lý.",
+                "Mọi tranh chấp phát sinh từ việc sử dụng dịch vụ sẽ được giải quyết thông qua thỏa thuận và hòa giải giữa hai bên. Nếu không đạt được thỏa thuận, tranh chấp sẽ được giải quyết theo quy định của pháp luật."
             ]
         },
         {
             id: 10,
-            title: "10. Chấp nhận các điều khoản",
+            title: "10.Liên hệ",
             contents: [
-                "Bằng cách đặt phòng với [Tên công ty], bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý với các Điều khoản và Điều kiện này.",
-            ]
+"Nếu quý khách có bất kỳ câu hỏi nào về điều khoản sử dụng, vui lòng liên hệ với chúng tôi qua email: [beeangel@gmail.com] hoặc số điện thoại: [0394776323]."            ]
         },
     ]
     return <>
         <Header />
         <article className="dieuKhoan-container">
-            <h1 className="title">Điều khoản của chúng tôi</h1>
-            <p className="subtitle">Hãy để chúng tôi giải đáp thắc mắc của bạn!</p>
+            <h1 className="title">ĐIỀU KHOẢN SỬ DỤNG DỊCH VỤ CỦA CHÚNG TÔI</h1>
+            <p className="subtitle">Chào mừng quý khách đến với trang web của chúng tôi. Khi sử dụng các dịch vụ đặt tour du lịch và thuê xe máy, quý khách đồng ý tuân thủ các điều khoản dưới đây. Xin vui lòng đọc kỹ trước khi sử dụng dịch vụ.</p>
 
              {datas.map((data, index) => {
                  return <Item_dieuKhoan key={index} {...data} />

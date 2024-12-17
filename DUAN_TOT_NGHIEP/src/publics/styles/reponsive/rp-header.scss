@@ -1,0 +1,121 @@
+// reponsive phần header và banner
+.header-table-moblie {
+    display: none;
+}
+
+/* Tablet: 769px - 1024px */
+@media (min-width: 570px) and (max-width: 1024px) {
+    .header-user {
+        background-color: tomato;
+        padding: 0px 10px;
+    }
+
+    .header-table-moblie {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 99999;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .main-banner {
+        margin-top: 0px;
+        display: none;
+    }
+
+    .header-table-moblie .header-mobi-search {
+        border: 1px solid black;
+        display: flex;
+        border-radius: 17px;
+    }
+
+    .header-mobi-search .box-mobi-inp {
+        width: 100%;
+    }
+
+    .header-mobi-search .box-mobi-inp input {
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: white;
+    }
+
+    .header-mobi-search .icon {
+        margin: 0px 5px;
+    }
+}
+
+
+/* Mobile nhỏ: (Mobile nhỏ: 320px - 480px) */
+@media (min-width: 320px) and (max-width: 768px) {
+    body {
+        // font-size: 60%;
+        font-size: 0.8rem;
+
+        h2 {
+            font-size: 1rem;
+        }
+    }
+
+    .header-user {
+        display: none;
+    }
+
+    .header-table-moblie {
+        display: block !important;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 99999;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .main-banner {
+        margin-top: 0px;
+        display: none;
+    }
+
+    .header-table-moblie .header-mobi-search {
+        border: 1px solid #E5E5E5;
+        display: flex;
+        border-radius: 24px;
+        padding: 10px 6px;
+    }
+
+    .header-mobi-search .box-mobi-inp {
+        width: 100%;
+    }
+
+    .header-mobi-search .box-mobi-inp input {
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: white;
+    }
+
+    .header-mobi-search .icon {
+        margin: 0px 5px;
+    }
+
+    .main-list-tour {
+        margin-top: 30px;
+    }
+
+    .box-list-tour {
+        padding: 0px 14px;
+    }
+
+    .box-list-tour .tieuDe-tour {
+        align-items: center;
+    }
+
+    .box-list-tour .line-tour {
+        margin-top: 0px;
+    }
+
+}

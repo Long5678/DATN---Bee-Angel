@@ -1,157 +1,154 @@
-import axios from "axios";
-import React, { useState, useEffect, useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { AuthContext } from "../../../context/authContext";
 import '../../../publics/styles/BookingSuccess.scss';
+import { getoneOder, getOneTour, getOneUser } from "../../../redux/action_thunk";
 
 const BookingSuccess = () => {
-  let dispatch = useDispatch()
-  const {user} = useContext(AuthContext)
-    const [userInfo, setUserInfo] = useState(null);
-    const [tourDetails, setTourDetails] = useState(null);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [sale, setSale] = useState(0);
-    const [depositPrice, setDepositPrice] = useState(0);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [searchParams] = useSearchParams();
-    const idTour = searchParams.get("id");
-    const numberOfPeople = parseInt(searchParams.get("people"), 10);  
-    const numberOfChildren = parseInt(searchParams.get("children"), 10);  
+  let dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const [orderDetails, setOrderDetails] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [depositPrice, setDepositPrice] = useState(0);
+  const [searchParams] = useSearchParams();
+  const idOrder = searchParams.get("id");  // Change to idOrder
+  const priceHotel = parseFloat(localStorage.getItem("priceHotel"));
 
-    useEffect(() => {
-      if (numberOfPeople <= 0) {;
-        setErrorMessage("Số lượng người lớn phải lớn hơn 0.");
-        return;
-      }
+  useEffect(() => {
+    if (idOrder) {
+      dispatch(getoneOder(idOrder))
+      dispatch(getOneTour(oneOder.idTour))
+      dispatch(getOneUser(oneOder.idUser))
+    }
 
-      if (numberOfChildren < 0) {
-        setErrorMessage("Số lượng trẻ em không thể âm.");
-        return;
-      }
 
-      const fetchUserInfo = () => {
-        const storedUserInfo = localStorage.getItem("userInfo");
-        if (storedUserInfo) {
-          setUserInfo(JSON.parse(storedUserInfo));
-        }
-      };
-  
-      const fetchTourDetails = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3000/Admin/tours/detail/${idTour}`);
-          const tourData = response.data;
-  
-          setTourDetails(tourData);
-          handleCalculatePrice(numberOfPeople, numberOfChildren);
-        } catch (error) {
-          console.error("Error fetching tour details:", error);
-          setErrorMessage("Không thể lấy thông tin tour. Vui lòng thử lại sau.");
-        }
-      };
-  
-      const handleCalculatePrice = async (people, children) => {
-        try {
-          const response = await axios.post(`http://localhost:3000/price/calculate-price/${idTour}`, {
-            numberOfPeople: people,
-            numberOfChildren: children
-          });
-          const { totalPrice, sale, depositPrice } = response.data;
-  
-          setTotalPrice(totalPrice);
-          setSale(sale);
-          setDepositPrice(depositPrice);
-          setErrorMessage("");
-        } catch (error) {
-          console.error("Error calculating price:", error);
-          setErrorMessage(error.response?.data?.message || "Có lỗi xảy ra. Vui lòng thử lại.");
-          setTotalPrice(0);
-          setSale(0);
-          setDepositPrice(0);
-        }
-      };
-  
-      fetchUserInfo();
-      if (idTour) {
-        fetchTourDetails();
-      }
-    }, [idTour, numberOfPeople, numberOfChildren]);
+  }, [idOrder])
 
-    
+  console.log("idOrder", idOrder);
+
+
+
+
+  const oneOder = useSelector((state) => state.oderSL.oneOder)
+  const oneTour = useSelector((state) => state.tourSL.tourOne)
+  const oneUser = useSelector((state) => state.userSL.userOne)
+  console.log("one111", oneOder);
+  useEffect(() => {
+    if (oneOder) {
+      dispatch(getOneTour(oneOder.idTour))
+    }
+
+  }, [oneOder])
+
+
+  useEffect(() => {
+    const paymentType = localStorage.getItem("paymentType");
+
+    if (paymentType === "full") {
+      setDepositPrice(0);
+    }
+  }, [totalPrice]);
+
+  const handleHomeRedirect = () => {
+    navigate('/'); // Điều hướng về trang chủ
+  };
+
+  const handleRetryPayment = () => {
+    navigate('/#order-list'); // Điều hướng về trang thanh toán
+  };
+
+  function formatCurrency(value) {
+    return Number(value).toLocaleString('vi-VN') + '₫';
+  }
 
   return (
     <div className="booking-success-container">
       <div className="icon-success">
         <span>✔️</span>
       </div>
-      <h2>Đặt tour thành công</h2>
+      {localStorage.getItem("paymentType") !== "full" ? (<h2>Đặt cọc thành công</h2>) : (<h2>Đặt tour thành công</h2>)}
       <p>Cảm ơn quý khách đã đặt tour tại Bee Angel.</p>
 
       <div className="booking-details">
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-        {user && (
+        {oneUser && (
           <>
             <div className="detail-row">
-                    <span className="label">Mã đơn hàng</span>
-                    <span className="value">#01234</span>
-            </div>
-            <div className="detail-row">
               <span className="label">Họ và tên</span>
-              <span className="value">{user.name}</span>
+              <span className="value">{oneUser.name}</span>
             </div>
             <div className="detail-row">
               <span className="label">Email</span>
-              <span className="value">{user.email}</span>
+              <span className="value">{oneUser.email}</span>
             </div>
             <div className="detail-row">
               <span className="label">Số điện thoại</span>
-              <span className="value">{user.phone}</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Địa chỉ</span>
-              <span className="value">{user.address}</span>
+              <span className="value">{oneUser.phone}</span>
             </div>
           </>
         )}
-        
-        {tourDetails && !errorMessage && (
+
+        <div className="detail-row">
+          <span className="label">Tên tour</span>
+          <span className="value">{oneTour.name}</span>
+        </div>
+        <div className="detail-row">
+          <span className="label">Ngày bắt đầu và kết thúc</span>
+          <span className="value">{oneOder.departureDate} - {oneOder.returnDate}</span>
+        </div>
+        <div className="detail-row">
+          <span className="label">Số lượng người</span>
+          <span className="value">{oneOder.numberOfPeople} Người lớn - {oneOder.numberOfChildren} Trẻ em</span>
+        </div>
+        <div className="detail-row">
+          <span className="label">Địa điểm đón</span>
+          <span className="value">{oneUser.address_don}</span>
+        </div>
+        <div className="detail-row">
+          <span className="label">Giá tour</span>
+          <span className="value red">{formatCurrency(oneOder.totalPrice)}</span>
+        </div>
+        {priceHotel !== 0 && (
+          <div className="detail-row">
+            <span className="label">Giá Khách sạn</span>
+            <span className="value red">{formatCurrency(oneOder.priceHotel)}</span>
+          </div>
+        )}
+
+        {localStorage.getItem("paymentType") !== "full" ? (
           <>
             <div className="detail-row">
-              <span className="label">Tên tour</span>
-              <span className="value">{tourDetails.name}</span>
+              <span className="label">Tiền đã đặt cọc</span>
+              <span className="value">{formatCurrency(oneOder.depositPrice)}</span>
             </div>
             <div className="detail-row">
-              <span className="label">Ngày bắt đầu và kết thúc</span>
-              <span className="value">15/08/2024 - 18/08/2024</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Số lượng người</span>
-              <span className="value">{numberOfPeople} Người lớn - {numberOfChildren} Trẻ em</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Địa điểm đón</span>
-              <span className="value">137 Nguyễn Thị Thập, Phường Hòa Minh, Quận Liên Chiểu, TP. Đà Nẵng</span>
-            </div>
-
-            <div className="detail-row">
-              <span className="label">Giá tour</span>
-              <span className="value red">{totalPrice} VND</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Giá ưu đãi</span>
-              <span className="value red">{sale} VND</span>
-            </div>
-            <div className="detail-row">
-              <span className="label">Phương thức thanh toán</span>
-              <span className="value">Paypal</span>
+              <span className="label">Số tiền còn lại cần thanh toán</span>
+              <span className="value red">{formatCurrency(((oneOder.sale + oneOder.priceHotel  )- oneOder.depositPrice))}</span>
             </div>
           </>
+        ) : (
+          <div className="detail-row">
+            <span className="label">Trạng thái thanh toán</span>
+            <span className="value green">Thanh toán hoàn thành</span>
+          </div>
         )}
+        <div className="detail-row">
+          <span className="label">Phương thức thanh toán</span>
+          <span className="value">{oneOder.paymentMethod}</span>
+        </div>
       </div>
-
+      <div className="error-buttons">
+        <button className="btn-home" onClick={handleHomeRedirect}>
+          Về Trang Chủ
+        </button>
+        <button className="btn-retry" onClick={handleRetryPayment}>
+          Tiếp tục mua hàng
+        </button>
+      </div>
     </div>
   );
 };
 
 export default BookingSuccess;
+

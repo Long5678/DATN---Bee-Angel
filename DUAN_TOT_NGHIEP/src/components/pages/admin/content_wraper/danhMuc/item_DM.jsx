@@ -16,6 +16,12 @@ function Item_DM({ _id, name, description, i }) {
     }
 
 
+    const handleDelete = () => {
+        if (window.confirm("Bạn có chắc chắn muốn xóa loại danh mục này?")) {
+            dispatch(delDanhMuc(_id));
+        }
+    };
+
     return <>
         <tr>
             <th className='center-th' scope="row">{i + 1}</th>
@@ -23,7 +29,7 @@ function Item_DM({ _id, name, description, i }) {
             <td>{description}</td>
             <td>
                 <Button onClick={() => handleEdit(_id)} style={{ marginRight: "10px" }} variant="contained">Edit</Button>
-                <Button onClick={() => { dispatch(delDanhMuc(_id)) }} color="error" variant="outlined">Delete</Button>
+                <Button onClick={handleDelete} color="error" variant="outlined">Delete</Button>
             </td>
         </tr>
     </>

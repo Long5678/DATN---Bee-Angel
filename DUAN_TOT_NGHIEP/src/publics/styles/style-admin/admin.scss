@@ -68,14 +68,17 @@
 
 //  danh mục
 .table-danhMuc {
-    padding: 10px 20px;
+    padding: 10px 0px;
 }
 
 .center-th {
     text-align: center;
 }
-
+.table-danhMuc table{
+    width: 100%;
+}
 .table-danhMuc table thead tr th {
+    
     background-color: #3f474e;
     color: white;
 }
@@ -152,6 +155,16 @@
     padding: 20px;
 }
 
+.overlay-await-bookTour {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
 .overlay-await-addTour {
     width: 100%;
     height: 100%;
@@ -198,7 +211,7 @@
 }
 
 .ul-image-manager li {
-    color:#3874cb;
+    color: #3874cb;
     padding-right: 10px;
 }
 
@@ -210,6 +223,7 @@
 .ul-image-manager li .span-close i {
     color: red;
 }
+
 // css loading
 .loader {
     // position: fixed;
@@ -254,11 +268,32 @@
     animation: rotation 1s linear infinite;
 }
 
+.loaderBookTour {
+    position: fixed;
+    top: 44%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-bottom-color: #3874cb;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
 .span-addTour {
-     position: fixed;
-     top: 42%;
-     left: 53%;
-     color: tomato;
+    position: fixed;
+    top: 42%;
+    left: 53%;
+    color: tomato;
+}
+
+.span-bookTour {
+    position: fixed;
+    top: 51%;
+    left: 49%;
+    color: #3874cb;
 }
 
 @keyframes rotation {
@@ -431,6 +466,23 @@
     font-size: 1.2rem;
 }
 
+.btns-change-car {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.btns-change-car .btn-thongTin {
+    padding-right: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.btns-change-car .btn-plane {
+    padding-left: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
 .box-admin-tourPlane {
     padding: 10px;
     border: 1px solid #E5E5E5;
@@ -468,4 +520,325 @@
 .boxDateTour span i {
     color: red;
     cursor: pointer;
+}
+
+
+// css tí phần edit order
+.box-order-tour-name {
+    margin-top: 5px;
+}
+
+.order-tour-name {
+    border: 2px solid black;
+    width: 48%;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.active-ortder {
+    border: 2px solid cadetblue !important;
+    color: cadetblue;
+}
+
+// vehicle css
+
+.showPopupCarDetails {
+    z-index: 99;
+    position: fixed;
+    top: 20%;
+    left: 46%;
+    transition: all 1.0s ease;
+}
+
+.showPopupDetails {
+    z-index: 99;
+    position: fixed;
+    top: 68px;
+    left: 45%;
+    transition: all 1.0s ease;
+}
+
+
+
+.box-popopDetails {
+    width: 500px;
+    min-height: 100px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 30px 20px -20px rgba(51, 51, 51, 0.25), 0 4px 20px 0 rgba(51, 51, 51, 0.2);
+    background-color: white;
+    padding: 15px;
+}
+
+.overlay-admincardetails {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
+.overlay-adminDetails {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
+.overlay-await-addCar {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(00, 00, 00, 0.3);
+}
+
+.nonePopup-addcar {
+    z-index: 99;
+    position: fixed;
+    top: -100%;
+    left: 35%;
+    transition: all 1.0s ease;
+}
+
+.nonePopup-car {
+    z-index: 99;
+    position: fixed;
+    top: -66%;
+    left: 46%;
+    transition: all 1.0s ease;
+}
+
+.nonePopup-Details {
+    z-index: 99;
+    position: fixed;
+    top: -100%;
+    left: 35%;
+    transition: all 1.0s ease;
+}
+
+.showPopup-addcar {
+    z-index: 99;
+    position: fixed;
+    top: 10px;
+    left: 35%;
+    transition: all 1.0s ease;
+}
+
+.showPopup-Details {
+    z-index: 99;
+    position: fixed;
+    top: 4px;
+    left: 35%;
+    transition: all 1.0s ease;
+}
+
+.box-popopcardetail {
+    width: 500px;
+    min-height: 170px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 30px 20px -20px rgba(51, 51, 51, 0.25), 0 4px 20px 0 rgba(51, 51, 51, 0.2);
+    background-color: white;
+    padding: 15px;
+}
+
+
+.box-popop-Details {
+    // position: relative;
+    width: 600px;
+    min-height: 300px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 30px 20px -20px rgba(51, 51, 51, 0.25), 0 4px 20px 0 rgba(51, 51, 51, 0.2);
+    background-color: white;
+    padding: 15px;
+}
+
+.box-popop-addcar {
+    // position: relative;
+    width: 650px;
+    min-height: 300px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05), 0 30px 20px -20px rgba(51, 51, 51, 0.25), 0 4px 20px 0 rgba(51, 51, 51, 0.2);
+    background-color: white;
+    padding: 15px;
+}
+
+.nonePopupDetails {
+    z-index: 99;
+    position: fixed;
+    top: -100%;
+    left: 35%;
+    transition: all 1.0s ease;
+}
+
+.loaderAddCar {
+    position: fixed;
+    top: 35%;
+    left: 54%;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-bottom-color: #3874cb;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.span-addCar {
+    position: fixed;
+    top: 42%;
+    left: 53%;
+    color: tomato;
+}
+
+
+// css tab order
+.main-tab-order-admin {
+    // display: flex;
+    width: 100%;
+    // border: 1px solid black;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 0 1px rgba(51, 51, 51, 0.05),
+        0 30px 20px -20px rgba(51, 51, 51, 0.25),
+        0 4px 20px 0 rgba(51, 51, 51, 0.2);
+}
+
+.main-tab-order-admin .head_tab_admin {
+    width: 100%;
+    display: flex;
+}
+
+.main-tab-order-admin .head_tab_admin .span-tab-order {
+    width: 25%;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    // position: relative;
+}
+
+.head_tab_admin .active-tab {
+    color: tomato;
+}
+
+.span-tab-order .count {
+    margin-left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    line-height: 22px;
+    font-size: 0.8rem;
+}
+
+// css thông báo admin
+.notifi-tour-admin {
+    min-width: 320px !important;
+}
+
+.text-notifi-admim {
+    max-width: 200px;
+    white-space: pre-wrap !important;
+}
+
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+    // padding: 3px 5px !important;
+    // margin-right: 0px !important;
+}
+
+.btns-order button {
+    margin-right: 0px !important;
+}
+.table-danhMuc .table .btns-order{
+    padding-bottom: 10px;
+}
+.table-danhMuc .table .btns-order button{
+    margin-inline: 4px;
+}
+
+.tile-black {
+    color: black !important;
+    text-decoration: none;
+}
+
+.tile-black:hover {
+    color: black !important;
+    text-decoration: none;
+}
+
+.ok {
+   padding: 12px; 
+   margin-bottom: -10px;
+}
+
+//ảnh phóng to bằng lái xe và cccd  
+.zoomed-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Làm mờ nền */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Đảm bảo nằm trên cùng */
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+    /* Hiệu ứng làm mờ */
+}
+
+.zoomed-image {
+    max-width: 80%;
+    /* Đảm bảo ảnh không vượt quá khung hình */
+    max-height: 80%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    /* Hiệu ứng đổ bóng */
+    border-radius: 8px;
+    transform: scale(0.5);
+    /* Thu nhỏ ảnh ban đầu */
+    animation: zoomIn 0.3s ease forwards;
+    /* Hiệu ứng phóng to */
+}
+
+/* Hiệu ứng làm mờ overlay */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Hiệu ứng phóng to ảnh */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        /* Bắt đầu từ kích thước nhỏ */
+    }
+
+    to {
+        transform: scale(1);
+        /* Phóng to đến kích thước thực */
+    }
+}
+
+.image-thumbnail {
+    cursor: pointer;
+    /* Hiển thị con trỏ khi người dùng hover vào ảnh nhỏ */
 }

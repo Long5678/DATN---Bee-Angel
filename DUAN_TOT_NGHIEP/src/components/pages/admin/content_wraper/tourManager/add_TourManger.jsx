@@ -26,45 +26,111 @@ function Add_TourManger() {
     const [checkBtn, setCheckBtn] = useState(true) //state này để ẩn hiên phần add tour với add tour plane
     const [planes, setPlanes] = useState([{ title: "", description: "", ul_lists: [""] }]);
     const [dateTour, setDateTour] = useState([]); // state này là để lấy lịch trình những ngày tour đó sẽ đi
+    const [numDay, setNumDay] = useState(0) // state này chứa số lượng ngày 
+    const [error, setError] = useState({
+        videos: "",
+        images: "",
+    });
 
-    function changeFileImg(e) { // hàm này để lấy file ảnh
-        setNamesImg([
-            ...namesImg,
-            e.target.files[0].name
-        ]);
-        setImages([
-            ...images,
-            e.target.files[0]
-        ])
+    function changeFileImg(e) {
+        const file = e.target.files[0];
+        const validFormats = ["image/jpeg", "image/png", "image/jpg"];
+        const maxFileSize = 4 * 1024 * 1024; // 4MB
+        let fileErrors = {};
+
+        // Kiểm tra xem file có tồn tại không
+        if (!file) {
+            return;
+        }
+
+        // Kiểm tra định dạng file
+        if (!validFormats.includes(file.type)) {
+            fileErrors.images = "Chỉ được tải lên các file ảnh định dạng JPEG, PNG hoặc JPG!";
+        }
+
+        // Kiểm tra kích thước file
+        if (file.size > maxFileSize) {
+            fileErrors.images = "Kích thước file không được vượt quá 4MB!";
+        }
+
+        // Kiểm tra số lượng file đã tải lên
+        if (images.length >= 3) {
+            fileErrors.images = "Chỉ được tải lên tối đa 3 hình ảnh!";
+        }
+
+        // Nếu có lỗi, cập nhật state lỗi và dừng xử lý
+        if (Object.keys(fileErrors).length > 0) {
+            setError((prevErrors) => ({
+                ...prevErrors,
+                ...fileErrors,
+            }));
+            return;
+        }
+
+        // Nếu không có lỗi, thêm file vào danh sách
+        setError((prevErrors) => ({ ...prevErrors, images: "" })); // Xóa lỗi nếu có
+        setNamesImg([...namesImg, file.name]); // Lưu tên file
+        setImages([...images, file]); // Lưu file vào danh sách
     }
 
-    function changeFileVideo(e) {// hàm này để lấy file video
-        setVideos([
-            ...videos,
-            e.target.files[0]
-        ])
-        setNameVideos([
-            ...nameVideos,
-            e.target.files[0].name
-        ])
+
+    function changeFileVideo(e) {
+        const file = e.target.files[0];
+        const validFormats = ["video/mp4", "video/avi", "video/mkv"];
+        const maxFileSize = 80 * 1024 * 1024; // 10MB
+        let fileErrors = {};
+
+        // Kiểm tra xem file có tồn tại không
+        if (!file) {
+            return;
+        }
+
+        // Kiểm tra định dạng file
+        if (!validFormats.includes(file.type)) {
+            fileErrors.videos = "Chỉ được tải lên các file video định dạng MP4, AVI hoặc MKV!";
+        }
+
+        // Kiểm tra kích thước file
+        if (file.size > maxFileSize) {
+            fileErrors.videos = "Kích thước file không được vượt quá 80MB!";
+        }
+
+        // Kiểm tra số lượng file đã tải lên
+        if (videos.length >= 1) {
+            fileErrors.videos = "Chỉ được tải lên tối đa 1 video!";
+        }
+
+        // Nếu có lỗi, cập nhật state lỗi và dừng xử lý
+        if (Object.keys(fileErrors).length > 0) {
+            setError((prevErrors) => ({
+                ...prevErrors,
+                ...fileErrors,
+            }));
+            return;
+        }
+
+        // Nếu không có lỗi, thêm file vào danh sách
+        setError((prevErrors) => ({ ...prevErrors, videos: "" })); // Xóa lỗi nếu có
+        setVideos([...videos, file]); // Lưu video vào danh sách
+        setNameVideos([...nameVideos, file.name]); // Lưu tên file video
     }
 
     function handleAddTour(data) {
-        let { name, price, location } = data
+        let { name, price, price_Adult, price_Children } = data
 
-        console.log(name, images, videos, description, price, location, type, status, planes, dateTour);
+        console.log(name, images, videos, description, price, type, status, planes, dateTour);
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
         formData.append("price", price);
-        formData.append("location", location);
+        formData.append("price_Adult", price_Adult);
+        formData.append("price_Children", price_Children);
         formData.append("type", type);
         formData.append("status", status);
         // Chuyển đổi planes thành chuỗi JSON
         formData.append("planes", JSON.stringify(planes));
-        dateTour.forEach((date) => {
-            formData.append(`dateTour`, date);
-        });
+        formData.append("dateTour", JSON.stringify(dateTour));
+        formData.append("numDay", numDay);
 
         // Duyệt qua mảng hình ảnh và thêm từng file vào FormData
         images.forEach((image) => {
@@ -88,10 +154,10 @@ function Add_TourManger() {
 
     // useEffect này để theo dõi dữ liệu nhập đủ chưa mới cho submit
     // Watch các trường quan trọng để kích hoạt nút submit
-    const formValues = watch(["name", "price", "location"]);
+    const formValues = watch(["name", "price", "price_Adult", "price_Children"]);
     useEffect(() => {
-        const [name, price, location] = formValues;
-        if (name && price && location && namesImg.length == 3 && nameVideos.length == 1 && type && description && planes.length >= 1 && dateTour.length >= 3) {
+        const [name, price, price_Adult, price_Children] = formValues;
+        if (name && price && price_Adult && price_Children && namesImg.length == 3 && nameVideos.length == 1 && type && description && planes.length >= 1 && dateTour.length >= 3) {
             setIsSubmitEnabled(false)
         } else {
             setIsSubmitEnabled(true)
@@ -131,7 +197,17 @@ function Add_TourManger() {
 
                             <div className="mb-3">
                                 <label htmlFor="formFileMultiple" className="form-label">Chọn ảnh (Tối đa 3)</label>
-                                <input onChange={(e) => changeFileImg(e)} className="form-control" type="file" id="formFileMultiple" multiple />
+                                <input
+                                    onChange={(e) => changeFileImg(e)}
+                                    className="form-control"
+                                    type="file"
+                                    id="formFileMultiple"
+                                    multiple
+                                />
+                                {/* Hiển thị lỗi hình ảnh */}
+                                {error.images && (
+                                    <p className="text-danger">{error.images}</p>
+                                )}
                                 <ul className="ul-image-manager">
                                     {namesImg.map((name, index) => (
                                         <li key={index}>{name}</li>
@@ -141,7 +217,17 @@ function Add_TourManger() {
 
                             <div className="mb-3">
                                 <label htmlFor="formFileMultiple" className="form-label">Video Tour</label>
-                                <input onChange={(e) => changeFileVideo(e)} className="form-control" type="file" id="formFileMultiple" multiple />
+                                <input
+                                    onChange={(e) => changeFileVideo(e)}
+                                    className="form-control"
+                                    type="file"
+                                    id="formFileMultiple"
+                                    multiple
+                                />
+                                {/* Hiển thị lỗi video */}
+                                {error.videos && (
+                                    <p className="text-danger">{error.videos}</p>
+                                )}
                                 <ul className="ul-image-manager">
                                     {nameVideos.map((name, index) => (
                                         <li key={index}>{name}</li>
@@ -151,10 +237,10 @@ function Add_TourManger() {
 
                             <div className="mb-3">
                                 <div className="row">
-                                    <div className="col">
+                                    {/* <div className="col">
                                         <label htmlFor="">Location</label>
                                         <input {...register("location", { required: true })} type="text" className="form-control" placeholder="Dia điểm Tour" />
-                                    </div>
+                                    </div> */}
                                     <div className="col">
                                         <label htmlFor="">Loại Tour</label>
                                         <select onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
@@ -168,22 +254,47 @@ function Add_TourManger() {
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="formFileMultiple" className="form-label">Trạng thái Tour</label>
-                                <select onChange={(e) => setStatus(e.target.value)} className="form-select" aria-label="Default select example">
-                                    <option value="Còn tour">Còn tour</option>
-                                    <option value="Sắp hết">Sắp hết</option>
-                                    <option value="Hết tour">Hết tour</option>
-                                </select>
+                                <div className="row">
+                                    <div className="col">
+                                        <label htmlFor="">Giá người lớn</label>
+                                        <input {...register("price_Adult", { required: true })} type="text" className="form-control" placeholder="Giá người lớn" />
+                                    </div>
+                                    <div className="col">
+                                        <label htmlFor="">Giá trẻ em</label>
+                                        <input {...register("price_Children", { required: true })} type="text" className="form-control" placeholder="Giá trẻ em" />
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="formFileMultiple" className="form-label">Mô tả</label>
-                                <textarea onChange={(e) => setDescription(e.target.value)} className="form-control" name="" id="" placeholder="Mô tả thông tin của tour.."></textarea>
+                                <div className="row">
+                                    <div className="col">
+                                        <label htmlFor="formFileMultiple" className="form-label">Trạng thái Tour</label>
+                                        <select onChange={(e) => setStatus(e.target.value)} className="form-select" aria-label="Default select example">
+                                            <option value="Còn tour">Còn tour</option>
+                                            <option value="Sắp hết">Sắp hết</option>
+                                            <option value="Hết tour">Hết tour</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="col">
+                                        <label htmlFor="formFileMultiple" className="form-label">Mô tả</label>
+                                        <textarea onChange={(e) => setDescription(e.target.value)} className="form-control" name="" id="" placeholder="Mô tả thông tin của tour.."></textarea>
+                                    </div>
+                                </div>
                             </div>
+
                         </>
 
                         :
-                        <TourPlaneAdmin planes={planes} setPlanes={setPlanes} dateTour={dateTour} setDateTour={setDateTour} />
+                        <TourPlaneAdmin
+                            planes={planes}
+                            setPlanes={setPlanes}
+                            dateTour={dateTour}
+                            setDateTour={setDateTour}
+                            numDay={numDay}
+                            setNumDay={setNumDay}
+                        />
                     }
 
                     <div className="flex-btn-add">
@@ -204,17 +315,6 @@ function Add_TourManger() {
         }
 
         <Button onClick={handlePopup} className="btn-add-manager" variant="contained">Thêm Mới</Button>
-
-        {/* <div className="box-tour-manager">
-            <form action=""> */}
-        {/* <input onChange={(e) => changeFile(e)} type="file" id="fileInput" accept="image/*" multiple />
-                <ul id="fileList">
-                    {namesImg.map((name, index) => (
-                        <li key={index}>{name}</li>
-                    ))}
-                </ul> */}
-        {/* </form>
-        </div> */}
     </>
 }
 

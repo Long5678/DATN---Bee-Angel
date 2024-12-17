@@ -5,7 +5,7 @@ function Video_traiNghiem() {
 
       <div className="video_TraiNghiem">
         <video controls>
-          <source src="https://videos.pexels.com/video-files/3629518/3629518-hd_1920_1080_30fps.mp4"
+          <source src="/src/publics/video_home.mov"
             type="video/mp4" />
           Your browser does not support the video tag.
         </video>

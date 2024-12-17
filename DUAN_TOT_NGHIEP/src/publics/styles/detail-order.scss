@@ -1,0 +1,114 @@
+.booking-success-container {
+    width: 60%;
+    // margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-block: 8px;
+    margin-inline: auto;
+    padding-inline: 60px;
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+
+.icon-success {
+    font-size: 50px;
+    color: tomato;
+}
+
+h2 {
+    color: #333;
+    margin-top: 10px;
+}
+
+p {
+    color: #777;
+    font-size: 16px;
+}
+
+.booking-details {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    // padding: 10px 0;
+    padding: 6px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.label {
+    font-weight: bold;
+    color: #333;
+}
+
+.value {
+    color: #555;
+}
+
+.value-red {
+    color: red;
+}
+
+// deposit success
+.deposit-success-container {
+    width: 60%;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-block: 8px;
+    margin-inline: auto;
+    padding-inline: 60px;
+}
+
+.deposit-details {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.modalIMG {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modalIMG-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.closeIMG {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}

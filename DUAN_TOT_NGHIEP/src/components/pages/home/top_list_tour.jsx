@@ -5,7 +5,7 @@ function Top_list_tour() {
             <div className="box-list-tour">
                 <div className="tieuDe-tour">
                     <h2>Top Tour Trong Tháng</h2>
-                    <p><a href="#">Hiển thị tất cả</a></p>
+                    {/* <p><a href="#">Hiển thị tất cả</a></p> */}
                 </div>
                 <div className="line-tour"></div>
 
